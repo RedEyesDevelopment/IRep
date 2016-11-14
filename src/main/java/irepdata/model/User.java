@@ -1,6 +1,7 @@
 package irepdata.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,8 +11,9 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 26.03.2016.
  */
 @Entity
+@NamedQueries({@NamedQuery(name = "User.findById", query="select distinct c from User c where c.id=:id")})
 @Table(name = "users")
-public class User {
+public class User implements Serializable {
     private Long id;
     private String username;
     private String login;
@@ -19,6 +21,7 @@ public class User {
     private boolean isAdmin;
     private boolean isEnabled;
     private Set<Idea> ideas = new HashSet<Idea>();
+    private Set<Comment> comments = new HashSet<Comment>();
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -76,13 +79,22 @@ public class User {
         isEnabled = enabled;
     }
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     public Set<Idea> getIdeas() {
         return ideas;
     }
 
     public void setIdeas(Set<Idea> ideas) {
         this.ideas = ideas;
+    }
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override
@@ -111,4 +123,17 @@ public class User {
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", isEnabled=" + isEnabled +'}';
+    }
+
+
 }

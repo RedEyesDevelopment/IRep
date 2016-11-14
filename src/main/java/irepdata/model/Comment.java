@@ -29,8 +29,8 @@ public class Comment {
         this.id = id;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "COMMENT_AUTHOR_ID", referencedColumnName = "USER_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMENT_AUTHOR_ID")
     public User getAuthor() {
         return author;
     }
@@ -39,8 +39,8 @@ public class Comment {
         this.author = author;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "COMMENT_IDEA_ID", referencedColumnName = "IDEA_ID")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "COMMENT_IDEA_ID")
     public Idea getIdea() {
         return idea;
     }
@@ -58,7 +58,6 @@ public class Comment {
         this.content = content;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "COMMENT_POSTED")
     public Timestamp getPosted() {
         return posted;

@@ -55,7 +55,7 @@ public class Idea {
         this.description = description;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;
@@ -83,7 +83,7 @@ public class Idea {
         this.rating = rating;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IDEA_AUTHOR_ID")
     public User getAuthor() {
         return author;
@@ -93,7 +93,6 @@ public class Idea {
         this.author = author;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "POSTED_DATE")
     public Timestamp getPosted() {
         return posted;
@@ -103,7 +102,6 @@ public class Idea {
         this.posted = posted;
     }
 
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "VIEWED_DATE")
     public Timestamp getViewed() {
         return viewed;
@@ -131,7 +129,7 @@ public class Idea {
         isEnabled = enabled;
     }
 
-    @OneToMany(mappedBy = "ideas", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public Set<Comment> getComments() {
         return comments;
     }

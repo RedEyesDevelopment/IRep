@@ -27,7 +27,7 @@
     <!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
     <import resource="test-data.xml" />
 
-    <bean id="contactService" class="springtestapp.service.ContactServiceImpl"></bean>
+    <bean id="userService" class="irepdata.service.UserServiceImpl"></bean>
 
     <!-- Файл с настройками безопасности
     <import resource="security.xml" />-->

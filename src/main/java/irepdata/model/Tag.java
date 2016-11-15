@@ -21,7 +21,7 @@ public class Tag implements Serializable{
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "TAG_ID")
     public Long getId() {
         return id;
     }
@@ -48,7 +48,7 @@ public class Tag implements Serializable{
         this.created = created;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_MAG_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_IDEA_ID"))
     public Set<Idea> getIdeas() {
         return ideas;
@@ -77,5 +77,14 @@ public class Tag implements Serializable{
         result = 31 * result + (content != null ? content.hashCode() : 0);
         result = 31 * result + (created != null ? created.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

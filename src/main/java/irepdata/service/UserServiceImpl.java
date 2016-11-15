@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.SortedSet;
 
 /**
  * Created by Admin on 14.11.2016.
@@ -19,49 +18,49 @@ public class UserServiceImpl implements UserService {
     private final static Log logger = LogFactory.getLog(UserServiceImpl.class);
 
     @Autowired
-    private UserDao UserDAO;
+    private UserDao userDao;
 
-    public UserDao getUserDAO() {
-        return UserDAO;
+    public UserDao getUserDao() {
+        return userDao;
     }
 
-    public void setUserDAO(UserDao userDAO) {
-        UserDAO = userDAO;
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
     }
 
 
     @Transactional
-    public boolean createUser(User user) {
-        return UserDAO.createUser(user);
+    public void createUser(User user) {
+        userDao.createUser(user);
     }
 
     @Transactional
     public boolean deleteUser(Long id) {
-        return UserDAO.deleteUser(id);
+        return userDao.deleteUser(id);
     }
 
     @Transactional
     public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled) {
-        return UserDAO.updateUser(id, login, username, password, isAdmin, isEnabled);
+        return userDao.updateUser(id, login, username, password, isAdmin, isEnabled);
     }
 
     @Transactional
     public User getUserById(Long id) {
-        return UserDAO.getUserById(id);
+        return userDao.getUserById(id);
     }
 
     @Transactional
     public User getUserAndIdeasById(Long id) {
-        return UserDAO.getUserAndIdeasById(id);
+        return userDao.getUserAndIdeasById(id);
     }
 
     @Transactional
     public List<User> getSortedUserList(String orderingParameter, boolean ascend) {
-        return UserDAO.getSortedUserList(orderingParameter, ascend);
+        return userDao.getSortedUserList(orderingParameter, ascend);
     }
 
     @Transactional
     public List<User> getEnabledSortedUserList(String orderingParameter, boolean ascend) {
-        return UserDAO.getEnabledSortedUserList(orderingParameter, ascend);
+        return userDao.getEnabledSortedUserList(orderingParameter, ascend);
     }
 }

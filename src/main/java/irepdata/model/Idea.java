@@ -11,6 +11,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 13.11.2016.
  */
 @Entity
+@NamedQueries({@NamedQuery(name = "Idea.findIdeaWithTags", query="select distinct i from Idea i left join fetch i.tags t")})
 @Table(name = "ideas")
 public class Idea {
     private long id;
@@ -23,7 +24,7 @@ public class Idea {
     private Timestamp posted;
     private Timestamp viewed;
     private Long viewedCount;
-    private boolean isEnabled;
+    private boolean enabled;
     private Set<Comment> comments = new HashSet<Comment>();
 
     @Id
@@ -55,7 +56,7 @@ public class Idea {
         this.description = description;
     }
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;
@@ -122,11 +123,11 @@ public class Idea {
 
     @Column(name = "IDEA_ENABLED")
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -168,5 +169,21 @@ public class Idea {
         result = 31 * result + getViewedCount().hashCode();
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Idea{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", content='" + content + '\'' +
+                ", rating=" + rating +
+                ", author=" + author +
+                ", posted=" + posted +
+                ", viewed=" + viewed +
+                ", viewedCount=" + viewedCount +
+                ", enabled=" + enabled +
+                '}';
     }
 }

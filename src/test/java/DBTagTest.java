@@ -1,19 +1,15 @@
 import irepdata.model.User;
 import irepdata.service.UserService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public class DBTest {
+public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestFindById() {
@@ -30,7 +26,7 @@ public class DBTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
         UserService service = (UserService) appContext.getBean("userService");
         List<User> set = service.getSortedUserList("id", false);
-        for (User user: set) System.out.println(user);
+        for (User user : set) System.out.println(user);
     }
 
     @Test
@@ -39,7 +35,7 @@ public class DBTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
         UserService service = (UserService) appContext.getBean("userService");
         List<User> set = service.getEnabledSortedUserList("id", true);
-        for (User user: set) System.out.println(user);
+        for (User user : set) System.out.println(user);
     }
 
     @Test
@@ -54,7 +50,7 @@ public class DBTest {
         user.setPassword("password1");
         user.setUsername("Я_админ");
 
-        System.out.println("isUserCreated? : "+ service.createUser(user));
+        service.createUser(user);
         System.out.println(user.toString());
     }
 
@@ -72,7 +68,7 @@ public class DBTest {
     public void TestUpdateUser() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
         UserService service = (UserService) appContext.getBean("userService");
-        Long searchableId =  new Long(6);
+        Long searchableId = new Long(6);
         System.out.println(service.updateUser(searchableId, "testadmin", "TestAdminNewName", "testpassword", true, false));
     }
 }

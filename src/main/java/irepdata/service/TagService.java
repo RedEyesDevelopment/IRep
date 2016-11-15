@@ -1,15 +1,13 @@
-package irepdata.dao;
+package irepdata.service;
 
 import irepdata.model.Tag;
 
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public interface TagDao {
+public interface TagService {
     public Tag getTagById(Long id);
     public void createTag(Tag tag);
     public boolean updateTag(Long id, String content);

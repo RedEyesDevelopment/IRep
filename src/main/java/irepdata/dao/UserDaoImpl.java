@@ -36,10 +36,9 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl() {
     }
 
-    public boolean createUser(User user) {
+    public void createUser(User user) {
         sessionFactory.openSession().saveOrUpdate(user);
-        logger.info("Contact saved with id: " + user.getId());
-        return true;
+        logger.info("User saved with id: " + user.getId());
     }
 
     public boolean deleteUser(Long id) {
@@ -48,7 +47,6 @@ public class UserDaoImpl implements UserDao {
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("user_id", id);
         int result = query.executeUpdate();
-        System.out.println("Rows affected: " + result);
         if (result>0){
             return true;
         } else return false;

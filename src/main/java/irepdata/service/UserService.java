@@ -9,7 +9,7 @@ import java.util.SortedSet;
  * Created by Admin on 14.11.2016.
  */
 public interface UserService {
-    public boolean createUser(User user);
+    public void createUser(User user);
     public boolean deleteUser(Long id);
     public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled);
     public User getUserById(Long id);

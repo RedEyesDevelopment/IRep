@@ -4,6 +4,8 @@ import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
 
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 
@@ -12,13 +14,11 @@ import java.util.SortedSet;
  */
 public interface IdeaDao {
     public Idea getIdeaById(Long id);
-    public boolean createIdea();
-    public boolean deleteIdea();
-    public boolean updateIdea();
-    public Set<Idea> getIdeaList();
-    public Set<Idea> getIdeaListWithoutDisabled(boolean ascend, boolean byUpdated);
-    public SortedSet<Idea> getSortedIdeaList(boolean ascend, boolean byUpdated);
-    public SortedSet<Idea> getSortedIdeaListWithoutDisabledByTag(Tag tag);
-    public SortedSet<Idea> getSortedIdeaListWithoutDisabledByUser(User user);
-    public SortedSet<Idea> getSortedIdeaListWithoutDisabledByRating(boolean ascend);
+    public void createIdea(Idea idea);
+    public boolean deleteIdea(Long id);
+    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled);
+    public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
+    public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
+
+    public List<Idea> TEMPORARY(Long id);
 }

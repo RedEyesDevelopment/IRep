@@ -10,7 +10,7 @@ import java.util.SortedSet;
  * Created by Gvozd on 13.11.2016.
  */
 public interface UserDao {
-    public boolean createUser(User user);
+    public void createUser(User user);
     public boolean deleteUser(Long id);
     public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled);
     public User getUserById(Long id);

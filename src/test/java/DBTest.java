@@ -29,7 +29,32 @@ public class DBTest {
     public void TestFindAllUsers() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
         UserService service = (UserService) appContext.getBean("userService");
-        List<User> set = service.getSortedUserList(false);
+        List<User> set = service.getSortedUserList("id", false);
         for (User user: set) System.out.println(user);
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestFindAllEnabledUsers() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        UserService service = (UserService) appContext.getBean("userService");
+        List<User> set = service.getEnabledSortedUserList("id", true);
+        for (User user: set) System.out.println(user);
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestCreateUser() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        UserService service = (UserService) appContext.getBean("userService");
+        User user = new User();
+        user.setAdmin(true);
+        user.setEnabled(true);
+        user.setLogin("TestAdmin");
+        user.setPassword("password1");
+        user.setUsername("Я_админ");
+
+        System.out.println("isUserCreated? : "+ service.createUser(user));
+        System.out.println(user.toString());
     }
 }

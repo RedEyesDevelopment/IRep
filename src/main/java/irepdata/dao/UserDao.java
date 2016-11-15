@@ -15,5 +15,6 @@ public interface UserDao {
     public boolean updateUser(User user);
     public User getUserById(Long id);
     public User getUserAndIdeasById(Long id);
-    public List<User> getSortedUserList(boolean ascend);
+    public List<User> getSortedUserList(String orderingParameter, boolean ascend);
+    public List<User> getEnabledSortedUserList(String orderingParameter, boolean ascend);
 }

@@ -18,8 +18,8 @@ public class User implements Serializable {
     private String username;
     private String login;
     private String password;
-    private boolean isAdmin;
-    private boolean isEnabled;
+    private boolean admin;
+    private boolean enabled;
     private Set<Idea> ideas = new HashSet<Idea>();
     private Set<Comment> comments = new HashSet<Comment>();
 
@@ -63,20 +63,20 @@ public class User implements Serializable {
 
     @Column(name = "USER_TYPE")
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     @Column(name = "USER_ENABLED")
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
@@ -131,8 +131,8 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", login='" + login + '\'' +
                 ", password='" + password + '\'' +
-                ", isAdmin=" + isAdmin +
-                ", isEnabled=" + isEnabled +'}';
+                ", admin=" + admin +
+                ", enabled=" + enabled +'}';
     }
 
 

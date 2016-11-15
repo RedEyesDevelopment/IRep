@@ -65,11 +65,19 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    public List<User> getSortedUserList(boolean ascend) {
-        return sessionFactory.getCurrentSession().createQuery("from User c").list();
+    public List<User> getSortedUserList(String orderingParameter, boolean ascend) {
+        String order;
+        if (ascend) {
+            order = "asc";
+        } else order = "desc";
+        return sessionFactory.getCurrentSession().createQuery("from User c order by c."+orderingParameter+" "+order).list();
     }
 
-    public SortedSet<User> getSortedUserListWithoutDisabled(boolean ascend) {
-        return null;
+    public List<User> getEnabledSortedUserList(String orderingParameter, boolean ascend) {
+        String order;
+        if (ascend) {
+            order = "asc";
+        } else order = "desc";
+        return sessionFactory.getCurrentSession().createQuery("from User c where c.enabled = true order by c."+orderingParameter+" "+order).list();
     }
 }

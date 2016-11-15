@@ -56,7 +56,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public List<User> getSortedUserList(boolean ascend) {
-        return UserDAO.getSortedUserList(ascend);
+    public List<User> getSortedUserList(String orderingParameter, boolean ascend) {
+        return UserDAO.getSortedUserList(orderingParameter, ascend);
+    }
+
+    @Transactional
+    public List<User> getEnabledSortedUserList(String orderingParameter, boolean ascend) {
+        return UserDAO.getEnabledSortedUserList(orderingParameter, ascend);
     }
 }

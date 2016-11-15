@@ -36,13 +36,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
-    public boolean deleteUser(User user) {
-        return UserDAO.deleteUser(user);
+    public boolean deleteUser(Long id) {
+        return UserDAO.deleteUser(id);
     }
 
     @Transactional
-    public boolean updateUser(User user) {
-        return UserDAO.updateUser(user);
+    public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled) {
+        return UserDAO.updateUser(id, login, username, password, isAdmin, isEnabled);
     }
 
     @Transactional

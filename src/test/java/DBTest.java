@@ -57,4 +57,22 @@ public class DBTest {
         System.out.println("isUserCreated? : "+ service.createUser(user));
         System.out.println(user.toString());
     }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestDeleteUser() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        UserService service = (UserService) appContext.getBean("userService");
+        Long searchableId = 5L;
+        System.out.println(service.deleteUser(searchableId));
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestUpdateUser() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        UserService service = (UserService) appContext.getBean("userService");
+        Long searchableId =  new Long(6);
+        System.out.println(service.updateUser(searchableId, "testadmin", "TestAdminNewName", "testpassword", true, false));
+    }
 }

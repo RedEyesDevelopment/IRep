@@ -10,8 +10,8 @@ import java.util.SortedSet;
  */
 public interface UserService {
     public boolean createUser(User user);
-    public boolean deleteUser(User user);
-    public boolean updateUser(User user);
+    public boolean deleteUser(Long id);
+    public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled);
     public User getUserById(Long id);
     public User getUserAndIdeasById(Long id);
     public List<User> getSortedUserList(String orderingParameter, boolean ascend);

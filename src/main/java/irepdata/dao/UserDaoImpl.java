@@ -5,6 +5,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.FetchMode;
 import org.hibernate.FlushMode;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -37,27 +38,47 @@ public class UserDaoImpl implements UserDao {
 
     public boolean createUser(User user) {
         sessionFactory.openSession().saveOrUpdate(user);
-        logger.info("Contact saved with id: "+ user.getId());
+        logger.info("Contact saved with id: " + user.getId());
         return true;
     }
 
-    public boolean deleteUser(User user) {
-        User userToDelete = getUserById(user.getId());
-        if (null != userToDelete) {
-            sessionFactory.getCurrentSession().delete(user);
+    public boolean deleteUser(Long id) {
+        String hql = "DELETE FROM User " +
+                "WHERE id = :user_id";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("user_id", id);
+        int result = query.executeUpdate();
+        System.out.println("Rows affected: " + result);
+        if (result>0){
+            return true;
+        } else return false;
+}
+
+    public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled) {
+        String hql = "UPDATE User set "+
+                "login = :login, " +
+                "username = :username, " +
+                "password = :password, " +
+                "admin = :admin, " +
+                "enabled = :enabled " +
+                "WHERE id = :user_id";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("login", login);
+        query.setParameter("username", username);
+        query.setParameter("password", password);
+        query.setParameter("admin", isAdmin);
+        query.setParameter("enabled", isEnabled);
+        query.setParameter("user_id", id);
+        int result = query.executeUpdate();
+        if (result>0){
             return true;
         } else return false;
     }
 
-    public boolean updateUser(User user) {
-        sessionFactory.getCurrentSession().setFlushMode(FlushMode.COMMIT);
-        sessionFactory.getCurrentSession().setDefaultReadOnly(false);
-        sessionFactory.getCurrentSession().update(user);
-        return true;
-    }
-
     public User getUserById(Long id) {
-        return (User) sessionFactory.openSession().getNamedQuery("User.findById").setParameter("id", id).uniqueResult();
+        User user = (User) sessionFactory.openSession().getNamedQuery("User.findById").setParameter("id", id).uniqueResult();
+        sessionFactory.getCurrentSession().clear();
+        return user;
     }
 
     public User getUserAndIdeasById(Long id) {
@@ -70,7 +91,7 @@ public class UserDaoImpl implements UserDao {
         if (ascend) {
             order = "asc";
         } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("from User c order by c."+orderingParameter+" "+order).list();
+        return sessionFactory.getCurrentSession().createQuery("from User c order by c." + orderingParameter + " " + order).list();
     }
 
     public List<User> getEnabledSortedUserList(String orderingParameter, boolean ascend) {
@@ -78,6 +99,6 @@ public class UserDaoImpl implements UserDao {
         if (ascend) {
             order = "asc";
         } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("from User c where c.enabled = true order by c."+orderingParameter+" "+order).list();
+        return sessionFactory.getCurrentSession().createQuery("from User c where c.enabled = true order by c." + orderingParameter + " " + order).list();
     }
 }

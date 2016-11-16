@@ -74,13 +74,13 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User getUserById(Long id) {
-        User user = (User) sessionFactory.openSession().getNamedQuery("User.findById").setParameter("id", id).uniqueResult();
-        sessionFactory.getCurrentSession().clear();
+        User user = (User) sessionFactory.openSession().createQuery("select distinct c from User c where c.id=:id").setParameter("id", id).uniqueResult();
         return user;
     }
 
     public User getUserAndIdeasById(Long id) {
-        return (User) sessionFactory.openSession().getNamedQuery("User.getUserAndIdeasById").uniqueResult();
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.ideas i left join fetch i.author a left join fetch u.comments c where id = :user_id").setParameter("user_id", id);
+        return (User) query.uniqueResult();
     }
 
 

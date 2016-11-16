@@ -11,7 +11,6 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 26.03.2016.
  */
 @Entity
-@NamedQueries({@NamedQuery(name = "User.findById", query="select distinct c from User c where c.id=:id")})
 @Table(name = "users")
 public class User implements Serializable {
     private Long id;

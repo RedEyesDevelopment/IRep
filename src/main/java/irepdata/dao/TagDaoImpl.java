@@ -38,6 +38,12 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
+    public Tag getTagAndIdeasById(Long id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct t from Tag t left join fetch t.ideas i where id = :tag_id").setParameter("tag_id", id);
+        return (Tag) query.uniqueResult();
+    }
+
+    @Override
     public void createTag(Tag tag) {
         sessionFactory.openSession().saveOrUpdate(tag);
         logger.info("Tag saved with id: " + tag.getId());

@@ -25,6 +25,17 @@ public class IdeaDaoImpl implements IdeaDao {
     private final static Log logger = LogFactory.getLog(IdeaDaoImpl.class);
 
     @Autowired
+    private TagDao tagDao;
+
+    public TagDao getTagDao() {
+        return tagDao;
+    }
+
+    public void setTagDao(TagDao TagDAO) {
+        tagDao = TagDAO;
+    }
+
+    @Autowired
     private SessionFactory sessionFactory;
 
     @Resource(name = "sessionFactory")
@@ -41,6 +52,12 @@ public class IdeaDaoImpl implements IdeaDao {
         Query query = sessionFactory.openSession().createQuery("select distinct i from Idea where i.id = :id").setParameter("id", id);
         Idea idea = (Idea) query.uniqueResult();
         return idea;
+    }
+
+    @Override
+    public Idea getIdeaWithAllDataById(Long id) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.tags t left join fetch i.author a left join fetch i.comments c where id = :idea_id").setParameter("idea_id", id);
+        return (Idea) query.uniqueResult();
     }
 
     @Override
@@ -62,25 +79,48 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled) {
-        List<Tag> persistTaglist = new TagDaoImpl().getSortedTagList("id", true);
-        List<Tag> tagList = new ArrayList<Tag>(persistTaglist);
-        persistTaglist = null;
-        String hql = "UPDATE User set "+
-                "login = :login, " +
-                "username = :username, " +
-                "password = :password, " +
-                "admin = :admin, " +
+    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled) {
+        String hql = "UPDATE Idea set "+
+                "name = :name, " +
+                "description = :description, " +
+                "tags =: tags" +
+                "content = :content, " +
+                "rating = :rating, " +
+                "author = :author, " +
+                "viewed = :viewed, " +
+                "viewedCount = :viewedCount, " +
                 "enabled = :enabled " +
-                "WHERE id = :user_id";
+                "WHERE id = :idea_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-     /*   query.setParameter("login", login);
-        query.setParameter("username", username);
-        query.setParameter("password", password);
-        query.setParameter("admin", isAdmin);
-        query.setParameter("enabled", isEnabled);
-        query.setParameter("user_id", id);
-       */ int result = query.executeUpdate();
+        query.setParameter("name", name);
+        query.setParameter("description", description);
+        query.setParameter("tags", tags);
+        query.setParameter("content", content);
+        query.setParameter("enabled", enabled);
+        query.setParameter("idea_id", id);
+        int result = query.executeUpdate();
+        if (result>0){
+            return true;
+        } else return false;
+    }
+
+    @Override
+    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean enabled) {
+        String hql = "UPDATE Idea set "+
+                "name = :name, " +
+                "description = :description, " +
+                "tags =: tags" +
+                "content = :content, " +
+                "enabled = :enabled " +
+                "WHERE id = :idea_id";
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+        query.setParameter("name", name);
+        query.setParameter("description", description);
+        query.setParameter("tags", tags);
+        query.setParameter("content", content);
+        query.setParameter("enabled", enabled);
+        query.setParameter("idea_id", id);
+        int result = query.executeUpdate();
         if (result>0){
             return true;
         } else return false;

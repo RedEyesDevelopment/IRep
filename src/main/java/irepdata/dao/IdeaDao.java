@@ -14,9 +14,11 @@ import java.util.SortedSet;
  */
 public interface IdeaDao {
     public Idea getIdeaById(Long id);
+    public Idea getIdeaWithAllDataById(Long id);
     public void createIdea(Idea idea);
     public boolean deleteIdea(Long id);
-    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled);
+    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean enabled);
+    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
 

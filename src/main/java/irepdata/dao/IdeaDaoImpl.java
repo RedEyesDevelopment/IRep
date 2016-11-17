@@ -143,10 +143,4 @@ public class IdeaDaoImpl implements IdeaDao {
         } else order = "desc";
         return sessionFactory.getCurrentSession().createQuery("from Idea i where i.enabled = true order by i." + orderingParameter + " " + order).list();
     }
-
-    @Override
-    public List<Idea> TEMPORARY(Long id) {
-            return sessionFactory.openSession().getNamedQuery("Idea.findIdeaWithTags").list();
-
-    }
 }

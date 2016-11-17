@@ -25,17 +25,6 @@ public class IdeaDaoImpl implements IdeaDao {
     private final static Log logger = LogFactory.getLog(IdeaDaoImpl.class);
 
     @Autowired
-    private TagDao tagDao;
-
-    public TagDao getTagDao() {
-        return tagDao;
-    }
-
-    public void setTagDao(TagDao TagDAO) {
-        tagDao = TagDAO;
-    }
-
-    @Autowired
     private SessionFactory sessionFactory;
 
     @Resource(name = "sessionFactory")

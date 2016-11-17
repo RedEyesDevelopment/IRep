@@ -28,8 +28,6 @@
     <import resource="test-data.xml" />
 
     <bean id="userService" class="irepdata.service.UserServiceImpl"></bean>
-    <!--<bean id="tagService" class="irepdata.service.TagServiceImpl"></bean>-->
-    <bean id="ideaService" class="irepdata.service.IdeaServiceImpl"></bean>
 
     <!-- Файл с настройками безопасности
     <import resource="security.xml" />-->

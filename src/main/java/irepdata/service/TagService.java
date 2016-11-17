@@ -9,6 +9,7 @@ import java.util.List;
  */
 public interface TagService {
     public Tag getTagById(Long id);
+    public Tag getTagAndIdeasById(Long id);
     public void createTag(Tag tag);
     public boolean updateTag(Long id, String content);
     public boolean deleteTag(Long id);

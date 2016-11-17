@@ -33,6 +33,11 @@ public class TagServiceImpl implements TagDao {
         return tagDao.getTagById(id);
     }
 
+    @Override
+    public Tag getTagAndIdeasById(Long id) {
+        return tagDao.getTagAndIdeasById(id);
+    }
+
     @Transactional
     public void createTag(Tag tag) {
         tagDao.createTag(tag);

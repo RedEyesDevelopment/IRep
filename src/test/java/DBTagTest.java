@@ -10,10 +10,11 @@ import java.util.List;
  * Created by Gvozd on 13.11.2016.
  */
 public class DBTagTest {
+    private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-tags-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")
     public void TestFindById() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = 1L;
         User user = service.getUserById(searchableId);
@@ -23,7 +24,7 @@ public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestFindAllUsers() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         List<User> set = service.getSortedUserList("id", false);
         for (User user : set) System.out.println(user);
@@ -32,7 +33,7 @@ public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestFindAllEnabledUsers() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         List<User> set = service.getEnabledSortedUserList("id", true);
         for (User user : set) System.out.println(user);
@@ -41,7 +42,7 @@ public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestCreateUser() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         User user = new User();
         user.setAdmin(true);
@@ -57,7 +58,7 @@ public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestDeleteUser() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = 5L;
         System.out.println(service.deleteUser(searchableId));
@@ -66,7 +67,7 @@ public class DBTagTest {
     @Test
     @SuppressWarnings("resource")
     public void TestUpdateUser() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("DaoServiceTestResources/test-spring-root-context.xml");
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = new Long(6);
         System.out.println(service.updateUser(searchableId, "testadmin", "TestAdminNewName", "testpassword", true, false));

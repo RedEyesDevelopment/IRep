@@ -74,7 +74,7 @@ public class DBUserTest {
     public void TestUpdateUser() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
-        Long searchableId = new Long(6);
+        Long searchableId = new Long(3);
         System.out.println(service.updateUser(searchableId, "testadmin", "Fuck", "testpassword", true, false));
     }
 

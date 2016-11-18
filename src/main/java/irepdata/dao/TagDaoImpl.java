@@ -32,7 +32,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public Tag getTagById(Long id) {
-        Query query = sessionFactory.openSession().createQuery("select distinct t from Tag t where t.id = :id").setParameter("id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct t from Tag t where t.id = :id").setParameter("id", id);
         Tag tag = (Tag) query.uniqueResult();
         return tag;
     }
@@ -51,8 +51,8 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public boolean updateTag(Long id, String content) {
-        String hql = "UPDATE Tag set "+
-                "content = :content " +
+        String hql = "UPDATE Tag set " +
+                "content = :content, " +
                 "WHERE id = :tag_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("content", content);

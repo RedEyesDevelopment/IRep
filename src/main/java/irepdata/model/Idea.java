@@ -1,5 +1,7 @@
 package irepdata.model;
 
+import org.hibernate.FetchMode;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -179,7 +181,6 @@ public class Idea {
                 ", description='" + description + '\'' +
                 ", content='" + content + '\'' +
                 ", rating=" + rating +
-                ", author=" + author +
                 ", posted=" + posted +
                 ", viewed=" + viewed +
                 ", viewedCount=" + viewedCount +

@@ -98,4 +98,16 @@ public class Comment {
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", author=" + author +
+                ", content='" + content + '\'' +
+                ", posted=" + posted +
+                ", isEnabled=" + isEnabled +
+                ", idea=" + idea +
+                '}';
+    }
 }

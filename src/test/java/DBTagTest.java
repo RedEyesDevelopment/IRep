@@ -1,5 +1,7 @@
-import irepdata.model.User;
-import irepdata.service.UserService;
+import irepdata.model.Idea;
+import irepdata.model.Tag;
+import irepdata.model.Tag;
+import irepdata.service.TagService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -13,63 +15,63 @@ public class DBTagTest {
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-tags-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")
-    public void TestFindById() {
+    public void TestTagFindById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
-        Long searchableId = 1L;
-        User user = service.getUserById(searchableId);
-        System.out.println("User with id=" + searchableId + " is " + user.toString());
-    }
-
-    @Test
-    @SuppressWarnings("resource")
-    public void TestFindAllUsers() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
-        List<User> set = service.getSortedUserList("id", false);
-        for (User user : set) System.out.println(user);
-    }
-
-    @Test
-    @SuppressWarnings("resource")
-    public void TestFindAllEnabledUsers() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
-        List<User> set = service.getEnabledSortedUserList("id", true);
-        for (User user : set) System.out.println(user);
-    }
-
-    @Test
-    @SuppressWarnings("resource")
-    public void TestCreateUser() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
-        User user = new User();
-        user.setAdmin(true);
-        user.setEnabled(true);
-        user.setLogin("TestAdmin");
-        user.setPassword("password1");
-        user.setUsername("Я_админ");
-
-        service.createUser(user);
-        System.out.println(user.toString());
-    }
-
-    @Test
-    @SuppressWarnings("resource")
-    public void TestDeleteUser() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
+        TagService service = (TagService) appContext.getBean("tagService");
         Long searchableId = 5L;
-        System.out.println(service.deleteUser(searchableId));
+        Tag tag = service.getTagById(searchableId);
+        System.out.println("Tag with id=" + searchableId + " is " + tag.toString());
     }
 
     @Test
     @SuppressWarnings("resource")
-    public void TestUpdateUser() {
+    public void TestFindAllTags() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        UserService service = (UserService) appContext.getBean("userService");
-        Long searchableId = new Long(6);
-        System.out.println(service.updateUser(searchableId, "testadmin", "TestAdminNewName", "testpassword", true, false));
+        TagService service = (TagService) appContext.getBean("tagService");
+        List<Tag> set = service.getSortedTagList("id", true);
+        for (Tag tag : set) System.out.println(tag);
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestCreateTag() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        TagService service = (TagService) appContext.getBean("tagService");
+        Tag tag = new Tag();
+        tag.setContent("ножки");
+
+        service.createTag(tag);
+        System.out.println(tag.toString());
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestDeleteTag() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        TagService service = (TagService) appContext.getBean("tagService");
+        Long searchableId = 2L;
+        System.out.println(service.deleteTag(searchableId));
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestUpdateTag() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        TagService service = (TagService) appContext.getBean("tagService");
+        Long searchableId = new Long(3);
+        System.out.println(service.updateTag(searchableId, "testablecontent"));
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void getTagAndIdeasById() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        TagService service = (TagService) appContext.getBean("tagService");
+        Long searchableId = 1L;
+        Tag tag = service.getTagAndIdeasById(searchableId);
+        System.out.println("Tag with id=" + searchableId + " is " + tag.toString());
+        for (Idea idea: tag.getIdeas()){
+            System.out.println(idea.toString());
+        }
     }
 }

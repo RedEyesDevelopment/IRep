@@ -18,7 +18,7 @@ public class DBUserTest {
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-users-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")
-    public void TestFindById() {
+    public void TestUserFindById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = 1L;

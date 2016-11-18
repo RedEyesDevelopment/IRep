@@ -32,7 +32,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public Tag getTagById(Long id) {
-        Query query = sessionFactory.openSession().createQuery("select distinct t from Tag where t.id = :id").setParameter("id", id);
+        Query query = sessionFactory.openSession().createQuery("select distinct t from Tag t where t.id = :id").setParameter("id", id);
         Tag tag = (Tag) query.uniqueResult();
         return tag;
     }

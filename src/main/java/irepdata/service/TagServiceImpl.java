@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Admin on 15.11.2016.
  */
 @Service
-public class TagServiceImpl implements TagDao {
+public class TagServiceImpl implements TagService {
     private final static Log logger = LogFactory.getLog(TagServiceImpl.class);
 
     @Autowired

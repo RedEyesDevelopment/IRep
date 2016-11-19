@@ -33,7 +33,7 @@ public class TagServiceImpl implements TagService {
         return tagDao.getTagById(id);
     }
 
-    @Override
+    @Transactional
     public Tag getTagAndIdeasById(Long id) {
         return tagDao.getTagAndIdeasById(id);
     }

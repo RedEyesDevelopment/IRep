@@ -12,10 +12,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * Created by Admin on 15.11.2016.
@@ -38,7 +36,7 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public Idea getIdeaById(Long id) {
-        Query query = sessionFactory.openSession().createQuery("select distinct i from Idea where i.id = :id").setParameter("id", id);
+        Query query = sessionFactory.openSession().createQuery("select distinct i from Idea i where i.id = :id").setParameter("id", id);
         Idea idea = (Idea) query.uniqueResult();
         return idea;
     }

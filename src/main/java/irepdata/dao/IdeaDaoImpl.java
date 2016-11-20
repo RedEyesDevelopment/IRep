@@ -49,7 +49,7 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public void createIdea(Idea idea) {
-        sessionFactory.openSession().saveOrUpdate(idea);
+        sessionFactory.getCurrentSession().saveOrUpdate(idea);
         logger.info("Idea saved with id: " + idea.getId());
     }
 

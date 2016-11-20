@@ -48,6 +48,7 @@ public class TagServiceImpl implements TagService {
         return tagDao.updateTag(id, content);
     }
 
+
     @Transactional
     public boolean deleteTag(Long id) {
         return tagDao.deleteTag(id);

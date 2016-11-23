@@ -14,10 +14,5 @@ public interface CommentDao {
     public boolean createComment();
     public boolean updateComment();
     public boolean deleteComment();
-    public SortedSet<Comment> getCommentsByUser(User user);
-    public SortedSet<Comment> getSortedCommentsByUser(User user, boolean ascend);
-    public SortedSet<Comment> getSortedCommentsWithoutDisabledByUser(User user, boolean ascend);
-    public SortedSet<Comment> getSortedCommentsByIdea(Idea idea, boolean ascend);
-    public SortedSet<Comment> getSortedCommentsWithoutDisabledByIdea(Idea idea, boolean ascend);
-
+    public SortedSet<Comment> getSortedCommentsForIdea(String ideaId, String orderingParametr, boolean ascend, boolean withoutDisabled);
 }

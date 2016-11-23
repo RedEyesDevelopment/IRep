@@ -1,6 +1,5 @@
 import irepdata.model.Idea;
 import irepdata.model.Tag;
-import irepdata.model.Tag;
 import irepdata.service.TagService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -73,5 +72,14 @@ public class DBTagTest {
         for (Idea idea: tag.getIdeas()){
             System.out.println(idea.toString());
         }
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestFindAllConditionTags() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        TagService service = (TagService) appContext.getBean("tagService");
+        List<Tag> set = service.getTagListWithIdeaId("2");
+        for (Tag tag : set) System.out.println(tag);
     }
 }

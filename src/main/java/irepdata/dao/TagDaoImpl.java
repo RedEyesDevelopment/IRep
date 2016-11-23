@@ -45,7 +45,7 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public void createTag(Tag tag) {
-        sessionFactory.openSession().saveOrUpdate(tag);
+        sessionFactory.getCurrentSession().saveOrUpdate(tag);
         logger.info("Tag saved with id: " + tag.getId());
     }
 
@@ -82,5 +82,11 @@ public class TagDaoImpl implements TagDao {
             order = "asc";
         } else order = "desc";
         return sessionFactory.getCurrentSession().createQuery("from Tag t order by t." + orderingParameter + " " + order).list();
+    }
+
+    @Override
+    public List<Tag> getTagListWithIdeaId(String conditionValue) {
+        String hql = "from Tag t left join fetch t.ideas i where i.id = " + conditionValue;
+        return sessionFactory.getCurrentSession().createQuery(hql).list();
     }
 }

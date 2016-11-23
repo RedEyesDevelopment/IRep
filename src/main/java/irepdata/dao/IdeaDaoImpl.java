@@ -5,13 +5,11 @@ import irepdata.model.Tag;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.Query;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +34,7 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public Idea getIdeaById(Long id) {
-        Query query = sessionFactory.openSession().createQuery("select distinct i from Idea i where i.id = :id").setParameter("id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i where i.id = :id").setParameter("id", id);
         Idea idea = (Idea) query.uniqueResult();
         return idea;
     }
@@ -66,23 +64,23 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled) {
+    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Long viewedCount, boolean enabled) {
         String hql = "UPDATE Idea set "+
-                "name = :name, " +
-                "description = :description, " +
-                "tags =: tags" +
-                "content = :content, " +
-                "rating = :rating, " +
-                "author = :author, " +
-                "viewed = :viewed, " +
-                "viewedCount = :viewedCount, " +
-                "enabled = :enabled " +
+                "name = :name, "+
+                "description = :description, "+
+                "content = :content, "+
+                "rating = :rating, "+
+                "author = :author, "+
+                "viewedCount = :viewedCount, "+
+                "enabled = :enabled "+
                 "WHERE id = :idea_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("name", name);
         query.setParameter("description", description);
-        query.setParameter("tags", tags);
         query.setParameter("content", content);
+        query.setParameter("rating", rating);
+        query.setParameter("author", author);
+        query.setParameter("viewedCount", viewedCount);
         query.setParameter("enabled", enabled);
         query.setParameter("idea_id", id);
         int result = query.executeUpdate();
@@ -92,26 +90,17 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean enabled) {
-        String hql = "UPDATE Idea set "+
-                "name = :name, " +
-                "description = :description, " +
-                "tags =: tags" +
-                "content = :content, " +
-                "enabled = :enabled " +
-                "WHERE id = :idea_id";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("name", name);
-        query.setParameter("description", description);
-        query.setParameter("tags", tags);
-        query.setParameter("content", content);
-        query.setParameter("enabled", enabled);
-        query.setParameter("idea_id", id);
-        int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
+    public void updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean isEnabled) {
+        Session session = sessionFactory.getCurrentSession();
+            Idea idea = (Idea) session.get(Idea.class, id);
+            idea.setName(name);
+            idea.setContent(content);
+            idea.setDescription(description);
+            idea.getTags().addAll(tags);
+            idea.setEnabled(isEnabled);
+        session.update(idea);
     }
+
 
     @Override
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter) {

@@ -3,16 +3,13 @@ package irepdata.dao;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.FetchMode;
-import org.hibernate.FlushMode;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by Gvozd on 26.03.2016.
@@ -74,7 +71,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     public User getUserById(Long id) {
-        User user = (User) sessionFactory.openSession().createQuery("select distinct c from User c where c.id=:id").setParameter("id", id).uniqueResult();
+        User user = (User) sessionFactory.getCurrentSession().createQuery("select distinct c from User c where c.id=:id").setParameter("id", id).uniqueResult();
         return user;
     }
 

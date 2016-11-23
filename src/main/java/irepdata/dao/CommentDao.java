@@ -1,8 +1,6 @@
 package irepdata.dao;
 
 import irepdata.model.Comment;
-import irepdata.model.Idea;
-import irepdata.model.User;
 
 import java.util.SortedSet;
 

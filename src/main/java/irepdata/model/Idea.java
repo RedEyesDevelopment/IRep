@@ -1,7 +1,5 @@
 package irepdata.model;
 
-import org.hibernate.FetchMode;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -58,7 +56,7 @@ public class Idea {
         this.description = description;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;

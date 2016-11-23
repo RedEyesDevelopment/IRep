@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -33,42 +32,42 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
 
-    @Override
+    @Transactional
     public Idea getIdeaById(Long id) {
         return ideaDao.getIdeaById(id);
     }
 
-    @Override
+    @Transactional
     public Idea getIdeaWithAllDataById(Long id) {
         return ideaDao.getIdeaWithAllDataById(id);
     }
 
-    @Override
+    @Transactional
     public void createIdea(Idea idea) {
         ideaDao.createIdea(idea);
     }
 
-    @Override
+    @Transactional
     public boolean deleteIdea(Long id) {
         return ideaDao.deleteIdea(id);
     }
 
-    @Override
-    public boolean updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean enabled) {
-        return ideaDao.updateIdea(id, name, description, tags, content, enabled);
+    @Transactional
+    public void updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean isEnabled) {
+        ideaDao.updateIdea(id, name, description, tags, content, isEnabled);
     }
 
-    @Override
-    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Timestamp viewed, Long viewedCount, boolean enabled) {
-        return ideaDao.updateIdeaByAdmin(id, name, description, tags, content, rating, author, viewed, viewedCount, enabled);
+    @Transactional
+    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Long viewedCount, boolean enabled) {
+        return ideaDao.updateIdeaByAdmin(id, name, description, tags, content, rating, author, viewedCount, enabled);
     }
 
-    @Override
+    @Transactional
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter) {
         return ideaDao.getSortedIdeaList(ascend, orderingParameter);
     }
 
-    @Override
+    @Transactional
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter) {
         return ideaDao.getSortedIdeaListWithoutDisabled(ascend, orderingParameter);
     }

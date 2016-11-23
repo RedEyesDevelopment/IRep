@@ -20,7 +20,7 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "USER_ID")
+    @Column(name = "COMMENT_ID")
     public long getId() {
         return id;
     }

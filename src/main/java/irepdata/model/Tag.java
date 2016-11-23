@@ -48,7 +48,7 @@ public class Tag implements Serializable{
         this.created = created;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_MAG_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_IDEA_ID"))
     public Set<Idea> getIdeas() {
         return ideas;

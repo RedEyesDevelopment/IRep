@@ -3,8 +3,6 @@ package irepdata.dao;
 import irepdata.model.Tag;
 
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * Created by Gvozd on 13.11.2016.
@@ -16,4 +14,5 @@ public interface TagDao {
     public boolean updateTag(Long id, String content);
     public boolean deleteTag(Long id);
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend);
+    public List<Tag> getTagListWithIdeaId(String conditionValue);
 }

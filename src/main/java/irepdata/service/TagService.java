@@ -14,4 +14,5 @@ public interface TagService {
     public boolean updateTag(Long id, String content);
     public boolean deleteTag(Long id);
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend);
+    public List<Tag> getTagListWithIdeaId(String conditionValue);
 }

@@ -1,4 +1,5 @@
 USE `ideaperository`;
+
 insert into USERS (USER_NAME, LOGIN, PSWD) values ('qwerty', 'qwerty', 'qwerty');
 insert into USERS (USER_NAME, LOGIN, PSWD) values ('abs', 'abs', 'abs');
 insert into USERS (USER_NAME, LOGIN, PSWD) values ('mod', 'mod', 'mod');
@@ -21,5 +22,3 @@ insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('1', '1');
 insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('1', '2');
 insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('2', '1');
 insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('3', '1');
-
-

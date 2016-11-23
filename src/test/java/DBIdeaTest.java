@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -73,14 +74,36 @@ public class DBIdeaTest {
         System.out.println(service.deleteIdea(searchableId));
     }
 
-//    @Test
-//    @SuppressWarnings("resource")
-//    public void TestUpdateIdea() {
-//        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-//        IdeaService service = (IdeaService) appContext.getBean("ideaService");
-//        Long searchableId = new Long(4);
-//        System.out.println(service.updateIdea(searchableId, "testablecontent"));
-//    }
+    @Test
+    @SuppressWarnings("resource")
+    public void TestUpdateIdea() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        TagService tservice = (TagService) appContext.getBean("tagService");
+        Long searchableId = new Long(4);
+
+        Tag tag = tservice.getTagById(3L);
+        Set<Tag> tags = new HashSet<Tag>();
+        tags.add(tag);
+        service.updateIdea(searchableId, "testableidea", "testdescription", tags, "cooooooonteeeeeent", true);
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestUpdateIdeaByAdmin() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        TagService tservice = (TagService) appContext.getBean("tagService");
+        Long searchableId = new Long(4);
+
+        Idea idea = service.getIdeaById(searchableId);
+        Set<Tag> tags = idea.getTags();
+        Tag tag = tservice.getTagById(3L);
+        if (!tags.contains(tag)) tags.add(tag);
+        System.out.println("Parameters: id="+searchableId+", tags="+tags.toString());
+        System.out.println(service.updateIdeaByAdmin(searchableId, "testableidea", "testdescription", tags, "cooooooonteeeeeent", idea.getRating(), idea.getAuthor(), idea.getViewedCount(), true));
+    }
+
 //
 //    @Test
 //    @SuppressWarnings("resource")

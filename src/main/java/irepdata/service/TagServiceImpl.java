@@ -48,7 +48,6 @@ public class TagServiceImpl implements TagService {
         return tagDao.updateTag(id, content);
     }
 
-
     @Transactional
     public boolean deleteTag(Long id) {
         return tagDao.deleteTag(id);
@@ -57,5 +56,10 @@ public class TagServiceImpl implements TagService {
     @Transactional
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend) {
         return tagDao.getSortedTagList(orderingParameter, ascend);
+    }
+
+    @Transactional
+    public List<Tag> getTagListWithIdeaId(String conditionValue) {
+        return tagDao.getTagListWithIdeaId(conditionValue);
     }
 }

@@ -27,10 +27,9 @@ public class IdeaServiceImpl implements IdeaService {
         return ideaDao;
     }
 
-    public void setIdeaDao(IdeaDao TagDAO) {
-        ideaDao = TagDAO;
+    public void setIdeaDao(IdeaDao ideaDAO) {
+        this.ideaDao = ideaDAO;
     }
-
 
     @Transactional
     public Idea getIdeaById(Long id) {

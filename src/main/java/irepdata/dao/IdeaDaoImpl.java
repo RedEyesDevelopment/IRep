@@ -101,7 +101,6 @@ public class IdeaDaoImpl implements IdeaDao {
         session.update(idea);
     }
 
-
     @Override
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter) {
         String order;

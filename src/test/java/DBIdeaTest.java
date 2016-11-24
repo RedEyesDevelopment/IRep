@@ -80,9 +80,9 @@ public class DBIdeaTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         TagService tservice = (TagService) appContext.getBean("tagService");
-        Long searchableId = new Long(4);
+        Long searchableId = new Long(2);
 
-        Tag tag = tservice.getTagById(3L);
+        Tag tag = tservice.getTagById(5L);
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(tag);
         service.updateIdea(searchableId, "testableidea", "testdescription", tags, "cooooooonteeeeeent", true);

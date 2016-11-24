@@ -16,7 +16,7 @@ public class Comment {
     private Idea idea;
     private String content;
     private Timestamp posted;
-    private boolean isEnabled;
+    private boolean enabled;
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -29,7 +29,7 @@ public class Comment {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COMMENT_AUTHOR_ID")
     public User getAuthor() {
         return author;
@@ -69,11 +69,11 @@ public class Comment {
 
     @Column(name = "COMMENT_ENABLED")
     public boolean isEnabled() {
-        return isEnabled;
+        return enabled;
     }
 
     public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
+        this.enabled = enabled;
     }
 
     @Override
@@ -106,8 +106,7 @@ public class Comment {
                 ", author=" + author +
                 ", content='" + content + '\'' +
                 ", posted=" + posted +
-                ", isEnabled=" + isEnabled +
-                ", idea=" + idea +
+                ", isEnabled=" + enabled +
                 '}';
     }
 }

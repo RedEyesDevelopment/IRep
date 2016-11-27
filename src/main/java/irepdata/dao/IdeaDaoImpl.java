@@ -64,10 +64,11 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdeaByAdmin(Long id, String name, String description, Set<Tag> tags, String content, int rating, User author, Long viewedCount, boolean enabled) {
+    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, String content, int rating, User author, Long viewedCount, boolean enabled) {
         String hql = "UPDATE Idea set "+
                 "name = :name, "+
                 "description = :description, "+
+                "image = :image, "+
                 "content = :content, "+
                 "rating = :rating, "+
                 "author = :author, "+
@@ -77,6 +78,7 @@ public class IdeaDaoImpl implements IdeaDao {
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("name", name);
         query.setParameter("description", description);
+        query.setParameter("image", image);
         query.setParameter("content", content);
         query.setParameter("rating", rating);
         query.setParameter("author", author);
@@ -90,12 +92,13 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public void updateIdea(Long id, String name, String description, Set<Tag> tags, String content, boolean isEnabled) {
+    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, String content, boolean isEnabled) {
         Session session = sessionFactory.getCurrentSession();
             Idea idea = (Idea) session.get(Idea.class, id);
             idea.setName(name);
             idea.setContent(content);
             idea.setDescription(description);
+            idea.setImage(image);
             idea.getTags().addAll(tags);
             idea.setEnabled(isEnabled);
         session.update(idea);

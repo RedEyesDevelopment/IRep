@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,6 +12,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "contents")
 public class Content implements Serializable {
+    private Long id;
     private Idea idea;
     private String contentData;
 
@@ -21,9 +25,19 @@ public class Content implements Serializable {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(generator = "myGenerator")
+    @Column(name="CONTENT_ID")
+    @GenericGenerator(name="myGenerator", strategy="foreign", parameters=@Parameter(value="idea", name = "property"))
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CONTENT_ID")
+    @PrimaryKeyJoinColumn
     public Idea getIdea() {
         return idea;
     }

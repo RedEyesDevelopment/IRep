@@ -77,8 +77,7 @@ public class Idea {
         this.tags = tags;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "IDEA_ID")
+    @OneToOne(mappedBy = "idea", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
     public Content getContent() {
         return content;
     }

@@ -21,6 +21,7 @@ insert into TAGS (TAG_CONTENT) values ('Sisk');
 insert into TAGS (TAG_CONTENT) values ('big_Sisk');
 insert into TAGS (TAG_CONTENT) values ('midl_Sisk');
 insert into TAGS (TAG_CONTENT) values ('small_Sisk');
+insert into TAGS (TAG_CONTENT) values ('bez_Sisek');
 
 insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('1', '1');
 insert into TAG_MAGAZINE (TAG_MAG_ID, TAG_IDEA_ID) values ('1', '2');

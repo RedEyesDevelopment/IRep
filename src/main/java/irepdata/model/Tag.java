@@ -17,6 +17,7 @@ public class Tag implements Serializable{
     private Long id;
     private String content;
     private Timestamp created;
+    private boolean enabled;
     private Set<Idea> ideas = new HashSet<Idea>();
 
     @Id

@@ -5,7 +5,9 @@ import irepdata.model.Tag;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hibernate.*;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -41,7 +43,7 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public Idea getIdeaWithAllDataById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.tags t left join fetch i.author a left join fetch i.comments c where id = :idea_id").setParameter("idea_id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.content co left join fetch i.tags t left join fetch i.author a left join fetch i.comments c where id = :idea_id").setParameter("idea_id", id);
         return (Idea) query.uniqueResult();
     }
 
@@ -64,12 +66,11 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, String content, int rating, User author, Long viewedCount, boolean enabled) {
+    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled) {
         String hql = "UPDATE Idea set "+
                 "name = :name, "+
                 "description = :description, "+
                 "image = :image, "+
-                "content = :content, "+
                 "rating = :rating, "+
                 "author = :author, "+
                 "viewedCount = :viewedCount, "+
@@ -79,8 +80,8 @@ public class IdeaDaoImpl implements IdeaDao {
         query.setParameter("name", name);
         query.setParameter("description", description);
         query.setParameter("image", image);
-        query.setParameter("content", content);
-        query.setParameter("rating", rating);
+        query.setParameter("liked", liked);
+        query.setParameter("disliked", disliked);
         query.setParameter("author", author);
         query.setParameter("viewedCount", viewedCount);
         query.setParameter("enabled", enabled);
@@ -92,11 +93,10 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, String content, boolean isEnabled) {
+    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean isEnabled) {
         Session session = sessionFactory.getCurrentSession();
             Idea idea = (Idea) session.get(Idea.class, id);
             idea.setName(name);
-            idea.setContent(content);
             idea.setDescription(description);
             idea.setImage(image);
             idea.getTags().addAll(tags);

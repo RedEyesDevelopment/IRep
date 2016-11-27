@@ -44,22 +44,21 @@ public class TagServiceImpl implements TagService {
     }
 
     @Transactional
-    public boolean updateTag(Long id, String content) {
-        return tagDao.updateTag(id, content);
+    public boolean updateTag(Long id, String content, boolean isEnabled) {
+        return tagDao.updateTag(id, content, isEnabled);
     }
-
     @Transactional
     public boolean deleteTag(Long id) {
         return tagDao.deleteTag(id);
     }
 
     @Transactional
-    public List<Tag> getSortedTagList(String orderingParameter, boolean ascend) {
-        return tagDao.getSortedTagList(orderingParameter, ascend);
+    public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
+        return tagDao.getSortedTagList(orderingParameter, ascend, withoutDisabled);
     }
 
     @Transactional
-    public List<Tag> getTagListWithIdeaId(String conditionValue) {
-        return tagDao.getTagListWithIdeaId(conditionValue);
+    public List<Tag> getTagListWithIdeaId(String ideaId, boolean withoutDisabled) {
+        return tagDao.getTagListWithIdeaId(ideaId, withoutDisabled);
     }
 }

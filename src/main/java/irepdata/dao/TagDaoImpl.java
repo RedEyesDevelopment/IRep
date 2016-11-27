@@ -50,12 +50,14 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public boolean updateTag(Long id, String content) {
+    public boolean updateTag(Long id, String content, boolean isEnabled) {
         String hql = "UPDATE Tag set " +
-                "content = :content " +
+                "content = :content, " +
+                "enabled = :enabled " +
                 "WHERE id = :tag_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("content", content);
+        query.setParameter("enabled", isEnabled);
         query.setParameter("tag_id", id);
         int result = query.executeUpdate();
         if (result>0){
@@ -76,17 +78,20 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<Tag> getSortedTagList(String orderingParameter, boolean ascend) {
-        String order;
+    public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
+        StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t ");
+        if (withoutDisabled) hqlbuilder.append("where t.enabled = true ");
+        hqlbuilder.append("order by t." + orderingParameter + " ");
         if (ascend) {
-            order = "asc";
-        } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("from Tag t order by t." + orderingParameter + " " + order).list();
+            hqlbuilder.append("asc");
+        } else hqlbuilder.append("desc");
+        return sessionFactory.getCurrentSession().createQuery(hqlbuilder.toString()).list();
     }
 
     @Override
-    public List<Tag> getTagListWithIdeaId(String conditionValue) {
-        String hql = "from Tag t left join fetch t.ideas i where i.id = " + conditionValue;
-        return sessionFactory.getCurrentSession().createQuery(hql).list();
+    public List<Tag> getTagListWithIdeaId(String ideaId, boolean withoutDisabled) {
+        StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t left join fetch t.ideas i where i.id = "+ ideaId);
+        if (withoutDisabled) hqlbuilder.append(" and t.enabled = true");
+        return sessionFactory.getCurrentSession().createQuery(hqlbuilder.toString()).list();
     }
 }

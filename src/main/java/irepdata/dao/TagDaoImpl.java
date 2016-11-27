@@ -89,7 +89,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public List<Tag> getTagListWithIdeaId(String ideaId, boolean withoutDisabled) {
+    public List<Tag> getTagListWithIdeaId(Long ideaId, boolean withoutDisabled) {
         StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t left join fetch t.ideas i where i.id = "+ ideaId);
         if (withoutDisabled) hqlbuilder.append(" and t.enabled = true");
         return sessionFactory.getCurrentSession().createQuery(hqlbuilder.toString()).list();

@@ -1,8 +1,6 @@
 package irepdata.dao;
 
 import irepdata.model.Comment;
-import irepdata.model.Idea;
-import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.Query;
@@ -13,14 +11,13 @@ import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.SortedSet;
 
 /**
  * Created by Admin on 24.11.2016.
  */
 @Repository
 public class CommentDaoImpl implements CommentDao {
-    private final static Log logger = LogFactory.getLog(IdeaDaoImpl.class);
+    private final static Log logger = LogFactory.getLog(CommentDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

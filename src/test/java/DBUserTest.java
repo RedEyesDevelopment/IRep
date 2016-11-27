@@ -1,15 +1,11 @@
 import irepdata.model.Idea;
 import irepdata.model.User;
 import irepdata.service.UserService;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.orm.jpa.vendor.HibernateJpaSessionFactoryBean;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Gvozd on 13.11.2016.
@@ -65,7 +61,7 @@ public class DBUserTest {
     public void TestDeleteUser() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
-        Long searchableId = 7L;
+        Long searchableId = 2L;
         System.out.println(service.deleteUser(searchableId));
     }
 
@@ -84,7 +80,7 @@ public class DBUserTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = 1L;
-        User user = service.getUserById(searchableId);
+        User user = service.getUserAndIdeasById(searchableId);
         System.out.println("User with id=" + searchableId + " is " + user.toString());
         for (Idea idea: user.getIdeas()){
             System.out.println(idea.toString());

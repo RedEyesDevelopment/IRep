@@ -19,4 +19,7 @@ public interface IdeaDao {
     public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
+    public void like(Long id);
+    public void dislike(Long id);
+    public void watch(Long id);
 }

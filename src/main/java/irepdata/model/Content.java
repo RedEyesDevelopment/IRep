@@ -1,31 +1,29 @@
 package irepdata.model;
 
 import javax.persistence.*;
-
-import static javax.persistence.GenerationType.IDENTITY;
+import java.io.Serializable;
 
 /**
  * Created by Gvozd on 27.11.2016.
  */
 @Entity
 @Table(name = "contents")
-public class Content {
-    private long id;
+public class Content implements Serializable {
     private Idea idea;
     private String contentData;
 
+    public Content() {
+    }
+
+    public Content(Idea idea, String contentData) {
+        this.idea = idea;
+        this.contentData = contentData;
+    }
+
     @Id
-    @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "CONTENT_ID")
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    @OneToOne(mappedBy = "ideas")
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="CONTENT_ID")
     public Idea getIdea() {
         return idea;
     }
@@ -50,7 +48,6 @@ public class Content {
 
         Content content = (Content) o;
 
-        if (getId() != content.getId()) return false;
         if (!getIdea().equals(content.getIdea())) return false;
         return getContentData() != null ? getContentData().equals(content.getContentData()) : content.getContentData() == null;
 
@@ -58,8 +55,7 @@ public class Content {
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + getIdea().hashCode();
+        int result = getIdea().hashCode();
         result = 31 * result + (getContentData() != null ? getContentData().hashCode() : 0);
         return result;
     }

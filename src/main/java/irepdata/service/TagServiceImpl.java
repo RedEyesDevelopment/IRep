@@ -58,7 +58,7 @@ public class TagServiceImpl implements TagService {
     }
 
     @Transactional
-    public List<Tag> getTagListWithIdeaId(String ideaId, boolean withoutDisabled) {
+    public List<Tag> getTagListWithIdeaId(Long ideaId, boolean withoutDisabled) {
         return tagDao.getTagListWithIdeaId(ideaId, withoutDisabled);
     }
 }

@@ -1,3 +1,4 @@
+import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -51,7 +52,7 @@ public class DBIdeaTest {
         User user = uservice.getUserById(3L);
         idea.setAuthor(user);
         System.out.println(user.toString());
-        idea.setContent("awesome idea!");
+        idea.setContent(new Content(idea,"fuuuuuuuu"));
         idea.setEnabled(true);
         idea.setName("testable9idea");
         Set<Tag> tags = idea.getTags();
@@ -85,7 +86,7 @@ public class DBIdeaTest {
         Tag tag = tservice.getTagById(5L);
         Set<Tag> tags = new HashSet<Tag>();
         tags.add(tag);
-        service.updateIdea(searchableId, "testableidea", "testdescription", tags, "cooooooonteeeeeent", true);
+        service.updateIdea(searchableId, "testableidea", "testdescription", "image", tags, true);
     }
 
     @Test
@@ -101,7 +102,7 @@ public class DBIdeaTest {
         Tag tag = tservice.getTagById(3L);
         if (!tags.contains(tag)) tags.add(tag);
         System.out.println("Parameters: id="+searchableId+", tags="+tags.toString());
-        System.out.println(service.updateIdeaByAdmin(searchableId, "testableidea", "testdescription", tags, "cooooooonteeeeeent", idea.getRating(), idea.getAuthor(), idea.getViewedCount(), true));
+        System.out.println(service.updateIdeaByAdmin(searchableId, "testableidea", "testdescription", "testableimage", tags, idea.getAuthor(), idea.getViewedCount(), 5, 5, true));
     }
 
 //

@@ -78,6 +78,7 @@ public class Idea {
     }
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "IDEA_ID")
     public Content getContent() {
         return content;
     }
@@ -177,7 +178,6 @@ public class Idea {
         if (isEnabled() != idea.isEnabled()) return false;
         if (!getName().equals(idea.getName())) return false;
         if (!getDescription().equals(idea.getDescription())) return false;
-        if (!getContent().equals(idea.getContent())) return false;
         if (!getAuthor().equals(idea.getAuthor())) return false;
         if (!getPosted().equals(idea.getPosted())) return false;
         if (!getViewed().equals(idea.getViewed())) return false;
@@ -189,7 +189,6 @@ public class Idea {
     public int hashCode() {
         int result = getName().hashCode();
         result = 31 * result + getDescription().hashCode();
-        result = 31 * result + getContent().hashCode();
         result = 31 * result + getPosted().hashCode();
         result = 31 * result + getViewed().hashCode();
         result = 31 * result + getViewedCount().hashCode();
@@ -222,7 +221,6 @@ public class Idea {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", image='" + image + '\'' +
                 ", tags=" + tags +
                 ", liked=" + liked +
                 ", disliked=" + disliked +

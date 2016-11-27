@@ -39,7 +39,6 @@ public class ContentDaoImpl implements ContentDao {
     @Override
     public void createContent(Content content) {
         sessionFactory.getCurrentSession().saveOrUpdate(content);
-        logger.info("Content for idea saved with id: " + content.getId());
     }
 
     @Override

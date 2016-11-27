@@ -27,7 +27,7 @@ public class DBTagTest {
     public void TestFindAllTags() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         TagService service = (TagService) appContext.getBean("tagService");
-        List<Tag> set = service.getSortedTagList("id", true);
+        List<Tag> set = service.getSortedTagList("id", true, true);
         for (Tag tag : set) System.out.println(tag);
     }
 
@@ -58,7 +58,7 @@ public class DBTagTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         TagService service = (TagService) appContext.getBean("tagService");
         Long searchableId = new Long(4);
-        System.out.println(service.updateTag(searchableId, "testablecontent"));
+        System.out.println(service.updateTag(searchableId, "testablecontent", true));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class DBTagTest {
     public void TestFindAllConditionTags() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         TagService service = (TagService) appContext.getBean("tagService");
-        List<Tag> set = service.getTagListWithIdeaId("2");
+        List<Tag> set = service.getTagListWithIdeaId(2L, true);
         for (Tag tag : set) System.out.println(tag);
     }
 }

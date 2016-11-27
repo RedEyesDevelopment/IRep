@@ -70,4 +70,19 @@ public class IdeaServiceImpl implements IdeaService {
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter) {
         return ideaDao.getSortedIdeaListWithoutDisabled(ascend, orderingParameter);
     }
+
+    @Transactional
+    public void like(Long id) {
+        ideaDao.like(id);
+    }
+
+    @Transactional
+    public void dislike(Long id) {
+        ideaDao.dislike(id);
+    }
+
+    @Transactional
+    public void watch(Long id) {
+        ideaDao.watch(id);
+    }
 }

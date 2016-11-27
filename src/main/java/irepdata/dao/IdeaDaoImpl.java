@@ -121,4 +121,28 @@ public class IdeaDaoImpl implements IdeaDao {
         } else order = "desc";
         return sessionFactory.getCurrentSession().createQuery("from Idea i where i.enabled = true order by i." + orderingParameter + " " + order).list();
     }
+
+    @Override
+    public void like(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Idea idea = (Idea) session.get(Idea.class, id);
+        idea.like();
+        session.update(idea);
+    }
+
+    @Override
+    public void dislike(Long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Idea idea = (Idea) session.get(Idea.class, id);
+        idea.dislike();
+        session.update(idea);
+    }
+
+    @Override
+    public void watch(Long id) {
+        String hql = "UPDATE Idea set "+
+                "viewed = CURRENT_TIMESTAMP " +
+                "WHERE id = :idea_id";
+        sessionFactory.getCurrentSession().createQuery(hql);
+    }
 }

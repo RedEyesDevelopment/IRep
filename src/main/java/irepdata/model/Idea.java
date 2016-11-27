@@ -17,9 +17,11 @@ public class Idea {
     private long id;
     private String name;
     private String description;
+    private String image;
     private Set<Tag> tags = new HashSet<Tag>();
-    private String content;
-    private int rating;
+    private Content content;
+    private int liked;
+    private int disliked;
     private User author;
     private Timestamp posted;
     private Timestamp viewed;
@@ -56,6 +58,15 @@ public class Idea {
         this.description = description;
     }
 
+    @Column(name = "IDEA_IMAGE")
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
@@ -66,22 +77,39 @@ public class Idea {
         this.tags = tags;
     }
 
-    @Column(name = "IDEA_CONTENT")
-    public String getContent() {
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    public Content getContent() {
         return content;
     }
 
-    public void setContent(String content) {
+    public void setContent(Content content) {
         this.content = content;
     }
 
-    @Column(name = "RATING")
-    public int getRating() {
-        return rating;
+    @Column(name = "IDEA_LIKES")
+    public int getLiked() {
+        return liked;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setLiked(int liked) {
+        this.liked = liked;
+    }
+
+    public void like(){
+        liked++;
+    }
+
+    @Column(name = "IDEA_DISLIKES")
+    public int getDisliked() {
+        return disliked;
+    }
+
+    public void setDisliked(int disliked) {
+        this.disliked = disliked;
+    }
+
+    public void dislike(){
+        disliked++;
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -146,7 +174,6 @@ public class Idea {
 
         Idea idea = (Idea) o;
 
-        if (getRating() != idea.getRating()) return false;
         if (isEnabled() != idea.isEnabled()) return false;
         if (!getName().equals(idea.getName())) return false;
         if (!getDescription().equals(idea.getDescription())) return false;
@@ -163,12 +190,30 @@ public class Idea {
         int result = getName().hashCode();
         result = 31 * result + getDescription().hashCode();
         result = 31 * result + getContent().hashCode();
-        result = 31 * result + getRating();
         result = 31 * result + getPosted().hashCode();
         result = 31 * result + getViewed().hashCode();
         result = 31 * result + getViewedCount().hashCode();
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
+    }
+
+    public String toStringWithAll() {
+        return "Idea{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", tags=" + tags +
+                ", content=" + content +
+                ", liked=" + liked +
+                ", disliked=" + disliked +
+                ", author=" + author +
+                ", posted=" + posted +
+                ", viewed=" + viewed +
+                ", viewedCount=" + viewedCount +
+                ", enabled=" + enabled +
+                ", comments=" + comments +
+                '}';
     }
 
     @Override
@@ -177,8 +222,11 @@ public class Idea {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", content='" + content + '\'' +
-                ", rating=" + rating +
+                ", image='" + image + '\'' +
+                ", tags=" + tags +
+                ", liked=" + liked +
+                ", disliked=" + disliked +
+                ", author=" + author +
                 ", posted=" + posted +
                 ", viewed=" + viewed +
                 ", viewedCount=" + viewedCount +

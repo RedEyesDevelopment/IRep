@@ -140,6 +140,10 @@ public class Idea {
         this.viewed = viewed;
     }
 
+    public void watch(){
+        this.posted = new Timestamp(System.currentTimeMillis());
+    }
+
     @Column(name = "VIEWED_COUNT")
     public Long getViewedCount() {
         return viewedCount;

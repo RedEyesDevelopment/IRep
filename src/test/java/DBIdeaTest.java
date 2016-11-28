@@ -17,7 +17,9 @@ import java.util.Set;
  * Created by Gvozd on 13.11.2016.
  */
 public class DBIdeaTest {
+
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-ideas-spring-root-context.xml");
+
 
     @Test
     @SuppressWarnings("resource")
@@ -29,6 +31,29 @@ public class DBIdeaTest {
         System.out.println(idea.toString());
     }
 
+    @Test
+    @SuppressWarnings("resource")
+    public void getIdeaAndAllDataById() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        Long searchableId = 1L;
+        Idea idea = service.getIdeaWithAllDataById(searchableId);
+        System.out.println("Idea with id=" + searchableId + " is " + idea.toStringWithAll());
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void getIdeaAndLikeIt() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        Long searchableId = 1L;
+        Idea idea = service.getIdeaById(searchableId);
+        idea.dislike();
+        idea.like();
+        idea.watch();
+        System.out.println("Idea with id=" + searchableId + " is " + idea.toString());
+
+    }
 
     @Test
     @SuppressWarnings("resource")
@@ -89,6 +114,7 @@ public class DBIdeaTest {
         service.updateIdea(searchableId, "testableidea", "testdescription", "image", tags, true);
     }
 
+
     @Test
     @SuppressWarnings("resource")
     public void TestUpdateIdeaByAdmin() {
@@ -104,19 +130,5 @@ public class DBIdeaTest {
         System.out.println("Parameters: id="+searchableId+", tags="+tags.toString());
         System.out.println(service.updateIdeaByAdmin(searchableId, "testableidea", "testdescription", "testableimage", tags, idea.getAuthor(), idea.getViewedCount(), 5, 5, true));
     }
-
-//
-//    @Test
-//    @SuppressWarnings("resource")
-//    public void getIdeaAndIdeasById() {
-//        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-//        IdeaService service = (IdeaService) appContext.getBean("ideaService");
-//        Long searchableId = 1L;
-//        Idea idea = service.getIdeaAndIdeasById(searchableId);
-//        System.out.println("Idea with id=" + searchableId + " is " + idea.toString());
-//        for (Idea idea: idea.getIdeas()){
-//            System.out.println(idea.toString());
-//        }
-//    }
 
 }

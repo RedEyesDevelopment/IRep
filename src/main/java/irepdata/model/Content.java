@@ -30,7 +30,7 @@ public class Content implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "content")
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     public Idea getIdea() {
         return idea;

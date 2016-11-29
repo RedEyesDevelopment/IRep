@@ -56,7 +56,6 @@ public class IdeaDaoImpl implements IdeaDao {
         idea.setContent(content);
         content.setIdea(idea);
         System.out.println(idea.toStringWithAll());
-
         session.save(idea);
         session.getTransaction().commit();
         logger.info("Idea saved with id: " + idea.getId());

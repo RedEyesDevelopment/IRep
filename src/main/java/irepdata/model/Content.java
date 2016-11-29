@@ -1,9 +1,11 @@
 package irepdata.model;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
+import org.hibernate.annotations.*;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -16,18 +18,10 @@ public class Content implements Serializable {
     private Idea idea;
     private String contentData;
 
-    public Content() {
-    }
-
-    public Content(Idea idea, String contentData) {
-        this.idea = idea;
-        this.contentData = contentData;
-    }
-
+    @GenericGenerator(name="myGenerator", strategy="foreign", parameters=@org.hibernate.annotations.Parameter(name = "property", value="idea"))
     @Id
     @GeneratedValue(generator = "myGenerator")
-    @Column(name="CONTENT_ID")
-    @GenericGenerator(name="myGenerator", strategy="foreign", parameters=@Parameter(value="idea", name = "property"))
+    @Column(name="CONTENT_ID", unique = true)
     public Long getId() {
         return id;
     }
@@ -36,7 +30,7 @@ public class Content implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "content")
     @PrimaryKeyJoinColumn
     public Idea getIdea() {
         return idea;
@@ -72,5 +66,14 @@ public class Content implements Serializable {
         int result = getIdea().hashCode();
         result = 31 * result + (getContentData() != null ? getContentData().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Content{" +
+                "id=" + id +
+                "idea=" + idea +
+                ", contentData='" + contentData + '\'' +
+                '}';
     }
 }

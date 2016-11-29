@@ -28,8 +28,8 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Transactional
-    public Content getContent(String parameterType, Long id) {
-        return contentDao.getContent(parameterType, id);
+    public Content getContent(Long id) {
+        return contentDao.getContent(id);
     }
 
     @Transactional
@@ -37,13 +37,13 @@ public class ContentServiceImpl implements ContentService {
         contentDao.createContent(content);
     }
 
-    @Transactional
-    public boolean deleteContent(Long ideaId) {
-        return contentDao.deleteContent(ideaId);
-    }
+//    @Transactional
+//    public boolean deleteContent(Long ideaId) {
+//        return contentDao.deleteContent(ideaId);
+//    }
 
     @Transactional
-    public boolean updateContent(String content, Long ideaId) {
-        return contentDao.updateContent(content, ideaId);
+    public boolean updateContent(Long ideaId, String content) {
+        return contentDao.updateContent(ideaId, content);
     }
 }

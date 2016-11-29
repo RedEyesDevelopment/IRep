@@ -59,6 +59,15 @@ public class Tag implements Serializable{
         this.ideas = ideas;
     }
 
+    @Column(name = "TAG_ENABLED")
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -86,6 +95,7 @@ public class Tag implements Serializable{
                 "id=" + id +
                 ", content='" + content + '\'' +
                 ", created=" + created +
+                ", enabled=" + enabled +
                 '}';
     }
 }

@@ -39,7 +39,7 @@ public class Comment {
         this.author = author;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "COMMENT_IDEA_ID")
     public Idea getIdea() {
         return idea;
@@ -83,18 +83,23 @@ public class Comment {
 
         Comment comment = (Comment) o;
 
+        if (getId() != comment.getId()) return false;
         if (isEnabled() != comment.isEnabled()) return false;
+        if (!getAuthor().equals(comment.getAuthor())) return false;
         if (!getIdea().equals(comment.getIdea())) return false;
-        if (!getContent().equals(comment.getContent())) return false;
-        return getPosted().equals(comment.getPosted());
+        if (getContent() != null ? !getContent().equals(comment.getContent()) : comment.getContent() != null)
+            return false;
+        return getPosted() != null ? getPosted().equals(comment.getPosted()) : comment.getPosted() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getIdea().hashCode();
-        result = 31 * result + getContent().hashCode();
-        result = 31 * result + getPosted().hashCode();
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + getAuthor().hashCode();
+        result = 31 * result + getIdea().hashCode();
+        result = 31 * result + (getContent() != null ? getContent().hashCode() : 0);
+        result = 31 * result + (getPosted() != null ? getPosted().hashCode() : 0);
         result = 31 * result + (isEnabled() ? 1 : 0);
         return result;
     }
@@ -104,9 +109,10 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", author=" + author +
+                ", idea=" + idea +
                 ", content='" + content + '\'' +
                 ", posted=" + posted +
-                ", isEnabled=" + enabled +
+                ", enabled=" + enabled +
                 '}';
     }
 }

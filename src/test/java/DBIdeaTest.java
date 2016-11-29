@@ -2,6 +2,7 @@ import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
+import irepdata.service.ContentService;
 import irepdata.service.IdeaService;
 import irepdata.service.TagService;
 import irepdata.service.UserService;
@@ -36,7 +37,7 @@ public class DBIdeaTest {
     public void getIdeaAndAllDataById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 1L;
+        Long searchableId = 3L;
         Idea idea = service.getIdeaWithAllDataById(searchableId);
         System.out.println("Idea with id=" + searchableId + " is " + idea.toStringWithAll());
     }
@@ -47,12 +48,9 @@ public class DBIdeaTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         Long searchableId = 1L;
-        Idea idea = service.getIdeaById(searchableId);
-        idea.dislike();
-        idea.like();
-        idea.watch();
-        System.out.println("Idea with id=" + searchableId + " is " + idea.toString());
-
+        service.like(searchableId);
+        service.dislike(searchableId);
+        service.watch(searchableId);
     }
 
     @Test
@@ -71,24 +69,23 @@ public class DBIdeaTest {
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         UserService uservice = (UserService) appContext.getBean("userService");
         TagService tservice = (TagService) appContext.getBean("tagService");
+        ContentService coservice = (ContentService) appContext.getBean("contentService");
 
         Idea idea = new Idea();
         idea.setDescription("описание");
         User user = uservice.getUserById(3L);
         idea.setAuthor(user);
         System.out.println(user.toString());
-        idea.setContent(new Content(idea,"fuuuuuuuu"));
+        Content content = new Content();
+        content.setContentData("fuuuuuuuuuuuuuu");
         idea.setEnabled(true);
         idea.setName("testable9idea");
         Set<Tag> tags = idea.getTags();
-        Tag tag = tservice.getTagById(3L);
+        Tag tag = tservice.getTagById(2L);
         System.out.println(tag.toString());
         tags.add(tag);
         idea.setViewedCount(0L);
-
-
-        service.createIdea(idea);
-        System.out.println(idea.toString());
+        service.createIdea(idea, content);
     }
 
     @Test

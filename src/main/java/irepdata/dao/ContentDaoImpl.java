@@ -30,31 +30,31 @@ public class ContentDaoImpl implements ContentDao {
     }
 
     @Override
-    public Content getContent(String parameterType, Long id) {
-        String hql = "select distinct co from Content co where co."+ parameterType+" = :id";
+    public Content getContent(Long id) {
+        String hql = "select distinct co from Content co where co.id = :id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql).setParameter("id", id);
         return (Content) query.uniqueResult();
     }
 
     @Override
     public void createContent(Content content) {
-        sessionFactory.getCurrentSession().saveOrUpdate(content);
+        sessionFactory.getCurrentSession().save(content);
     }
 
-    @Override
-    public boolean deleteContent(Long ideaId) {
-        String hql = "DELETE FROM Content " +
-                "WHERE id = :idea_id";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("idea_id", ideaId);
-        int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
-    }
+//    @Override
+//    public boolean deleteContent(Long ideaId) {
+//        String hql = "DELETE FROM Content " +
+//                "WHERE id = :idea_id";
+//        Query query = sessionFactory.getCurrentSession().createQuery(hql);
+//        query.setParameter("idea_id", ideaId);
+//        int result = query.executeUpdate();
+//        if (result>0){
+//            return true;
+//        } else return false;
+//    }
 
     @Override
-    public boolean updateContent(String content, Long ideaId) {
+    public boolean updateContent(Long ideaId, String content) {
         String hql = "UPDATE Content set "+
                 "contentData = :content "+
                 "WHERE id = :idea_id";

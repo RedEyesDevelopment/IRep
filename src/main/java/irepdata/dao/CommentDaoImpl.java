@@ -33,7 +33,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Comment getCommentById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct c from Comment c left join fetch c.author a left join fetch c.idea i where id = :comm_id").setParameter("comm_id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct c from Comment c left join fetch c.author a left join fetch c.idea i where c.id = :comm_id").setParameter("comm_id", id);
         return (Comment) query.uniqueResult();
     }
 

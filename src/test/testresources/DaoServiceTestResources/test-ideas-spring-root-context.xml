@@ -30,6 +30,9 @@
     <bean id="ideaService" class="irepdata.service.IdeaServiceImpl"></bean>
     <bean id="userService" class="irepdata.service.UserServiceImpl"></bean>
     <bean id="tagService" class="irepdata.service.TagServiceImpl"></bean>
+    <bean id="contentService" class="irepdata.service.ContentServiceImpl"></bean>
+    <bean id="commentService" class="irepdata.service.CommentServiceImpl"></bean>
+
 
 
     <!-- Файл с настройками безопасности

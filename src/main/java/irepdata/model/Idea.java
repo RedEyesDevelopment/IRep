@@ -112,7 +112,7 @@ public class Idea {
         disliked++;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "IDEA_AUTHOR_ID")
     public User getAuthor() {
         return author;
@@ -151,6 +151,10 @@ public class Idea {
 
     public void setViewedCount(Long viewedCount) {
         this.viewedCount = viewedCount;
+    }
+
+    public void addViewedCount(){
+        viewedCount++;
     }
 
     @Column(name = "IDEA_ENABLED")

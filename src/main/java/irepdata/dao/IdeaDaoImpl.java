@@ -1,5 +1,6 @@
 package irepdata.dao;
 
+import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 
@@ -43,13 +45,20 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public Idea getIdeaWithAllDataById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.content co left join fetch i.tags t left join fetch i.author a left join fetch i.comments c where id = :idea_id").setParameter("idea_id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.content co left join fetch i.tags t left join fetch i.author a left join fetch i.comments c where i.id = :idea_id").setParameter("idea_id", id);
         return (Idea) query.uniqueResult();
     }
 
     @Override
-    public void createIdea(Idea idea) {
-        sessionFactory.getCurrentSession().saveOrUpdate(idea);
+    public void createIdea(Idea idea, Content content) {
+        Session session = sessionFactory.getCurrentSession();
+        session.beginTransaction();
+        idea.setContent(content);
+        content.setIdea(idea);
+        System.out.println(idea.toStringWithAll());
+
+        session.save(idea);
+        session.getTransaction().commit();
         logger.info("Idea saved with id: " + idea.getId());
     }
 
@@ -140,9 +149,10 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public void watch(Long id) {
-        String hql = "UPDATE Idea set "+
-                "viewed = CURRENT_TIMESTAMP " +
-                "WHERE id = :idea_id";
-        sessionFactory.getCurrentSession().createQuery(hql);
+        Session session = sessionFactory.getCurrentSession();
+        Idea idea = (Idea) session.get(Idea.class, id);
+        idea.setViewed(new Timestamp(System.currentTimeMillis()));
+        idea.addViewedCount();
+        session.update(idea);
     }
 }

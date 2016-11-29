@@ -1,4 +1,3 @@
-import irepdata.model.Idea;
 import irepdata.model.Comment;
 import irepdata.service.CommentService;
 import irepdata.service.IdeaService;
@@ -46,7 +45,7 @@ public class DBCommentTest {
         comment.setContent("СукаДоСлёз!");
         comment.setEnabled(true);
         comment.setIdea(iservice.getIdeaById(1L));
-        comment.setAuthor(uservice.getUserById(2L));
+        comment.setAuthor(uservice.getUserById(3L));
 
         service.createComment(comment);
         System.out.println(comment.toString());

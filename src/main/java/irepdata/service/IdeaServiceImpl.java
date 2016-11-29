@@ -1,6 +1,7 @@
 package irepdata.service;
 
 import irepdata.dao.IdeaDao;
+import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -42,8 +43,8 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public void createIdea(Idea idea) {
-        ideaDao.createIdea(idea);
+    public void createIdea(Idea idea, Content content) {
+        ideaDao.createIdea(idea, content);
     }
 
     @Transactional

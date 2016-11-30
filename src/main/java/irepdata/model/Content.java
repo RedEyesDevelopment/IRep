@@ -18,10 +18,9 @@ public class Content implements Serializable {
     private Idea idea;
     private String contentData;
 
-    @GenericGenerator(name="myGenerator", strategy="foreign", parameters=@org.hibernate.annotations.Parameter(name = "property", value="idea"))
     @Id
-    @GeneratedValue(generator = "myGenerator")
-    @Column(name="CONTENT_ID", unique = true)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name="CONTENT_ID", unique = true, nullable = false)
     public Long getId() {
         return id;
     }
@@ -30,7 +29,7 @@ public class Content implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "content")
     @PrimaryKeyJoinColumn
     public Idea getIdea() {
         return idea;

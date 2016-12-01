@@ -50,12 +50,19 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public void createIdea(Idea idea, Content content) {
+    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content) {
         Session session = sessionFactory.getCurrentSession();
         session.beginTransaction();
-        idea.setContent(content);
-        content.setIdea(idea);
-        System.out.println(idea.toStringWithAll());
+        Idea idea = new Idea();
+        idea.setName(name);
+        idea.setDescription(description);
+        idea.setName(name);
+        idea.setTags(tags);
+        idea.setAuthor(author);
+        idea.toString();
+        session.persist(idea);
+        Content contentObj = new Content(idea.getId(), content);
+        idea.setContent(contentObj);
         session.save(idea);
         session.getTransaction().commit();
         logger.info("Idea saved with id: " + idea.getId());

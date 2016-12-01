@@ -1,4 +1,3 @@
-import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -27,7 +26,7 @@ public class DBIdeaTest {
     public void TestFindIdeaById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 1L;
+        Long searchableId = 3L;
         Idea idea = service.getIdeaById(searchableId);
         System.out.println(idea.toString());
     }
@@ -71,21 +70,11 @@ public class DBIdeaTest {
         TagService tservice = (TagService) appContext.getBean("tagService");
         ContentService coservice = (ContentService) appContext.getBean("contentService");
 
-        Idea idea = new Idea();
-        idea.setDescription("описание");
         User user = uservice.getUserById(3L);
-        idea.setAuthor(user);
-        System.out.println(user.toString());
-        Content content = new Content();
-        content.setContentData("fuuuuuuuuuuuuuu");
-        idea.setEnabled(true);
-        idea.setName("testable9idea");
-        Set<Tag> tags = idea.getTags();
+        Set<Tag> tags = new HashSet<>();
         Tag tag = tservice.getTagById(2L);
-        System.out.println(tag.toString());
         tags.add(tag);
-        idea.setViewedCount(0L);
-        service.createIdea(idea, content);
+        service.createIdea("ideaName", "описание", null, tags, user, "COOONTENTT");
     }
 
     @Test

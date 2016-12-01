@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -67,7 +70,7 @@ public class Idea {
         this.image = image;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = javax.persistence.CascadeType.ALL)
     @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;
@@ -77,7 +80,9 @@ public class Idea {
         this.tags = tags;
     }
 
-    @OneToOne(mappedBy = "idea", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, optional = false)
+    @OneToOne(fetch = FetchType.LAZY, optional = false/*, mappedBy = "idea"*/)
+//    @JoinColumn(name="CONTENT_ID", unique=true, nullable=false, updatable=false)
+    @LazyToOne(value = LazyToOneOption.NO_PROXY)
     public Content getContent() {
         return content;
     }
@@ -166,7 +171,7 @@ public class Idea {
         this.enabled = enabled;
     }
 
-    @OneToMany(mappedBy = "idea", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idea", cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     public Set<Comment> getComments() {
         return comments;
     }

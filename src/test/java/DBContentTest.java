@@ -14,7 +14,7 @@ public class DBContentTest {
     public void TestContentFindById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         ContentService service = (ContentService) appContext.getBean("contentService");
-        Long searchableId = 1L;
+        Long searchableId = 3L;
         Content content = service.getContent(searchableId);
         System.out.println("Content with id=" + searchableId + " is " + content.toString());
     }

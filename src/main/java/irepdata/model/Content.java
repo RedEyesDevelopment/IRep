@@ -1,11 +1,6 @@
 package irepdata.model;
 
-import org.hibernate.annotations.*;
-
 import javax.persistence.*;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
@@ -18,9 +13,13 @@ public class Content implements Serializable {
     private Idea idea;
     private String contentData;
 
+
+    public Content() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name="CONTENT_ID", unique = true, nullable = false)
+    @Column(name="CONTENT_ID")
     public Long getId() {
         return id;
     }
@@ -29,8 +28,7 @@ public class Content implements Serializable {
         this.id = id;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST, mappedBy = "content")
-    @PrimaryKeyJoinColumn
+    @OneToOne()
     public Idea getIdea() {
         return idea;
     }
@@ -55,14 +53,14 @@ public class Content implements Serializable {
 
         Content content = (Content) o;
 
-        if (!getIdea().equals(content.getIdea())) return false;
+        if (!getId().equals(content.getId())) return false;
         return getContentData() != null ? getContentData().equals(content.getContentData()) : content.getContentData() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getIdea().hashCode();
+        int result = getId().hashCode();
         result = 31 * result + (getContentData() != null ? getContentData().hashCode() : 0);
         return result;
     }
@@ -71,7 +69,6 @@ public class Content implements Serializable {
     public String toString() {
         return "Content{" +
                 "id=" + id +
-                "idea=" + idea +
                 ", contentData='" + contentData + '\'' +
                 '}';
     }

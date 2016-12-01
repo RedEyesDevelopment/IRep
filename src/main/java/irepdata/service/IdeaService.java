@@ -1,6 +1,5 @@
 package irepdata.service;
 
-import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -14,7 +13,7 @@ import java.util.Set;
 public interface IdeaService {
     public Idea getIdeaById(Long id);
     public Idea getIdeaWithAllDataById(Long id);
-    public void createIdea(Idea idea, Content content);
+    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content);
     public boolean deleteIdea(Long id);
     public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled);
     public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled);

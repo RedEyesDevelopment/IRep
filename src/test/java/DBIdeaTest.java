@@ -18,7 +18,7 @@ import java.util.Set;
  */
 public class DBIdeaTest {
 
-    private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-ideas-spring-root-context.xml");
+    private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
 
 
     @Test
@@ -46,7 +46,7 @@ public class DBIdeaTest {
     public void getIdeaAndLikeIt() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 1L;
+        Long searchableId = 2L;
         service.like(searchableId);
         service.dislike(searchableId);
         service.watch(searchableId);
@@ -82,7 +82,7 @@ public class DBIdeaTest {
     public void TestDeleteIdea() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 1L;
+        Long searchableId = 3L;
         System.out.println(service.deleteIdea(searchableId));
     }
 
@@ -92,7 +92,7 @@ public class DBIdeaTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         TagService tservice = (TagService) appContext.getBean("tagService");
-        Long searchableId = new Long(2);
+        Long searchableId = new Long(4);
 
         Tag tag = tservice.getTagById(5L);
         Set<Tag> tags = new HashSet<Tag>();

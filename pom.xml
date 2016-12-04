@@ -21,6 +21,10 @@
     </build>
     <packaging>war</packaging>
 
+    <properties>
+        <hibernate-ver>4.3.8.Final</hibernate-ver>
+    </properties>
+
     <dependencies>
 
         <!--SPRING FRAMEWORK & UTILS-->
@@ -108,7 +112,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>4.3.8.Final</version>
+            <version>${hibernate-ver}</version>
         </dependency>
 
         <dependency>
@@ -126,7 +130,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.4.Final</version>
+            <version>${hibernate-ver}</version>
         </dependency>
 
         <dependency>

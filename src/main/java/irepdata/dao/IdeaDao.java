@@ -16,7 +16,7 @@ public interface IdeaDao {
     public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content);
     public boolean deleteIdea(Long id);
     public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled);
-    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled);
+    public boolean updateIdeaContent(Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
     public void like(Long id);

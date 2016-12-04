@@ -1,8 +1,5 @@
 package irepdata.model;
 
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -80,15 +77,20 @@ public class Idea {
         this.tags = tags;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false/*, mappedBy = "idea"*/)
-//    @JoinColumn(name="CONTENT_ID", unique=true, nullable=false, updatable=false)
-    @LazyToOne(value = LazyToOneOption.NO_PROXY)
+    @OneToOne(fetch = FetchType.LAZY, optional = false, orphanRemoval = true, cascade = CascadeType.ALL)
+    @JoinColumn(name="IDEA_CONTENT_ID", unique=true, nullable=false)
+//    @LazyToOne(value = LazyToOneOption.NO_PROXY)
     public Content getContent() {
         return content;
     }
 
     public void setContent(Content content) {
         this.content = content;
+    }
+
+    @Transient
+    public Long getContentId(){
+        return content.getId();
     }
 
     @Column(name = "IDEA_LIKES")

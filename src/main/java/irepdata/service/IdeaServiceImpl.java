@@ -52,13 +52,9 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled) {
+    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled, Long contentId, String content) {
         ideaDao.updateIdea(id, name, description, image, tags, enabled);
-    }
-
-    @Transactional
-    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled) {
-        return ideaDao.updateIdeaByAdmin(id, name, description, image, tags, author, viewedCount, liked, disliked, enabled);
+        ideaDao.updateIdeaContent(contentId, content);
     }
 
     @Transactional

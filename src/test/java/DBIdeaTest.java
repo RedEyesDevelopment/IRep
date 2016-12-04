@@ -82,7 +82,7 @@ public class DBIdeaTest {
     public void TestDeleteIdea() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 3L;
+        Long searchableId = 1L;
         System.out.println(service.deleteIdea(searchableId));
     }
 
@@ -96,25 +96,8 @@ public class DBIdeaTest {
 
         Tag tag = tservice.getTagById(5L);
         Set<Tag> tags = new HashSet<Tag>();
+        Long contentId = service.getIdeaById(searchableId).getContentId();
         tags.add(tag);
-        service.updateIdea(searchableId, "testableidea", "testdescription", "image", tags, true);
+        service.updateIdea(searchableId, "testableidea", "testdescription", "image", tags, true, contentId, "пиздец");
     }
-
-
-    @Test
-    @SuppressWarnings("resource")
-    public void TestUpdateIdeaByAdmin() {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
-        IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        TagService tservice = (TagService) appContext.getBean("tagService");
-        Long searchableId = new Long(4);
-
-        Idea idea = service.getIdeaById(searchableId);
-        Set<Tag> tags = idea.getTags();
-        Tag tag = tservice.getTagById(3L);
-        if (!tags.contains(tag)) tags.add(tag);
-        System.out.println("Parameters: id="+searchableId+", tags="+tags.toString());
-        System.out.println(service.updateIdeaByAdmin(searchableId, "testableidea", "testdescription", "testableimage", tags, idea.getAuthor(), idea.getViewedCount(), 5, 5, true));
-    }
-
 }

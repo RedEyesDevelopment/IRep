@@ -60,8 +60,11 @@ public class IdeaDaoImpl implements IdeaDao {
         idea.setTags(tags);
         idea.setAuthor(author);
         idea.toString();
-        session.persist(idea);
-        Content contentObj = new Content(idea.getId(), content);
+        idea.setViewedCount(0L);
+        Content contentObj = new Content();
+        contentObj.setContentData("Content data");
+        contentObj.setIdea(idea);
+        session.persist(contentObj);
         idea.setContent(contentObj);
         session.save(idea);
         session.getTransaction().commit();
@@ -81,26 +84,13 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean updateIdeaByAdmin(Long id, String name, String description, String image, Set<Tag> tags, User author, Long viewedCount, int liked, int disliked, boolean enabled) {
-        String hql = "UPDATE Idea set "+
-                "name = :name, "+
-                "description = :description, "+
-                "image = :image, "+
-                "rating = :rating, "+
-                "author = :author, "+
-                "viewedCount = :viewedCount, "+
-                "enabled = :enabled "+
-                "WHERE id = :idea_id";
+    public boolean updateIdeaContent(Long contentId, String content) {
+        String hql = "UPDATE Content set "+
+                "contentData = :content " +
+                "WHERE id = :content_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("name", name);
-        query.setParameter("description", description);
-        query.setParameter("image", image);
-        query.setParameter("liked", liked);
-        query.setParameter("disliked", disliked);
-        query.setParameter("author", author);
-        query.setParameter("viewedCount", viewedCount);
-        query.setParameter("enabled", enabled);
-        query.setParameter("idea_id", id);
+        query.setParameter("content", content);
+        query.setParameter("content_id", contentId);
         int result = query.executeUpdate();
         if (result>0){
             return true;

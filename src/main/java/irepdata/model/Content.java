@@ -13,12 +13,8 @@ public class Content implements Serializable {
     private Idea idea;
     private String contentData;
 
-
-    public Content() {
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="CONTENT_ID")
     public Long getId() {
         return id;
@@ -28,7 +24,7 @@ public class Content implements Serializable {
         this.id = id;
     }
 
-    @OneToOne()
+    @OneToOne(mappedBy = "content")
     public Idea getIdea() {
         return idea;
     }

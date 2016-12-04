@@ -37,11 +37,6 @@ public class ContentServiceImpl implements ContentService {
         contentDao.createContent(content);
     }
 
-//    @Transactional
-//    public boolean deleteContent(Long ideaId) {
-//        return contentDao.deleteContent(ideaId);
-//    }
-
     @Transactional
     public boolean updateContent(Long ideaId, String content) {
         return contentDao.updateContent(ideaId, content);

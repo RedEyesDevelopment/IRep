@@ -24,6 +24,7 @@
                 <beans:property name="suffix"><beans:value>.jsp</beans:value></beans:property>
         </beans:bean>
 
+        <!-- AJAX ObjectToJSON handlers-->
         <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
                 <beans:property name="messageConverters">
                         <beans:list>

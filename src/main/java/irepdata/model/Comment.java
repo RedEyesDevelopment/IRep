@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import irepdata.views.JSONViews;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -11,11 +14,16 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "comments")
 public class Comment {
+    @JsonView(JSONViews.List.class)
     private long id;
+    @JsonView(JSONViews.List.class)
     private User author;
     private Idea idea;
+    @JsonView(JSONViews.List.class)
     private String content;
+    @JsonView(JSONViews.List.class)
     private Timestamp posted;
+    @JsonView(JSONViews.Admin.class)
     private boolean enabled;
 
     @Id

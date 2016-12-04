@@ -1,5 +1,7 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -9,8 +11,10 @@ import java.io.Serializable;
 @Entity
 @Table(name = "contents")
 public class Content implements Serializable {
+    @JsonView
     private Long id;
     private Idea idea;
+    @JsonView
     private String contentData;
 
     @Id

@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import irepdata.views.JSONViews;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.HashSet;
@@ -14,18 +17,31 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NamedQueries({@NamedQuery(name = "Idea.findIdeaWithTags", query="select distinct i from Idea i left join fetch i.tags t")})
 @Table(name = "ideas")
 public class Idea {
+    @JsonView(JSONViews.List.class)
     private long id;
+    @JsonView(JSONViews.List.class)
     private String name;
+    @JsonView(JSONViews.List.class)
     private String description;
+    @JsonView(JSONViews.List.class)
     private String image;
+    @JsonView(JSONViews.List.class)
     private Set<Tag> tags = new HashSet<Tag>();
+    @JsonView(JSONViews.Data.class)
     private Content content;
+    @JsonView(JSONViews.List.class)
     private int liked;
+    @JsonView(JSONViews.List.class)
     private int disliked;
+    @JsonView(JSONViews.List.class)
     private User author;
+    @JsonView(JSONViews.List.class)
     private Timestamp posted;
+    @JsonView(JSONViews.List.class)
     private Timestamp viewed;
+    @JsonView(JSONViews.Admin.class)
     private Long viewedCount;
+    @JsonView(JSONViews.Admin.class)
     private boolean enabled;
     private Set<Comment> comments = new HashSet<Comment>();
 

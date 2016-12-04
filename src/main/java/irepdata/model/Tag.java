@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import irepdata.views.JSONViews;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -14,10 +17,15 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "tags")
 public class Tag implements Serializable{
+    @JsonView(JSONViews.List.class)
     private Long id;
+    @JsonView(JSONViews.List.class)
     private String content;
+    @JsonView(JSONViews.Admin.class)
     private Timestamp created;
+    @JsonView(JSONViews.Admin.class)
     private boolean enabled;
+    @JsonView(JSONViews.List.class)
     private Set<Idea> ideas = new HashSet<Idea>();
 
     @Id

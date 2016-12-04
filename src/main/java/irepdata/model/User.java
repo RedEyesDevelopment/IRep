@@ -1,5 +1,8 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import irepdata.views.JSONViews;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -13,13 +16,21 @@ import static javax.persistence.GenerationType.IDENTITY;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
+    @JsonView(JSONViews.List.class)
     private Long id;
+    @JsonView(JSONViews.List.class)
     private String username;
+    @JsonView(JSONViews.Admin.class)
     private String login;
+    @JsonView(JSONViews.Admin.class)
     private String password;
+    @JsonView(JSONViews.Admin.class)
     private boolean admin;
+    @JsonView(JSONViews.Admin.class)
     private boolean enabled;
+    @JsonView(JSONViews.Data.class)
     private Set<Idea> ideas = new HashSet<Idea>();
+    @JsonView(JSONViews.Admin.class)
     private Set<Comment> comments = new HashSet<Comment>();
 
     @Id

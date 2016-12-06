@@ -5,6 +5,7 @@
 <head>
 <spring:url value="/res/greetingSection/simpleGreeting.css" var="greetingCss" />
         <link href="${greetingCss}" rel="stylesheet" type="text/css"/>
+        <link rel="icon" type="image/x-icon" href="/res/favicon.ico" />
 </head>
 <body>
 <div class="greetingblock">

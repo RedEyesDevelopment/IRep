@@ -7,6 +7,8 @@
     <groupId>org.red</groupId>
     <artifactId>IRep</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
     <build>
         <plugins>
             <plugin>
@@ -55,7 +57,16 @@
         </plugins>
 
     </build>
-    <packaging>war</packaging>
+
+
+    <repositories>
+        <repository>
+            <id>GridGain</id>
+            <url>http://www.gridgainsystems.com/nexus/content/repositories/external/</url>
+        </repository>
+    </repositories>
+
+
 
     <properties>
         <hibernate-ver>4.3.8.Final</hibernate-ver>
@@ -64,6 +75,8 @@
         <jackson-ver>2.8.5</jackson-ver>
         <spring-security-ver>4.0.4.RELEASE</spring-security-ver>
     </properties>
+
+
 
     <dependencies>
 
@@ -135,16 +148,22 @@
             <version>${hibernate-ver}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-annotations</artifactId>
-            <version>3.5.6-Final</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-annotations</artifactId>-->
+            <!--<version>3.5.6-Final</version>-->
+        <!--</dependency>-->
+
+        <!--<dependency>-->
+            <!--<groupId>org.hibernate</groupId>-->
+            <!--<artifactId>hibernate-commons-annotations</artifactId>-->
+            <!--<version>3.3.0.ga</version>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-commons-annotations</artifactId>
-            <version>3.3.0.ga</version>
+            <version>4.0.2.Final</version>
         </dependency>
 
         <dependency>

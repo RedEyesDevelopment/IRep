@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  */
 @Entity
 @NamedQueries({@NamedQuery(name = "Idea.findIdeaWithTags", query="select distinct i from Idea i left join fetch i.tags t")})
-@Table(name = "ideas")
+@Table(name = "IDEAS")
 public class Idea {
     @JsonView(JSONViews.List.class)
     private long id;
@@ -84,7 +84,7 @@ public class Idea {
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = javax.persistence.CascadeType.ALL)
-    @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
+    @JoinTable(name = "TAG_MAGAZINE", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;
     }

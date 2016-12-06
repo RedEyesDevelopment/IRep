@@ -52,6 +52,16 @@ public class DBIdeaTest {
         service.watch(searchableId);
     }
 
+
+    @Test
+    @SuppressWarnings("resource")
+    public void getIdeaWatchIt() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        Long searchableId = 2L;
+        service.watch(searchableId);
+    }
+
     @Test
     @SuppressWarnings("resource")
     public void TestFindAllIdeas() {

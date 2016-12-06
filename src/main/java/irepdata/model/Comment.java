@@ -12,7 +12,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 13.11.2016.
  */
 @Entity
-@Table(name = "comments")
+@Table(name = "COMMENTS")
 public class Comment {
     @JsonView(JSONViews.List.class)
     private long id;

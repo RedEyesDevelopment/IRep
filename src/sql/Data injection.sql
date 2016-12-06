@@ -1,4 +1,4 @@
-USE `ideaperository`;
+USE `idearepository`;
 
 insert into USERS (USER_NAME, LOGIN, PSWD) values ('qwerty', 'qwerty', 'qwerty');
 insert into USERS (USER_NAME, LOGIN, PSWD) values ('abs', 'abs', 'abs');

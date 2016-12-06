@@ -15,7 +15,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 13.11.2016.
  */
 @Entity
-@Table(name = "tags")
+@Table(name = "TAGS")
 public class Tag implements Serializable{
     @JsonView(JSONViews.List.class)
     private Long id;
@@ -58,7 +58,7 @@ public class Tag implements Serializable{
     }
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "tag_magazine", joinColumns = @JoinColumn(name = "TAG_MAG_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_IDEA_ID"))
+    @JoinTable(name = "TAG_MAGAZINE", joinColumns = @JoinColumn(name = "TAG_MAG_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_IDEA_ID"))
     public Set<Idea> getIdeas() {
         return ideas;
     }

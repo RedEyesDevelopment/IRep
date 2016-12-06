@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Created by Gvozd on 27.11.2016.
  */
 @Entity
-@Table(name = "contents")
+@Table(name = "CONTENTS")
 public class Content implements Serializable {
     @JsonView
     private Long id;

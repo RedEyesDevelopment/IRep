@@ -14,7 +14,7 @@ import static javax.persistence.GenerationType.IDENTITY;
  * Created by Gvozd on 26.03.2016.
  */
 @Entity
-@Table(name = "users")
+@Table(name = "USERS")
 public class User implements Serializable {
     @JsonView(JSONViews.List.class)
     private Long id;

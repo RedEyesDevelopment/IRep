@@ -35,9 +35,6 @@
         <property name="configLocation">
             <value>classpath:hibernate.cfg.xml</value>
         </property>
-        <property name="configurationClass">
-            <value>org.hibernate.cfg.Configuration</value>
-        </property>
     </bean>
 
     <!-- Непосредственно бин dataSource -->

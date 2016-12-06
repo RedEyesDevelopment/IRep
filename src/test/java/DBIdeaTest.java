@@ -26,7 +26,7 @@ public class DBIdeaTest {
     public void TestFindIdeaById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 3L;
+        Long searchableId = 1L;
         Idea idea = service.getIdeaById(searchableId);
         System.out.println(idea.toString());
     }
@@ -58,7 +58,7 @@ public class DBIdeaTest {
     public void getIdeaWatchIt() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        Long searchableId = 2L;
+        Long searchableId = 3L;
         service.watch(searchableId);
     }
 
@@ -102,7 +102,7 @@ public class DBIdeaTest {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         TagService tservice = (TagService) appContext.getBean("tagService");
-        Long searchableId = new Long(4);
+        Long searchableId = new Long(1);
 
         Tag tag = tservice.getTagById(5L);
         Set<Tag> tags = new HashSet<Tag>();

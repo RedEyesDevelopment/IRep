@@ -6,7 +6,7 @@
     <head>
     <meta charset="utf-8">
         <title>Example :: Spring Application</title>
-        <spring:url value="/res/index.css" var="mainCss" />
+        <spring:url value="/res/simple.css" var="mainCss" />
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
     </head>

@@ -1,11 +1,8 @@
 package irepdata.dao;
 
 import irepdata.model.Comment;
-import irepdata.model.Idea;
-import irepdata.model.User;
 
 import java.util.List;
-import java.util.SortedSet;
 
 /**
  * Created by Gvozd on 13.11.2016.

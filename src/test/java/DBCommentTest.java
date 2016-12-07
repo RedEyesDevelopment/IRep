@@ -2,6 +2,7 @@ import irepdata.model.Comment;
 import irepdata.service.CommentService;
 import irepdata.service.IdeaService;
 import irepdata.service.UserService;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -11,8 +12,10 @@ import java.util.List;
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public class DBCommentTest {
+public class DBCommentTest{
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
+
+    
     @Test
     @SuppressWarnings("resource")
     public void TestCommentFindById() {

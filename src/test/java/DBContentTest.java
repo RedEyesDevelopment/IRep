@@ -7,7 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public class DBContentTest {
+public class DBContentTest{
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")

@@ -1,7 +1,6 @@
 package irepdata.service;
 
 import irepdata.dao.CommentDao;
-import irepdata.dao.IdeaDao;
 import irepdata.model.Comment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

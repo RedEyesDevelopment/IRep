@@ -1,5 +1,5 @@
 DROP DATABASE IF EXISTS `idearepository`;
-CREATE DATABASE `idearepository` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ;
+CREATE DATABASE `idearepository` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 USE `idearepository`;
 

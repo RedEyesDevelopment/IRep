@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public class DBTagTest {
+public class DBTagTest{
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")

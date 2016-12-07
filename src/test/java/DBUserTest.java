@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Gvozd on 13.11.2016.
  */
-public class DBUserTest {
+public class DBUserTest{
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
     @Test
     @SuppressWarnings("resource")

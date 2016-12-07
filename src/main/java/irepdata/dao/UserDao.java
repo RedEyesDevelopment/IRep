@@ -3,8 +3,6 @@ package irepdata.dao;
 import irepdata.model.User;
 
 import java.util.List;
-import java.util.Set;
-import java.util.SortedSet;
 
 /**
  * Created by Gvozd on 13.11.2016.

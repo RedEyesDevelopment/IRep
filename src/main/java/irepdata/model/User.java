@@ -2,6 +2,8 @@ package irepdata.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.views.JSONViews;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;

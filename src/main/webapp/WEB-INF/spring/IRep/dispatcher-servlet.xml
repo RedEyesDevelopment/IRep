@@ -20,7 +20,7 @@
                 <beans:property name="suffix"><beans:value>.jsp</beans:value></beans:property>
         </beans:bean>
 
-        <!-- AJAX ObjectToJSON handlers
+        <!-- AJAX ObjectToJSON handlers -->
         <beans:bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
                 <beans:property name="messageConverters">
                         <beans:list>
@@ -35,7 +35,7 @@
         </beans:bean>
 
 
-         File Uploading Resolver
+<!--         File Uploading Resolver
         <beans:bean id="multipartResolver"
               class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
                 <beans:property name="maxUploadSize" value="3000000"/>

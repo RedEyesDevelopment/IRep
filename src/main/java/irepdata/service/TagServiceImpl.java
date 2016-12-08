@@ -4,6 +4,7 @@ import irepdata.dao.TagDao;
 import irepdata.model.Tag;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Service
 public class TagServiceImpl implements TagService {
-    private final static Log logger = LogFactory.getLog(TagServiceImpl.class);
+    private final static Logger logger = Logger.getLogger(TagServiceImpl.class);
 
     @Autowired
     private TagDao tagDao;

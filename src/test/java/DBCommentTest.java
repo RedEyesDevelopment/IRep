@@ -15,7 +15,6 @@ import java.util.List;
 public class DBCommentTest{
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
 
-    
     @Test
     @SuppressWarnings("resource")
     public void TestCommentFindById() {

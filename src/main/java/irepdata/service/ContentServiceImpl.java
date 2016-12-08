@@ -4,6 +4,7 @@ import irepdata.dao.ContentDao;
 import irepdata.model.Content;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class ContentServiceImpl implements ContentService {
-    private final static Log logger = LogFactory.getLog(ContentServiceImpl.class);
+    private final static Logger logger = Logger.getLogger(ContentServiceImpl.class);
 
     @Autowired
     private ContentDao contentDao;

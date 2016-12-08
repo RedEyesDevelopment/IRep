@@ -1,7 +1,10 @@
 package irepdata.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.views.JSONViews;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -25,7 +28,7 @@ public class Tag implements Serializable{
     private Timestamp created;
     @JsonView(JSONViews.Admin.class)
     private boolean enabled;
-    @JsonView(JSONViews.List.class)
+    @JsonIgnore
     private Set<Idea> ideas = new HashSet<Idea>();
 
     @Id

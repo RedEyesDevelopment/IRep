@@ -17,9 +17,7 @@ import java.util.Set;
  * Created by Gvozd on 13.11.2016.
  */
 public class DBIdeaTest{
-
     private static final String ROOTCONTEXT = new String("DaoServiceTestResources/test-spring-root-context.xml");
-
 
     @Test
     @SuppressWarnings("resource")

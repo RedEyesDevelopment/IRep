@@ -3,6 +3,7 @@ package irepdata.dao;
 import irepdata.model.Content;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import javax.annotation.Resource;
  */
 @Repository
 public class ContentDaoImpl implements ContentDao {
-    private final static Log logger = LogFactory.getLog(ContentDaoImpl.class);
+    private final static Logger logger = Logger.getLogger(ContentDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

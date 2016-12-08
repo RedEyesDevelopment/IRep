@@ -3,6 +3,7 @@ package irepdata.dao;
 import irepdata.model.Comment;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Repository
 public class CommentDaoImpl implements CommentDao {
-    private final static Log logger = LogFactory.getLog(CommentDaoImpl.class);
+    private final static Logger logger = Logger.getLogger(CommentDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

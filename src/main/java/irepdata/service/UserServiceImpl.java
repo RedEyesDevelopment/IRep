@@ -4,6 +4,7 @@ import irepdata.dao.UserDao;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 @Service
 public class UserServiceImpl implements UserService {
-    private final static Log logger = LogFactory.getLog(UserServiceImpl.class);
+    private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserDao userDao;

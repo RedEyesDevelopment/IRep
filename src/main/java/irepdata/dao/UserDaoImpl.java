@@ -3,6 +3,7 @@ package irepdata.dao;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ import java.util.List;
  */
 @Repository
 public class UserDaoImpl implements UserDao {
-    private final static Log logger = LogFactory.getLog(UserDaoImpl.class);
+    private final static Logger logger = Logger.getLogger(UserDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;

@@ -6,6 +6,7 @@ import irepdata.model.Tag;
 import irepdata.model.User;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +19,7 @@ import java.util.Set;
  */
 @Service
 public class IdeaServiceImpl implements IdeaService {
-    private final static Log logger = LogFactory.getLog(IdeaServiceImpl.class);
+    private final static Logger logger = Logger.getLogger(IdeaServiceImpl.class);
 
     @Autowired
     private IdeaDao ideaDao;

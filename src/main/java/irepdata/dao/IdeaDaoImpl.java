@@ -4,9 +4,6 @@ import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,7 +20,6 @@ import java.util.Set;
  */
 @Repository
 public class IdeaDaoImpl implements IdeaDao {
-    private final static Logger logger = Logger.getLogger(IdeaDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -69,7 +65,6 @@ public class IdeaDaoImpl implements IdeaDao {
         idea.setContent(contentObj);
         session.save(idea);
         session.getTransaction().commit();
-        logger.info("Idea saved with id: " + idea.getId());
     }
 
     @Override

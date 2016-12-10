@@ -24,7 +24,6 @@ public class IdeaSortCriteria {
     }
 
     public boolean isValid(){
-        System.out.println("IdeaSortCriteria validation");
         if ((orderingParameter !=null) & (ascend!=null)) {
             return true;
         } else return false;

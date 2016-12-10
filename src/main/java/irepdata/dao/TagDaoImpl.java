@@ -1,9 +1,6 @@
 package irepdata.dao;
 
 import irepdata.model.Tag;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +14,6 @@ import java.util.List;
  */
 @Repository
 public class TagDaoImpl implements TagDao {
-    private final static Logger logger = Logger.getLogger(TagDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -47,7 +43,6 @@ public class TagDaoImpl implements TagDao {
     @Override
     public void createTag(Tag tag) {
         sessionFactory.getCurrentSession().saveOrUpdate(tag);
-        logger.info("Tag saved with id: " + tag.getId());
     }
 
     @Override

@@ -1,9 +1,6 @@
 package irepdata.dao;
 
 import irepdata.model.Content;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +13,6 @@ import javax.annotation.Resource;
  */
 @Repository
 public class ContentDaoImpl implements ContentDao {
-    private final static Logger logger = Logger.getLogger(ContentDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
@@ -41,18 +37,6 @@ public class ContentDaoImpl implements ContentDao {
     public void createContent(Content content) {
         sessionFactory.getCurrentSession().save(content);
     }
-
-//    @Override
-//    public boolean deleteContent(Long ideaId) {
-//        String hql = "DELETE FROM Content " +
-//                "WHERE id = :idea_id";
-//        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-//        query.setParameter("idea_id", ideaId);
-//        int result = query.executeUpdate();
-//        if (result>0){
-//            return true;
-//        } else return false;
-//    }
 
     @Override
     public boolean updateContent(Long ideaId, String content) {

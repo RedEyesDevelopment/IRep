@@ -1,8 +1,6 @@
 package irepdata.views;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import irepdata.service.UserServiceImpl;
-import org.apache.log4j.Logger;
 
 import java.util.List;
 
@@ -10,23 +8,18 @@ import java.util.List;
  * Created by Admin on 08.12.2016.
  */
 public class AjaxResponseBody<T> {
-    private final static Logger logger = Logger.getLogger(UserServiceImpl.class);
 
-    @JsonView(JSONViews.List.class)
+    @JsonView
     private String msg;
 
-    @JsonView(JSONViews.List.class)
+    @JsonView
     private String code;
 
-    @JsonView(JSONViews.List.class)
+    @JsonView
     private List<T> result;
 
     public String getMsg() {
         return msg;
-    }
-
-    public AjaxResponseBody() {
-    logger.info("Creating AjaxResponseBody");
     }
 
     public void setMsg(String msg) {

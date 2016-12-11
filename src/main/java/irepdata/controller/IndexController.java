@@ -45,9 +45,7 @@ public class IndexController {
             User userToAutorize = userService.getUserByLogin(login);
             if (userToAutorize != null) {
                 if (userToAutorize.getPassword().equals(password)) {
-                    String session = request.getSession().getId();
                     request.getSession().setAttribute("LOGGEDIN_USER", login);
-//                    response.addCookie(new Cookie("JSESSIONID", session));
                     System.out.println("redirect:/ideas/list");
                     return "redirect:/ideas/list";
                 }

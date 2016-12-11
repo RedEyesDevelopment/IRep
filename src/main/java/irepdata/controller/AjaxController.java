@@ -3,6 +3,7 @@ package irepdata.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.model.Idea;
 import irepdata.service.*;
+import irepdata.views.IdeaSortByUserCriteria;
 import irepdata.views.IdeaSortCriteria;
 import irepdata.views.JSONViews;
 import org.apache.log4j.Logger;
@@ -39,12 +40,49 @@ public class AjaxController {
     @JsonView(JSONViews.List.class)
     @ResponseBody
     @RequestMapping(value = PREFIX + "sortenabledideas", method= RequestMethod.POST)
-    public ResponseEntity getSearchResultViaAjax(@RequestBody IdeaSortCriteria ideaSortCriteria) {
-        logger.info("InAJAX controller");
+    public ResponseEntity getIdeasWDSearchResultViaAjax(@RequestBody IdeaSortCriteria ideaSortCriteria) {
         ResponseEntity resulting;
 
         if (ideaSortCriteria.isValid()) {
             List<Idea> ideas = ideaService.getSortedIdeaListWithoutDisabled(ideaSortCriteria.isAscend(), ideaSortCriteria.getOrderingParameter());
+            if (ideas.size() > 0) {
+                resulting = new ResponseEntity(ideas, HttpStatus.OK);
+            } else {
+                resulting = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        } else {
+            resulting = new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        return resulting;
+    }
+
+    @JsonView(JSONViews.Admin.class)
+    @ResponseBody
+    @RequestMapping(value = PREFIX + "sortideas", method= RequestMethod.POST)
+    public ResponseEntity getIdeasSearchResultViaAjax(@RequestBody IdeaSortCriteria ideaSortCriteria) {
+        ResponseEntity resulting;
+
+        if (ideaSortCriteria.isValid()) {
+            List<Idea> ideas = ideaService.getSortedIdeaList(ideaSortCriteria.isAscend(), ideaSortCriteria.getOrderingParameter());
+            if (ideas.size() > 0) {
+                resulting = new ResponseEntity(ideas, HttpStatus.OK);
+            } else {
+                resulting = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
+        } else {
+            resulting = new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        return resulting;
+    }
+
+    @JsonView(JSONViews.Admin.class)
+    @ResponseBody
+    @RequestMapping(value = PREFIX + "sortideasbyuser", method= RequestMethod.POST)
+    public ResponseEntity getIdeasSortByUserResultViaAjax(@RequestBody IdeaSortByUserCriteria ideaSortCriteria) {
+        ResponseEntity resulting;
+
+        if (ideaSortCriteria.isValid()) {
+            List<Idea> ideas = ideaService.getSortedIdeaListByUsername(ideaSortCriteria.isAscend());
             if (ideas.size() > 0) {
                 resulting = new ResponseEntity(ideas, HttpStatus.OK);
             } else {

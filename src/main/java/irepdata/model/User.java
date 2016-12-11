@@ -2,8 +2,6 @@ package irepdata.model;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.views.JSONViews;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -30,9 +28,9 @@ public class User implements Serializable {
     private boolean admin;
     @JsonView(JSONViews.Admin.class)
     private boolean enabled;
-    @JsonView(JSONViews.Data.class)
+    @JsonView(JSONViews.Full.class)
     private Set<Idea> ideas = new HashSet<Idea>();
-    @JsonView(JSONViews.Admin.class)
+    @JsonView(JSONViews.Full.class)
     private Set<Comment> comments = new HashSet<Comment>();
 
     @Id

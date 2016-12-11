@@ -10,5 +10,7 @@ public class JSONViews {
 
     public static class Admin extends Data{};
 
+    public static class Full extends Admin{};
+
 
 }

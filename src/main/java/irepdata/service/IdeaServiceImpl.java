@@ -4,8 +4,6 @@ import irepdata.dao.IdeaDao;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +59,11 @@ public class IdeaServiceImpl implements IdeaService {
     @Transactional
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter) {
         return ideaDao.getSortedIdeaList(ascend, orderingParameter);
+    }
+
+    @Transactional
+    public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
+        return ideaDao.getSortedIdeaListByUsername(ascend);
     }
 
     @Transactional

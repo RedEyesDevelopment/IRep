@@ -1,56 +1,44 @@
-//package irepdata.controller;
-//
-//import irepdata.service.*;
-//import org.apache.commons.logging.Log;
-//import org.apache.commons.logging.LogFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.validation.BindingResult;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//
-//import java.util.Map;
-//
-///**
-// * Created by Gvozd on 04.12.2016.
-// */
-//
-//@Controller
-//public class MainController{
-//    public static final String URLCLASSPREFIX = "/ideas/" ;
-//    final Log logger = LogFactory.getLog(MainController.class);
-//
-//    @Autowired
-//    private IdeaService ideaService;
-//    @Autowired
-//    private UserService userService;
-//    @Autowired
-//    private TagService tagService;
-//    @Autowired
-//    private CommentService commentService;
-//    @Autowired
-//    private ContentService contentService;
-//
-//    @RequestMapping("/list")
-//    public String listPlaces(Map<String, Object> map) {
-//        map.put("placeList", placeService.listPlace());
-//
-//        return "places";
-//    }
-//
-//    @RequestMapping(URLCLASSPREFIX+"/")
-//    public String homeSlash() {
-//        return "redirect:"+URLCLASSPREFIX+"/list";
-//    }
-//
-//
-//
-//    @RequestMapping("/hello")
-//    public String hello() {
-//        return "hello";
-//    }
+package irepdata.controller;
+
+import irepdata.service.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.Map;
+
+/**
+ * Created by Gvozd on 04.12.2016.
+ */
+
+@Controller
+public class MainController {
+    public static final String URLCLASSPREFIX = "/ideas/";
+    final Log logger = LogFactory.getLog(MainController.class);
+
+    @Autowired
+    private IdeaService ideaService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private TagService tagService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private ContentService contentService;
+
+    @RequestMapping(URLCLASSPREFIX + "logout")
+    public String mainToIndexLogout() {
+        return "redirect:/logout";
+    }
+
+    @RequestMapping(URLCLASSPREFIX + "list")
+    public String hello(Map<String, Object> map) {
+        map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
+        return "idealistpage";
+    }
 //
 //    @RequestMapping("/adding")
 //    public String adding() {
@@ -82,4 +70,4 @@
 //
 //        return "redirect:/list";
 //    }
-//}
+}

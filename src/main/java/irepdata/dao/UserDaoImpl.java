@@ -71,6 +71,12 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
+    @Override
+    public User getUserByLogin(String login) {
+        User user = (User) sessionFactory.getCurrentSession().createQuery("select distinct c from User c where c.login=:login").setParameter("login", login).uniqueResult();
+        return user;
+    }
+
     public User getUserAndIdeasById(Long id) {
         Query query = sessionFactory.getCurrentSession().createQuery("select distinct u from User u left join fetch u.ideas i where u.id = :user_id").setParameter("user_id", id);
         return (User) query.uniqueResult();

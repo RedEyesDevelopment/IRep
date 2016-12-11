@@ -2,8 +2,6 @@ package irepdata.service;
 
 import irepdata.dao.UserDao;
 import irepdata.model.User;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +46,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public User getUserById(Long id) {
         return userDao.getUserById(id);
+    }
+
+    @Transactional
+    public User getUserByLogin(String login) {
+        return userDao.getUserByLogin(login);
     }
 
     @Transactional

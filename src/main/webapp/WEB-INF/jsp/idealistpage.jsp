@@ -21,6 +21,7 @@
 </head>
 
 <body>
+<%@include file="/WEB-INF/jsp/includes/userMenu.jsp" %>
 <div id="feedback">
     <h3>
         <spring:message code="label.ideas"/>

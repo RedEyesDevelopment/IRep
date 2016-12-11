@@ -2,6 +2,7 @@ package irepdata.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.model.Idea;
+import irepdata.model.Tag;
 import irepdata.service.*;
 import irepdata.views.IdeaSortByUserCriteria;
 import irepdata.views.IdeaSortCriteria;
@@ -91,6 +92,21 @@ public class AjaxController {
         } else {
             resulting = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        return resulting;
+    }
+
+    @JsonView(JSONViews.Admin.class)
+    @ResponseBody
+    @RequestMapping(value = PREFIX + "tagscloud", method= RequestMethod.POST)
+    public ResponseEntity getTagsCloudViaAjax() {
+        ResponseEntity resulting;
+
+        List<Tag> tags = tagService.getSortedTagList("id", true, true);
+            if (tags.size() > 0) {
+                resulting = new ResponseEntity(tags, HttpStatus.OK);
+            } else {
+                resulting = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         return resulting;
     }
 }

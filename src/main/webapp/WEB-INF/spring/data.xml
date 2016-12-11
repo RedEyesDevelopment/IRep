@@ -36,8 +36,6 @@
         <property name="packagesToScan" value="irepdata.model" />
     </bean>
 
-
-
     <!-- Непосредственно бин dataSource -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
         <property name="driverClass" value="${jdbc.driverClassName}"/>

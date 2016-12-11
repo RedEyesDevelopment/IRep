@@ -11,4 +11,5 @@
         <mapping class="irepdata.model.Tag" />
         <mapping class="irepdata.model.User" />
     </session-factory>
+    <!--<property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>-->
 </hibernate-configuration>

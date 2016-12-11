@@ -23,7 +23,7 @@
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url : "${home}ajaxapi/sortenabledideas",
+			url : "/ajaxapi/sortenabledideas",
 			data : JSON.stringify(search),
 			dataType : 'json',
 			timeout : 100000,

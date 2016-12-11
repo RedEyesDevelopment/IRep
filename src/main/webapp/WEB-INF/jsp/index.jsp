@@ -18,6 +18,11 @@
         <br>
         <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
         </div>
+
+        <form action="login" method="post">
+        <input type="text" name="login" value="login"><br>
+        <input type="text" name="password" value="password"><br>
+        <input type="submit">
     </body>
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>
 </html>

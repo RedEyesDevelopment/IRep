@@ -19,7 +19,7 @@
 //
 //@Controller
 //public class MainController{
-//    public static final String URLCLASSPREFIX = "/ideas" ;
+//    public static final String URLCLASSPREFIX = "/ideas/" ;
 //    final Log logger = LogFactory.getLog(MainController.class);
 //
 //    @Autowired

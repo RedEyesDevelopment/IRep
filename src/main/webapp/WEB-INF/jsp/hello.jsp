@@ -8,10 +8,16 @@
     <meta charset="utf-8">
     <title>Example :: Spring Application</title>
     <spring:url value="/res/simple.css" var="mainCss"/>
-    <spring:url value="/res/indexPage/index.gif" var="mainGif"/>
     <link href="${mainCss}" rel="stylesheet" type="text/css"/>
+
+    <spring:url value="/res/indexPage/index.gif" var="mainGif"/>
+
+
     <spring:url value="https://code.jquery.com/jquery-1.10.2.min.js" var="jqueryJs"/>
     <script src="${jqueryJs}"></script>
+
+    <spring:url value="/res/js/ideaListAjaxQuery.js" var="ideaListAjaxQueryJS"/>
+        <script src="${ideaListAjaxQueryJS}"></script>
 </head>
 
 <body>
@@ -113,62 +119,5 @@
 </body>
 
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>
-
-<script>	jQuery(document).ready(function($) {
-
-        		$("#search-form").submit(function(event) {
-
-        			// Disble the search button
-        			enableSearchButton(false);
-
-        			// Prevent the form from submitting via the browser.
-        			event.preventDefault();
-
-        			searchViaAjax();
-
-        		});
-
-        	});
-
-        	function searchViaAjax() {
-
-        		var search = {}
-        		search["orderingParameter"] = $("#orderingParameter").val();
-        		search["ascend"] = $("#ascend").val();
-
-        		$.ajax({
-        			type : "POST",
-        			contentType : "application/json",
-        			url : "${home}ajaxapi/sortenabledideas",
-        			data : JSON.stringify(search),
-        			dataType : 'json',
-        			timeout : 100000,
-        			success : function(data) {
-        				console.log("SUCCESS: ", data);
-        				display(data);
-        			},
-        			error : function(e) {
-        				console.log("ERROR: ", e);
-        				display(e);
-        			},
-        			done : function(e) {
-        				console.log("DONE");
-        				enableSearchButton(true);
-        			}
-        		});
-
-        	}
-
-        	function enableSearchButton(flag) {
-        		$("#btn-search").prop("disabled", flag);
-        	}
-
-        	function display(data) {
-        		var json = "<h4>Ajax Response</h4><pre>"
-        				+ JSON.stringify(data, null, 4) + "</pre>";
-        		$('#feedback').html(json);
-        	}
-</script>
-
 
 </html>

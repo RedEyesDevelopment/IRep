@@ -6,9 +6,15 @@
 <spring:url value="/res/greetingSection/userMenuGreeting.css" var="greetingCss" />
         <link href="${greetingCss}" rel="stylesheet" type="text/css"/>
         <link rel="icon" type="image/x-icon" href="/res/favicon.ico" />
+
+        <spring:url value="/res/fileupload/dir.png" var="folderPic" />
+
 </head>
 <body>
 <div class="greetingblock">
+<a href="/ideas/fileupload"><img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"></a>
+
+
 <%
 String username = (String) request.getSession().getAttribute("LOGGEDIN_USER");
 java.util.Calendar currTime = new java.util.GregorianCalendar();

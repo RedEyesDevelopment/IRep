@@ -49,6 +49,8 @@
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
+    <!-- Ресурс сервлет-->
+    <!-- Dynamic Resources Servlet -->
     <!-- Фильтр безопасности Spring Security-->
 <!--
     <filter>

@@ -46,6 +46,7 @@ public class IndexController {
             if (userToAutorize != null) {
                 if (userToAutorize.getPassword().equals(password)) {
                     request.getSession().setAttribute("LOGGEDIN_USER", login);
+                    request.getSession().setAttribute("USER_ID", userToAutorize.getId());
                     System.out.println("redirect:/ideas/list");
                     return "redirect:/ideas/list";
                 }

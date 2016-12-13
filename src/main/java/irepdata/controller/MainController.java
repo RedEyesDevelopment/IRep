@@ -39,6 +39,11 @@ public class MainController {
         map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
         return "idealistpage";
     }
+
+    @RequestMapping(URLCLASSPREFIX + "fileupload")
+    public String fileUploadPAge() {
+        return "fileupload";
+    }
 //
 //    @RequestMapping("/adding")
 //    public String adding() {

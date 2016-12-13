@@ -18,9 +18,12 @@
         <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
         </div>
 
+        Test login: qwerty
+        Test password: qwerty
+
         <form action="login" method="post">
-        <input type="text" name="login" value="login"><br>
-        <input type="password" name="password" value="password"  onfocus="this.value=''"><br>
+        <input type="text" name="login" value="login" onfocus="this.value=''"><br>
+        <input type="password" name="password" value="password" onfocus="this.value=''"><br>
         <input type="submit">
     </body>
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>

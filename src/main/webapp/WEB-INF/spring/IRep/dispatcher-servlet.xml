@@ -12,7 +12,9 @@
     <beans:import resource="controllers.xml"/>
     <!-- the application context definition for the springtestapp DispatcherServlet -->
 
+
     <resources mapping="/res/**" location="/res/"/>
+    <resources mapping="/dynamic/**" location="file:/opt/dynamic/"/>
 
     <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="viewClass">
@@ -47,12 +49,10 @@
         <beans:property name="supportedMediaTypes" value="application/json"/>
     </beans:bean>
 
-
-    <!--         File Uploading Resolver
-            <beans:bean id="multipartResolver"
-                  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-                    <beans:property name="maxUploadSize" value="3000000"/>
-
-            </beans:bean> -->
+    <!--         File Uploading Resolver -->
+    <beans:bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <beans:property name="maxUploadSize" value="3000000"/>
+    </beans:bean>
 
 </beans:beans>

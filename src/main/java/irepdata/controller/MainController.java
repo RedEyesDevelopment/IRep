@@ -42,11 +42,6 @@ public class MainController {
         return "idealistpage";
     }
 
-    @RequestMapping(URLCLASSPREFIX + "fileupload")
-    public String fileUploadPAge() {
-        return "fileupload";
-    }
-
     @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
     public String selectPlace(@PathVariable("ideaId") Long ideaId, Map<String, Object> map) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);

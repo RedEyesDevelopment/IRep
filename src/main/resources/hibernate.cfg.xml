@@ -10,6 +10,7 @@
         <mapping class="irepdata.model.Idea" />
         <mapping class="irepdata.model.Tag" />
         <mapping class="irepdata.model.User" />
+        <mapping class="irepdata.model.Image" />
     </session-factory>
     <!--<property name="hibernate.dialect">org.hibernate.dialect.DB2Dialect</property>-->
 </hibernate-configuration>

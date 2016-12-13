@@ -14,7 +14,7 @@
 
 
     <resources mapping="/res/**" location="/res/"/>
-    <resources mapping="/dynamic/**" location="file:/home/dynamic/"/>
+    <resources mapping="/dynamic/**" location="/dynamic/"/>
 
     <beans:bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <beans:property name="viewClass">

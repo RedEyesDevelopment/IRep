@@ -119,7 +119,6 @@
 </div>
 </body>
 
-<%@include file="/WEB-INF/jsp/includes/gallery.jsp" %>
 
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>
 

@@ -49,6 +49,7 @@ public class IndexController {
                     request.getSession().setAttribute("USER_ID", userToAutorize.getId());
                     request.getSession().setAttribute("IS_ADMIN", userToAutorize.isAdmin());
                     System.out.println("redirect:/ideas/list");
+                    System.out.println(request.getSession().getAttribute("USER_ID"));
                     return "redirect:/ideas/list";
                 }
             }

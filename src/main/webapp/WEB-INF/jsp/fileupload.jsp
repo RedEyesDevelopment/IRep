@@ -1,5 +1,6 @@
-page contentType="text/html;charset=UTF-8" language="java"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf8"
+	pageEncoding="utf8"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 
@@ -8,7 +9,7 @@ page contentType="text/html;charset=UTF-8" language="java"
 <body>
 	<form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
 		File to upload: <input type="file" name="file"><br />
-
+<input type="checkbox"  name="publicity" value="publicity" checked="checked" />
                 <input type="submit" value="Upload">
 		Press here to upload the file!
 	</form>

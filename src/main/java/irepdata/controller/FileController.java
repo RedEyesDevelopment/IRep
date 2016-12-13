@@ -32,7 +32,7 @@ public class FileController {
 
                 name = file.getOriginalFilename();
 
-                String rootPath = "/opt/dynamic/";  //try also "C:\path\"
+                String rootPath = "/home/dynamic/";  //try also "C:\path\"
                 File dir = new File(rootPath + File.separator);
 
                 if (!dir.exists()) {

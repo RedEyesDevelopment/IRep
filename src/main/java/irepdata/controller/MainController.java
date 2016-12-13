@@ -1,10 +1,12 @@
 package irepdata.controller;
 
+import irepdata.model.Idea;
 import irepdata.service.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Map;
@@ -44,7 +46,15 @@ public class MainController {
     public String fileUploadPAge() {
         return "fileupload";
     }
-//
+
+    @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
+    public String selectPlace(@PathVariable("ideaId") Long ideaId, Map<String, Object> map) {
+        Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
+        logger.info(idea.getName() + " in maincontroller - loaded!");
+        map.put("searchable", idea);
+        return "showidea";
+    }
+
 //    @RequestMapping("/adding")
 //    public String adding() {
 //        Place place = new Place();

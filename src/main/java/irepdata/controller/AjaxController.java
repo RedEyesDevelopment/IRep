@@ -45,6 +45,7 @@ public class AjaxController {
         ResponseEntity resulting;
 
         if (ideaSortCriteria.isValid()) {
+            System.out.println("Criteria is valid");
             List<Idea> ideas = ideaService.getSortedIdeaListWithoutDisabled(ideaSortCriteria.isAscend(), ideaSortCriteria.getOrderingParameter());
             if (ideas.size() > 0) {
                 resulting = new ResponseEntity(ideas, HttpStatus.OK);

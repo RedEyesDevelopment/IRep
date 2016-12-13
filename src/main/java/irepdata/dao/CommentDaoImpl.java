@@ -30,7 +30,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Comment getCommentById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct c from Comment c left join fetch c.author a left join fetch c.idea i where c.id = :comm_id").setParameter("comm_id", id);
+        Query query = sessionFactory.getCurrentSession().createQuery("select distinct c from Comment c left join fetch c.author a left join fetch c.showidea.jsp i where c.id = :comm_id").setParameter("comm_id", id);
         return (Comment) query.uniqueResult();
     }
 
@@ -62,7 +62,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public List<Comment> getSortedCommentsForIdea(Long ideaId, String orderingParameter, boolean ascend, boolean withoutDisabled) {
-        StringBuilder hqlbuilder = new StringBuilder("select distinct c from Comment c left join fetch c.idea i ");
+        StringBuilder hqlbuilder = new StringBuilder("select distinct c from Comment c left join fetch c.showidea.jsp i ");
         hqlbuilder.append("where i.id = " + ideaId + " ");
         if (withoutDisabled) hqlbuilder.append("and c.enabled = true ");
         hqlbuilder.append("order by c." + orderingParameter + " ");

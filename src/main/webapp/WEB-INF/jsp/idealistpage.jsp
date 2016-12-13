@@ -70,7 +70,7 @@
             <c:forEach items="${ideaList}" var="ideadata">
                 <tr>
                     <td>${ideadata.getId()}</td>
-                    <td>${ideadata.getName()}</td>
+                    <td><a href="showidea/${ideadata.id}">${ideadata.getName()}</a></td>
                     <td>${ideadata.getDescription()}</td>
                     <td>${ideadata.getImage()}</td>
                     <td>${ideadata.getTags()}</td>
@@ -118,6 +118,8 @@
     </div>
 </div>
 </body>
+
+<%@include file="/WEB-INF/jsp/includes/gallery.jsp" %>
 
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>
 

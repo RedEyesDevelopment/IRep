@@ -99,4 +99,15 @@ public class Image {
         result = 31 * result + (isPublicity() ? 1 : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Image{" +
+                "id=" + id +
+                ", imageName='" + imageName + '\'' +
+                ", posted=" + posted +
+                ", imageAuthorId=" + imageAuthorId +
+                ", publicity=" + publicity +
+                '}';
+    }
 }

@@ -18,6 +18,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,15 +32,13 @@ public class FileController {
     @Autowired
     private ImageService imageService;
 
-
     @RequestMapping(URLCLASSPREFIX + "fileupload")
     public String fileUploadPAge() {
         return "fileupload";
     }
 
     @RequestMapping(value = URLCLASSPREFIX+"uploadFile", method = RequestMethod.POST)
-    @ResponseBody
-    public String uploadFile(@RequestParam("file") MultipartFile file, String publicity, HttpServletRequest request) {// имена параметров (тут - "file") - из формы JSP.
+    public String uploadFile(@RequestParam("file") MultipartFile file, String publicity, HttpServletRequest request, HttpServletResponse response) {
 
         String name = null;
 
@@ -51,7 +50,8 @@ public class FileController {
 
                 StringBuilder rootPath = new StringBuilder(request.getServletContext().getRealPath("/").toString());
                 rootPath.append("/dynamic/");
-                File dir = new File(rootPath + File.separator);
+                System.out.println(rootPath.toString() );
+                File dir = new File(rootPath.toString() + File.separator);
 
                 if (!dir.exists()) {
                     dir.mkdirs();
@@ -69,18 +69,19 @@ public class FileController {
                 logger.info("uploaded: " + uploadedFile.getAbsolutePath());
 
                 String fileName=uploadedFile.getName();
-                String string = (String) request.getAttribute("USER_ID");
-                System.out.println(string);
-                Long userId;
+                Long userId = (Long) request.getSession().getAttribute("USER_ID");
+                System.out.println(userId.toString());
+
                 Image image = new Image();
                 image.setImageName(fileName);
-//                image.setImageAuthorId(userId);
+                image.setImageAuthorId(userId);
                 image.setPosted(new Timestamp(System.currentTimeMillis()));
                 if (!publicity.equals("")){
                     image.setPublicity(true);
                 } else image.setPublicity(false);
                 imageService.createImage(image);
-                return "redirect:/ideas/list";
+                String redirect = "redirect:/ideas/list";
+                return redirect;
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -96,11 +97,22 @@ public class FileController {
         Cookie[] cookies = request.getCookies();
         int offsetStep=1;
         for (Cookie cook:cookies){
-            if (cook.getName().equals("IMAGE_OFFSET"));
-            offsetStep=Integer.parseInt(cook.getValue());
+            if (cook.getName().equals("IMAGE_OFFSET")){
+                offsetStep=Integer.parseInt(cook.getValue());
+            }
         }
-        map.put("imageList", imageService.getImages(offsetStep));
-        String step = Integer.toString(offsetStep+ Image.MAXIMAGESSHOWINGCAPACITY);
+        System.out.println("offset is: "+offsetStep);
+        List<Image> imglist = imageService.getImages(offsetStep);
+        Long imageCount= imageService.getImageCount();
+
+        for (Image img: imglist) System.out.println(img.toString());
+
+        int newCap;
+        if (offsetStep<imageCount){
+            newCap = offsetStep+ Image.MAXIMAGESSHOWINGCAPACITY;
+        } else newCap = offsetStep;
+        map.put("imageList", imglist);
+        String step = Integer.toString(newCap);
         response.addCookie(new Cookie("IMAGE_OFFSET", step));
         return "fileslist";
     }
@@ -110,9 +122,11 @@ public class FileController {
         Cookie[] cookies = request.getCookies();
         int offsetStep=1;
         for (Cookie cook:cookies){
-            if (cook.getName().equals("IMAGE_OFFSET"));
-            offsetStep=Integer.parseInt(cook.getValue());
+            if (cook.getName().equals("IMAGE_OFFSET")){
+                offsetStep=Integer.parseInt(cook.getValue());
+            }
         }
+        if (offsetStep<1) offsetStep=1;
         map.put("imageList", imageService.getImages(offsetStep));
         String step;
         if (offsetStep<Image.MAXIMAGESSHOWINGCAPACITY) {

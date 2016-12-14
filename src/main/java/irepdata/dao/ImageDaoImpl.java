@@ -60,4 +60,11 @@ public class ImageDaoImpl implements ImageDao {
         List<Image> result = criteria.list();
         return result;
     }
+
+    @Override
+    public Long getImageCount() {
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Image");
+        Long count = (Long)query.uniqueResult();
+        return count;
+    }
 }

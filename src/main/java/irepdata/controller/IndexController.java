@@ -26,6 +26,8 @@ public class IndexController {
     private CommentService commentService;
     @Autowired
     private ContentService contentService;
+    @Autowired
+    private ImageService imageService;
 
     @RequestMapping("/index")
     public String home() {

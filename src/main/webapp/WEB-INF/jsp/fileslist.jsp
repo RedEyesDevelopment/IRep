@@ -11,7 +11,7 @@
 
     </head>
     <body>
-<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />
+<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/list"> Вернуться</a>
 <c:if test="${!empty imageList}">
 	<table class="data">
 		<tr>
@@ -19,6 +19,7 @@
 			<th><spring:message code="label.imageAuthor" /></th>
 			<th><spring:message code="label.imagePosted" /></th>
 			<th><spring:message code="label.imagePublicity" /></th>
+			<th><spring:message code="label.imageContent" /></th>
 			<th>&nbsp;</th>
 		</tr>
 		<c:forEach items="${imageList}" var="imageData">
@@ -27,11 +28,13 @@
 				<td>${imageData.imageAuthorId}</td>
 				<td>${imageData.posted}</td>
 				<td>${imageData.publicity}</td>
+
+				<td><img src="/dynamic/${imageData.imageName}" alt="${imageData.imageName}" height="100"/></td>
 			</tr>
 		</c:forEach>
 	</table>
 </c:if>
-<a href="fileapi/previouslist"><img src="${prevPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>        <a href="fileapi/nextlist"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
+<a href="previouslist"><img src="${prevPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>        <a href="nextlist"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
 
     </body>
 </html>

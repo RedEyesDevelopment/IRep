@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
@@ -37,7 +35,7 @@ public class FileController {
         return "fileupload";
     }
 
-    @RequestMapping(value = URLCLASSPREFIX+"uploadFile", method = RequestMethod.POST)
+    @RequestMapping(value = URLCLASSPREFIX + "uploadFile", method = RequestMethod.POST)
     public String uploadFile(@RequestParam("file") MultipartFile file, String publicity, HttpServletRequest request, HttpServletResponse response) {
 
         String name = null;
@@ -50,7 +48,7 @@ public class FileController {
 
                 StringBuilder rootPath = new StringBuilder(request.getServletContext().getRealPath("/").toString());
                 rootPath.append("/dynamic/");
-                System.out.println(rootPath.toString() );
+                System.out.println(rootPath.toString());
                 File dir = new File(rootPath.toString() + File.separator);
 
                 if (!dir.exists()) {
@@ -68,7 +66,7 @@ public class FileController {
 
                 logger.info("uploaded: " + uploadedFile.getAbsolutePath());
 
-                String fileName=uploadedFile.getName();
+                String fileName = uploadedFile.getName();
                 Long userId = (Long) request.getSession().getAttribute("USER_ID");
                 System.out.println(userId.toString());
 
@@ -76,7 +74,7 @@ public class FileController {
                 image.setImageName(fileName);
                 image.setImageAuthorId(userId);
                 image.setPosted(new Timestamp(System.currentTimeMillis()));
-                if (!publicity.equals("")){
+                if (!publicity.equals("")) {
                     image.setPublicity(true);
                 } else image.setPublicity(false);
                 imageService.createImage(image);
@@ -92,23 +90,30 @@ public class FileController {
         return "ERROR";
     }
 
+    @RequestMapping(URLCLASSPREFIX + "filelistfirst")
+    public String getFirstFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        Integer offsetStep = 0;
+        List<Image> imglist = imageService.getImages(offsetStep);
+        int newCap = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
+        map.put("imageList", imglist);
+        request.getSession().setAttribute("IMAGE_OFFSET", newCap);
+        request.getSession().removeAttribute("NoLessFiles");
+        return "fileslistfirst";
+    }
+
+
     @RequestMapping(URLCLASSPREFIX + "nextlist")
     public String getFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("OFFSET: "+(Integer) request.getSession().getAttribute("IMAGE_OFFSET"));
-        System.out.println("NoMoreFiles:"+request.getSession().getAttribute("NoMoreFiles"));
-        System.out.println("NoLessFiles:"+request.getSession().getAttribute("NoLessFiles"));
-        Integer offsetStep=0;
+        Integer offsetStep = 0;
         Integer step = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
-        if (step!=null){
+        if (step != null) {
             offsetStep = step;
-        };
+        }
         List<Image> imglist = imageService.getImages(offsetStep);
-        Long imageCount= imageService.getImageCount();
-
+        Long imageCount = imageService.getImageCount();
         int newCap;
-        if (offsetStep<(imageCount-(Image.MAXIMAGESSHOWINGCAPACITY-1))){
-            newCap = offsetStep+ Image.MAXIMAGESSHOWINGCAPACITY;
-            System.out.println("NEWCAP is :" + newCap);
+        if (offsetStep < (imageCount - (Image.MAXIMAGESSHOWINGCAPACITY - 1))) {
+            newCap = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
         } else {
             newCap = offsetStep;
             request.getSession().setAttribute("NoMoreFiles", true);
@@ -121,25 +126,29 @@ public class FileController {
 
     @RequestMapping(URLCLASSPREFIX + "previouslist")
     public String getPreviousFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("OFFSET: "+(Integer) request.getSession().getAttribute("IMAGE_OFFSET"));
-        System.out.println("NoMoreFiles:"+request.getSession().getAttribute("NoMoreFiles"));
-        System.out.println("NoLessFiles:"+request.getSession().getAttribute("NoLessFiles"));
-        Integer offsetStep=0;
-        if (request.getSession().getAttribute("IMAGE_OFFSET")!=null){
-            offsetStep = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
-        } else request.getSession().setAttribute("NoLessFiles", true);
-        System.out.println("offset is: "+offsetStep);
-        if (offsetStep<Image.MAXIMAGESSHOWINGCAPACITY+1) {
-            offsetStep=0;
-            request.getSession().setAttribute("NoLessFiles", true);
+        Integer offsetStep = 0;
+        Integer step = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
+        if (step != null) {
+            offsetStep = step;
+            request.getSession().removeAttribute("NoLessFiles");
         } else {
-            offsetStep = offsetStep-Image.MAXIMAGESSHOWINGCAPACITY;
+            request.getSession().setAttribute("NoLessFiles", true);
+        }
+        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY) {
+            offsetStep = 0;
+        } else {
+            offsetStep = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
+        }
+        String redirect = "fileslist";
+        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY) {
+            request.getSession().setAttribute("NoLessFiles", true);
+            redirect = "fileslistfirst";
         }
         map.put("imageList", imageService.getImages(offsetStep));
         request.getSession().setAttribute("IMAGE_OFFSET", offsetStep);
         request.getSession().removeAttribute("NoMoreFiles");
         System.out.println(offsetStep);
-        return "fileslist";
+        return redirect;
     }
 }
 

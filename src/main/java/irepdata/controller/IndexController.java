@@ -42,7 +42,6 @@ public class IndexController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userAutorization(String login, String password, HttpServletResponse response, HttpServletRequest request) {
         System.out.println("login:"+login+" pass:"+password);
-
         if (login != null && password != null) {
             User userToAutorize = userService.getUserByLogin(login);
             if (userToAutorize != null) {

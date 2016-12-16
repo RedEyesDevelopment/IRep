@@ -73,8 +73,4 @@ public class IndexController {
 //    }
 
     //* Тестовая страница, для отработки Сашей статики (Потом удалить к едрени фене)
-    @RequestMapping("/static")
-    public String staticPageForAlex() {
-        return "static";
-    }
 }

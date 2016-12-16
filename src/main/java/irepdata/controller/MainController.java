@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -37,8 +39,9 @@ public class MainController {
     }
 
     @RequestMapping(URLCLASSPREFIX + "list")
-    public String hello(Map<String, Object> map) {
+    public String hello(Map<String, Object> map, HttpServletRequest request) {
         map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
+        request.getSession().setAttribute("NoLessFiles", true);
         return "idealistpage";
     }
 

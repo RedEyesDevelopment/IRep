@@ -94,45 +94,51 @@ public class FileController {
 
     @RequestMapping(URLCLASSPREFIX + "nextlist")
     public String getFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        int offsetStep=1;
-        for (Cookie cook:cookies){
-            if (cook.getName().equals("IMAGE_OFFSET")){
-                offsetStep=Integer.parseInt(cook.getValue());
-            }
-        }
-        System.out.println("offset is: "+offsetStep);
+        System.out.println("OFFSET: "+(Integer) request.getSession().getAttribute("IMAGE_OFFSET"));
+        System.out.println("NoMoreFiles:"+request.getSession().getAttribute("NoMoreFiles"));
+        System.out.println("NoLessFiles:"+request.getSession().getAttribute("NoLessFiles"));
+        Integer offsetStep=0;
+        Integer step = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
+        if (step!=null){
+            offsetStep = step;
+        };
         List<Image> imglist = imageService.getImages(offsetStep);
         Long imageCount= imageService.getImageCount();
 
-        for (Image img: imglist) System.out.println(img.toString());
-
         int newCap;
-        if (offsetStep<imageCount){
+        if (offsetStep<(imageCount-(Image.MAXIMAGESSHOWINGCAPACITY-1))){
             newCap = offsetStep+ Image.MAXIMAGESSHOWINGCAPACITY;
-        } else newCap = offsetStep;
+            System.out.println("NEWCAP is :" + newCap);
+        } else {
+            newCap = offsetStep;
+            request.getSession().setAttribute("NoMoreFiles", true);
+        }
         map.put("imageList", imglist);
-        String step = Integer.toString(newCap);
-        response.addCookie(new Cookie("IMAGE_OFFSET", step));
+        request.getSession().setAttribute("IMAGE_OFFSET", newCap);
+        request.getSession().removeAttribute("NoLessFiles");
         return "fileslist";
     }
 
     @RequestMapping(URLCLASSPREFIX + "previouslist")
     public String getPreviousFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Cookie[] cookies = request.getCookies();
-        int offsetStep=1;
-        for (Cookie cook:cookies){
-            if (cook.getName().equals("IMAGE_OFFSET")){
-                offsetStep=Integer.parseInt(cook.getValue());
-            }
+        System.out.println("OFFSET: "+(Integer) request.getSession().getAttribute("IMAGE_OFFSET"));
+        System.out.println("NoMoreFiles:"+request.getSession().getAttribute("NoMoreFiles"));
+        System.out.println("NoLessFiles:"+request.getSession().getAttribute("NoLessFiles"));
+        Integer offsetStep=0;
+        if (request.getSession().getAttribute("IMAGE_OFFSET")!=null){
+            offsetStep = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
+        } else request.getSession().setAttribute("NoLessFiles", true);
+        System.out.println("offset is: "+offsetStep);
+        if (offsetStep<Image.MAXIMAGESSHOWINGCAPACITY+1) {
+            offsetStep=0;
+            request.getSession().setAttribute("NoLessFiles", true);
+        } else {
+            offsetStep = offsetStep-Image.MAXIMAGESSHOWINGCAPACITY;
         }
-        if (offsetStep<1) offsetStep=1;
         map.put("imageList", imageService.getImages(offsetStep));
-        String step;
-        if (offsetStep<Image.MAXIMAGESSHOWINGCAPACITY) {
-            step = "1";
-        }   else step = Integer.toString(offsetStep- Image.MAXIMAGESSHOWINGCAPACITY);
-        response.addCookie(new Cookie("IMAGE_OFFSET", step));
+        request.getSession().setAttribute("IMAGE_OFFSET", offsetStep);
+        request.getSession().removeAttribute("NoMoreFiles");
+        System.out.println(offsetStep);
         return "fileslist";
     }
 }

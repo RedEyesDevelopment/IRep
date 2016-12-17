@@ -91,7 +91,7 @@ public class DBIdeaTest{
         Set<Tag> tags = new HashSet<>();
         Tag tag = tservice.getTagById(2L);
         tags.add(tag);
-        service.createIdea("ideaName", "описание", null, tags, user, "COOONTENTT");
+        service.createIdea("ideaName", "описание", null, tags, user, "COOONTENTT", true);
     }
 
     @Test

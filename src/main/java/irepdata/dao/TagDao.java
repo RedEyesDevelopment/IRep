@@ -13,7 +13,7 @@ public interface TagDao {
     public void createTag(Tag tag);
     public boolean updateTag(Long id, String content, boolean isEnabled);
     public boolean deleteTag(Long id);
-    public void createTags(List<String> tagsData);
+    public List<> createTags(List<String> tagsData);
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled);
     public List<Tag> getTagListWithIdeaId(Long ideaId, boolean withoutDisabled);
 }

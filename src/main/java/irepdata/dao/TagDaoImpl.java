@@ -1,9 +1,11 @@
 package irepdata.dao;
 
 import irepdata.model.Tag;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -76,10 +78,12 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public void createTags(List<String> tagsData) {
+        System.out.println("in createTags!");
         for (String data:tagsData){
             Tag tag = new Tag();
             tag.setContent(data);
-            createTag(tag);
+            tag.setEnabled(true);
+            sessionFactory.getCurrentSession().saveOrUpdate(tag);
         }
     }
 
@@ -91,10 +95,15 @@ public class TagDaoImpl implements TagDao {
         if (ascend) {
             hqlbuilder.append("asc");
         } else hqlbuilder.append("desc");
-        Session session = sessionFactory.getCurrentSession();
-        session.getTransaction().begin();
-        List<Tag> result = session.createQuery(hqlbuilder.toString()).list();
-        session.getTransaction().commit();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
+        criteria.add( Restrictions.eq("enabled", true));
+        Order order;
+        if (ascend){
+             order = Order.asc(orderingParameter);
+        } else order = Order.desc(orderingParameter);
+        criteria.addOrder(order);
+        List <Tag> result = criteria.list();
+//        List<Tag> result = session.createQuery(hqlbuilder.toString()).list();
         return result;
     }
 

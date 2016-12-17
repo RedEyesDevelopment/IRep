@@ -1,9 +1,10 @@
 package irepdata.controller;
 
+import irepdata.dto.IdeaDummy;
 import irepdata.model.Idea;
+import irepdata.model.Tag;
 import irepdata.model.User;
 import irepdata.service.*;
-import irepdata.dto.IdeaDummy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by Gvozd on 04.12.2016.
@@ -69,8 +70,38 @@ public class MainController {
                               BindingResult result, HttpServletRequest request) {
         Long authorId = (Long) request.getSession().getAttribute("USER_ID");
         User author = userService.getUserById(authorId);
-        ideaService.createIdeaWithTags(ideaDummy.getName(),ideaDummy.getDescription(),ideaDummy.getImage(), ideaDummy.getTags(), author, ideaDummy.getContent(), tagService);
-        return "redirect:/list";
+        String delims = "[ ]+";
+        String tags = ideaDummy.getTags();
+        String[] tagStringList = tags.split(delims);
+        List<Tag> tagList = tagService.getSortedTagList("id", true, false);
+        List<Tag> resultList = new ArrayList<>();
+        List<String> creatingList = new ArrayList<>();
+        boolean newTagFlag = false;
+        for (String searchableTag:tagStringList){
+            System.out.println("searcheableTag(String) is "+searchableTag);
+            for (Tag tag:tagList){
+                if (tag.isEnabled()){
+                    if (tag.getContent().equals(searchableTag)){
+                        System.out.println("Tag is equal"+tag);
+                        resultList.add(tag);
+                        newTagFlag = false;
+                    } else newTagFlag = true;
+                }
+            }
+            if (newTagFlag) {
+                System.out.println("CreatingList add "+searchableTag);
+                creatingList.add(searchableTag);
+            }
+        }
+        tagService.createTags(creatingList);
+        String name = ideaDummy.getName();
+        String description = ideaDummy.getDescription();
+        String image = ideaDummy.getImage();
+        Set<Tag> tagsData = new HashSet<Tag>(resultList);
+        String content = ideaDummy.getContent();
+        Boolean enabled = ideaDummy.isEnabled();
+        ideaService.createIdea(name, description, image, tagsData, author, content, enabled);
+        return "redirect:/ideas/list";
     }
 
 }

@@ -1,7 +1,6 @@
 package irepdata.service;
 
 import irepdata.dao.IdeaDao;
-import irepdata.dao.TagDao;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -44,32 +41,8 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content) {
-        ideaDao.createIdea(name, description, image, tags, author, content);
-    }
-
-    @Transactional
-    public void createIdeaWithTags(String name, String description, String image, String tags, User author, String content, TagService tagService) {
-        String delims = "[ ]+";
-        String[] tagStringList = tags.split(delims);
-        TagDao tagDao = tagService.getTagDao();
-        List<Tag> tagList = tagDao.getSortedTagList("id", true, false);
-        List<Tag> resultList = new ArrayList<>();
-        List<String> creatingList = new ArrayList<>();
-        boolean newTagFlag = false;
-        for (String searchableTag:tagStringList){
-            for (Tag tag:tagList){
-                if (tag.isEnabled()){
-                    if (tag.getContent().equals(searchableTag)){
-                        resultList.add(tag);
-                        newTagFlag = true;
-                    } else newTagFlag = false;
-                }
-            }
-            if (newTagFlag) creatingList.add(searchableTag);
-        }
-        tagService.createTags(creatingList);
-        ideaDao.createIdea(name, description, image, new HashSet<Tag>(resultList), author, content);
+    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
+        ideaDao.createIdea(name, description, image, tags, author, content, enabled);
     }
 
     @Transactional

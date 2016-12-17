@@ -35,9 +35,9 @@
 	</table>
 </c:if>
 
-<c:if test="${!NoMoreFiles}">
+
     <a href="nextlist"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
-</c:if>
+
 
     </body>
 </html>

@@ -2,6 +2,7 @@ package irepdata.dao;
 
 import irepdata.model.Tag;
 import org.hibernate.Query;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -74,6 +75,15 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
+    public void createTags(List<String> tagsData) {
+        for (String data:tagsData){
+            Tag tag = new Tag();
+            tag.setContent(data);
+            createTag(tag);
+        }
+    }
+
+    @Override
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
         StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t ");
         if (withoutDisabled) hqlbuilder.append("where t.enabled = true ");
@@ -81,7 +91,11 @@ public class TagDaoImpl implements TagDao {
         if (ascend) {
             hqlbuilder.append("asc");
         } else hqlbuilder.append("desc");
-        return sessionFactory.getCurrentSession().createQuery(hqlbuilder.toString()).list();
+        Session session = sessionFactory.getCurrentSession();
+        session.getTransaction().begin();
+        List<Tag> result = session.createQuery(hqlbuilder.toString()).list();
+        session.getTransaction().commit();
+        return result;
     }
 
     @Override

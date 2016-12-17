@@ -9,7 +9,7 @@
 <body>
 	<form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
 		File to upload: <input type="file" name="file"><br />
-<input type="checkbox"  name="publicity" value="publicity" checked="checked" />
+<input type="checkbox"  name="publicity" value="true" checked="checked" />
                 <input type="submit" value="Upload">
 		Press here to upload the file!
 	</form>

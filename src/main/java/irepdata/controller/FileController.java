@@ -38,8 +38,11 @@ public class FileController {
     @RequestMapping(value = URLCLASSPREFIX + "uploadFile", method = RequestMethod.POST)
     public String uploadFile(@RequestParam("file") MultipartFile file, String publicity, HttpServletRequest request, HttpServletResponse response) {
 
+        Boolean publicitys = Boolean.parseBoolean(publicity);
         String name = null;
-
+        if (publicitys==null) {
+            publicitys = false;
+        }
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -75,7 +78,7 @@ public class FileController {
                 image.setImageAuthorId(userId);
                 image.setPosted(new Timestamp(System.currentTimeMillis()));
                 if (!publicity.equals("")) {
-                    image.setPublicity(true);
+                    image.setPublicity(publicitys);
                 } else image.setPublicity(false);
                 imageService.createImage(image);
                 String redirect = "redirect:/ideas/list";

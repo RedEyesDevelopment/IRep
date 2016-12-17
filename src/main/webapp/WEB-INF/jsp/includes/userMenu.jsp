@@ -9,10 +9,12 @@
 
         <spring:url value="/res/fileupload/dir.png" var="folderPic" />
         <spring:url value="/res/fileupload/add.png" var="addPic" />
+        <spring:url value="/res/favicon.ico" var="ideaPic" />
 
 </head>
 <body>
 <div class="greetingblock">
+<a href="/ideas/create"><img src="${ideaPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"></a>
 <a href="/fileapi/fileupload"><img src="${addPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"></a>
 <a href="/fileapi/filelistfirst"><img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"></a>
 

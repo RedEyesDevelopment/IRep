@@ -1,13 +1,18 @@
 package irepdata.controller;
 
 import irepdata.model.Idea;
+import irepdata.model.User;
 import irepdata.service.*;
+import irepdata.dto.IdeaDummy;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -38,7 +43,7 @@ public class MainController {
     }
 
     @RequestMapping(URLCLASSPREFIX + "list")
-    public String hello(Map<String, Object> map, HttpServletRequest request) {
+    public String listOfIdeas(Map<String, Object> map, HttpServletRequest request) {
         request.getSession().setAttribute("NoLessFiles", true);
         map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
         request.getSession().removeAttribute("IMAGE_OFFSET");
@@ -53,34 +58,19 @@ public class MainController {
         return "showidea";
     }
 
-//    @RequestMapping("/adding")
-//    public String adding() {
-//        Place place = new Place();
-//        return "adding";
-//    }
-//
-//    @RequestMapping(value = "/adding2Handler", method = RequestMethod.POST)
-//    public String addingPlace(@ModelAttribute("place") Place place,
-//                              BindingResult result) {
-//
-//        placeService.addPlace(place);
-//
-//        return "redirect:/list";
-//    }
-//
-//    @RequestMapping(value = "/select/{placeId}")
-//    public String selectPlace(@PathVariable("placeId") Integer placeId, Map<String, Object> map) {
-//        Place place = placeService.getPlace(placeId);
-//        logger.info(place.getPlacename() + " in maincontroller - loaded!");
-//        map.put("searchable", place);
-//        return "place";
-//    }
-//
-//    @RequestMapping("/delete/{placeId}")
-//    public String deletePlace(@PathVariable("placeId") Integer placeId) {
-//
-//        placeService.removePlace(placeId);
-//
-//        return "redirect:/list";
-//    }
+    @RequestMapping(URLCLASSPREFIX + "create")
+    public String createIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result) {
+        IdeaDummy ideaData = new IdeaDummy(tagService);
+        return "createidea";
+    }
+
+    @RequestMapping(value = URLCLASSPREFIX + "сreateideahandler", method = RequestMethod.POST)
+    public String addingIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy,
+                              BindingResult result, HttpServletRequest request) {
+        Long authorId = (Long) request.getSession().getAttribute("USER_ID");
+        User author = userService.getUserById(authorId);
+        ideaService.createIdeaWithTags(ideaDummy.getName(),ideaDummy.getDescription(),ideaDummy.getImage(), ideaDummy.getTags(), author, ideaDummy.getContent(), tagService);
+        return "redirect:/list";
+    }
+
 }

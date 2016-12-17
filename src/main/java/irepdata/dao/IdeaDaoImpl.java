@@ -59,7 +59,7 @@ public class IdeaDaoImpl implements IdeaDao {
         idea.toString();
         idea.setViewedCount(0L);
         Content contentObj = new Content();
-        contentObj.setContentData("Content data");
+        contentObj.setContentData(content);
         contentObj.setIdea(idea);
         session.persist(contentObj);
         idea.setContent(contentObj);

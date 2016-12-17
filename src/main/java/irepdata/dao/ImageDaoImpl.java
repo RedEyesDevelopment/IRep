@@ -4,6 +4,7 @@ import irepdata.model.Image;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -56,6 +57,7 @@ public class ImageDaoImpl implements ImageDao {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
         criteria.setMaxResults(Image.MAXIMAGESSHOWINGCAPACITY);
         criteria.setFirstResult(pagination);
+        criteria.add( Restrictions.eq("publicity", true));
         criteria.setReadOnly(true);
         List<Image> result = criteria.list();
         return result;

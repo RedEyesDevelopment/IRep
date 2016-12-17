@@ -2,8 +2,6 @@ package irepdata.service;
 
 import irepdata.dao.TagDao;
 import irepdata.model.Tag;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +46,12 @@ public class TagServiceImpl implements TagService {
     public boolean updateTag(Long id, String content, boolean isEnabled) {
         return tagDao.updateTag(id, content, isEnabled);
     }
+
+    @Transactional
+    public void createTags(List<String> tagsData) {
+        tagDao.createTags(tagsData);
+    }
+
     @Transactional
     public boolean deleteTag(Long id) {
         return tagDao.deleteTag(id);

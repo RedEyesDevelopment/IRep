@@ -120,6 +120,7 @@ public class MainController {
         idea.setDescription(description);
         idea.setTags(tagSet);
         idea.setAuthor(author);
+        idea.setImage(image);
         idea.setEnabled(enabled);
         idea.setViewedCount(0L);
         idea.setPosted(new Timestamp(System.currentTimeMillis()));

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -77,14 +78,18 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public void createTags(List<String> tagsData) {
+    public List<Long> createTags(List<String> tagsData) {
         System.out.println("in createTags!");
+        List<Long> idData = new ArrayList<>();
         for (String data:tagsData){
             Tag tag = new Tag();
             tag.setContent(data);
             tag.setEnabled(true);
             sessionFactory.getCurrentSession().saveOrUpdate(tag);
+//            System.out.println("new Tag id is "+tag.getId());
+//            idData.add(tag.getId());
         }
+        return idData;
     }
 
     @Override

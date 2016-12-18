@@ -98,6 +98,9 @@ public class MainController {
         String description = ideaDummy.getDescription();
         String image = ideaDummy.getImage();
         Set<Tag> tagsData = new HashSet<Tag>(resultList);
+        for (Tag tag:tagsData){
+            System.out.println(tag.toString());
+        }
         String content = ideaDummy.getContent();
         Boolean enabled = ideaDummy.isEnabled();
         ideaService.createIdea(name, description, image, tagsData, author, content, enabled);

@@ -43,11 +43,6 @@
         <property name="maxStatements" value="50" />
         <property name="idleConnectionTestPeriod" value="3000" />
         <property name="checkoutTimeout" value="1000"/>
-        <property name="maxwait" value="10000"/>
-        <property name="maxidle" value="25"/>
-        <property name="minidle" value="5"/>
-        <property name="idle_test_period" value="60"/>
-        <property name="acquire_increment" value="2"/>
         <property name="testConnectionOnCheckin" value="true" />
     </bean>
 

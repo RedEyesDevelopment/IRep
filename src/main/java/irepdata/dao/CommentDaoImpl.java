@@ -1,9 +1,8 @@
 package irepdata.dao;
 
 import irepdata.model.Comment;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -30,8 +29,12 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public Comment getCommentById(Long id) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select distinct c from Comment c left join fetch c.author a left join fetch c.showidea.jsp i where c.id = :comm_id").setParameter("comm_id", id);
-        return (Comment) query.uniqueResult();
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Comment.class);
+        criteria.add( Restrictions.eq("id", id));
+        criteria.setFetchMode("author", FetchMode.JOIN);
+        criteria.setFetchMode("idea", FetchMode.JOIN);
+        Comment comment = (Comment) criteria.uniqueResult();
+        return comment;
     }
 
     @Override

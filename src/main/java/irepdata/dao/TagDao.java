@@ -14,6 +14,7 @@ public interface TagDao {
     public boolean updateTag(Long id, String content, boolean isEnabled);
     public boolean deleteTag(Long id);
     public List<Long> createTags(List<String> tagsData);
+    public List<Tag> getTagList(List<String> incomingData);
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled);
     public List<Tag> getTagListWithIdeaId(Long ideaId, boolean withoutDisabled);
 }

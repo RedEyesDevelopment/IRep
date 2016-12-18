@@ -58,6 +58,11 @@ public class TagServiceImpl implements TagService {
     }
 
     @Transactional
+    public List<Tag> getTagList(List<String> incomingData) {
+        return tagDao.getTagList(incomingData);
+    }
+
+    @Transactional
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
         return tagDao.getSortedTagList(orderingParameter, ascend, withoutDisabled);
     }

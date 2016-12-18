@@ -78,32 +78,42 @@ public class MainController {
         List<String> creatingList = new ArrayList<>();
         boolean newTagFlag = false;
         for (String searchableTag:tagStringList){
+            newTagFlag = false;
             System.out.println("searcheableTag(String) is "+searchableTag);
             for (Tag tag:tagList){
                 if (tag.isEnabled()){
                     if (tag.getContent().equals(searchableTag)){
-                        System.out.println("Tag is equal"+tag);
+                        System.out.println("Tag is equal "+tag);
                         resultList.add(tag);
                         newTagFlag = false;
+                        break;
                     } else newTagFlag = true;
+                    System.out.println("newTagFlag is"+newTagFlag);
                 }
             }
-            if (newTagFlag) {
+            System.out.println("newTagFlag is"+newTagFlag);
+            if (newTagFlag==true) {
                 System.out.println("CreatingList add "+searchableTag);
                 creatingList.add(searchableTag);
             }
         }
-        tagService.createTags(creatingList);
+        Set<Tag> tagSet;
+        if (!creatingList.isEmpty()) {
+            tagService.createTags(creatingList);
+            List<Tag> persistTagList = tagService.getTagList(creatingList);
+            tagSet= new HashSet<>(persistTagList);
+        } else {
+           tagSet = new HashSet<>();
+
+        }
+        tagSet.addAll(resultList);
+
         String name = ideaDummy.getName();
         String description = ideaDummy.getDescription();
         String image = ideaDummy.getImage();
-        Set<Tag> tagsData = new HashSet<Tag>(resultList);
-        for (Tag tag:tagsData){
-            System.out.println(tag.toString());
-        }
         String content = ideaDummy.getContent();
         Boolean enabled = ideaDummy.isEnabled();
-        ideaService.createIdea(name, description, image, tagsData, author, content, enabled);
+        ideaService.createIdea(name, description, image, tagSet, author, content, enabled);
         return "redirect:/ideas/list";
     }
 

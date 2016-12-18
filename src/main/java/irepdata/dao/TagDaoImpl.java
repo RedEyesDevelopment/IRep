@@ -86,22 +86,33 @@ public class TagDaoImpl implements TagDao {
             tag.setContent(data);
             tag.setEnabled(true);
             sessionFactory.getCurrentSession().saveOrUpdate(tag);
-//            System.out.println("new Tag id is "+tag.getId());
+            System.out.println("new Tag id is "+tag.getId());
 //            idData.add(tag.getId());
         }
         return idData;
     }
 
     @Override
+    public List<Tag> getTagList(List<String> incomingData) {
+        List<Tag> result = new ArrayList<>();
+        for (String tagName:incomingData){
+            Query query = sessionFactory.getCurrentSession().createQuery("select distinct t from Tag t where t.content = :content").setParameter("content", tagName);
+            Tag tag = (Tag) query.uniqueResult();
+            result.add(tag);
+        }
+        return result;
+    }
+
+    @Override
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
-        StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t ");
-        if (withoutDisabled) hqlbuilder.append("where t.enabled = true ");
-        hqlbuilder.append("order by t." + orderingParameter + " ");
-        if (ascend) {
-            hqlbuilder.append("asc");
-        } else hqlbuilder.append("desc");
+//        StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t ");
+//        if (withoutDisabled) hqlbuilder.append("where t.enabled = true ");
+//        hqlbuilder.append("order by t." + orderingParameter + " ");
+//        if (ascend) {
+//            hqlbuilder.append("asc");
+//        } else hqlbuilder.append("desc");
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
-        criteria.add( Restrictions.eq("enabled", true));
+        if (withoutDisabled) criteria.add( Restrictions.eq("enabled", true));
         Order order;
         if (ascend){
              order = Order.asc(orderingParameter);

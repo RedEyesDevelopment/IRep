@@ -3,7 +3,6 @@ package irepdata.service;
 import irepdata.dao.IdeaDao;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
-import irepdata.model.User;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,9 +40,14 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
-        ideaDao.createIdea(name, description, image, tags, author, content, enabled);
+    public void createIdea(Idea idea) {
+        ideaDao.createIdea(idea);
     }
+
+//    @Transactional
+//    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
+//        ideaDao.createIdea(name, description, image, tags, author, content, enabled);
+//    }
 
     @Transactional
     public boolean deleteIdea(Long id) {

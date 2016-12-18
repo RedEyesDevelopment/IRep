@@ -1,12 +1,11 @@
 package irepdata.dao;
 
-import irepdata.model.Content;
-import irepdata.model.Idea;
-import irepdata.model.Tag;
-import irepdata.model.User;
+import irepdata.model.*;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -47,35 +46,38 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
-        Session session = sessionFactory.getCurrentSession();
-        Idea idea = new Idea();
-        idea.setName(name);
-        idea.setDescription(description);
-        idea.setName(name);
-        idea.setTags(tags);
-        idea.setAuthor(author);
-        idea.toString();
-        idea.setViewedCount(0L);
-        idea.setEnabled(enabled);
-        Content contentObj = new Content();
-        contentObj.setContentData(content);
-        contentObj.setIdea(idea);
-        session.persist(contentObj);
-        idea.setContent(contentObj);
-        session.save(idea);
+    public void createIdea(Idea idea) {
+        sessionFactory.getCurrentSession().saveOrUpdate(idea);
     }
+
+//    @Override
+//    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
+//        Session session = sessionFactory.getCurrentSession();
+//        Idea idea = new Idea();
+//        idea.setName(name);
+//        idea.setDescription(description);
+//        idea.setName(name);
+//        idea.setTags(tags);
+//        idea.setAuthor(author);
+//        idea.toString();
+//        idea.setViewedCount(0L);
+//        idea.setEnabled(enabled);
+//        Content contentObj = new Content();
+//        contentObj.setContentData(content);
+//        contentObj.setIdea(idea);
+//        session.persist(contentObj);
+//        idea.setContent(contentObj);
+//        session.save(idea);
+//        session.getTransaction().commit();
+//    }
 
     @Override
     public boolean deleteIdea(Long id) {
-        String hql = "DELETE FROM Idea " +
-                "WHERE id = :idea_id";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("idea_id", id);
-        int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
+        criteria.add( Restrictions.eq("id", id));
+        Idea idea = (Idea) criteria.uniqueResult();
+        sessionFactory.getCurrentSession().delete(idea);
+        return true;
     }
 
     @Override

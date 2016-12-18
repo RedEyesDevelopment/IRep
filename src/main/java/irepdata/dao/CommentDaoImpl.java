@@ -62,7 +62,7 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public List<Comment> getSortedCommentsForIdea(Long ideaId, String orderingParameter, boolean ascend, boolean withoutDisabled) {
-        StringBuilder hqlbuilder = new StringBuilder("select distinct c from Comment c left join fetch c.showidea.jsp i ");
+        StringBuilder hqlbuilder = new StringBuilder("select distinct c from Comment c left join fetch c.idea i ");
         hqlbuilder.append("where i.id = " + ideaId + " ");
         if (withoutDisabled) hqlbuilder.append("and c.enabled = true ");
         hqlbuilder.append("order by c." + orderingParameter + " ");

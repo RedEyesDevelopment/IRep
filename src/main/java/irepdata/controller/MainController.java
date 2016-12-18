@@ -1,6 +1,7 @@
 package irepdata.controller;
 
 import irepdata.dto.IdeaDummy;
+import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.sql.Timestamp;
 import java.util.*;
 
 /**
@@ -113,7 +115,21 @@ public class MainController {
         String image = ideaDummy.getImage();
         String content = ideaDummy.getContent();
         Boolean enabled = ideaDummy.isEnabled();
-        ideaService.createIdea(name, description, image, tagSet, author, content, enabled);
+        Idea idea = new Idea();
+        idea.setName(name);
+        idea.setDescription(description);
+        idea.setTags(tagSet);
+        idea.setAuthor(author);
+        idea.setEnabled(enabled);
+        idea.setViewedCount(0L);
+        idea.setPosted(new Timestamp(System.currentTimeMillis()));
+        idea.setViewed(new Timestamp(System.currentTimeMillis()));
+        idea.setLiked(0);
+        idea.setDisliked(0);
+        Content contentData = new Content();
+        contentData.setContentData(content);
+        idea.setContent(contentData);
+        ideaService.createIdea(idea);
         return "redirect:/ideas/list";
     }
 

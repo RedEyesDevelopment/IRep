@@ -2,7 +2,6 @@ package irepdata.service;
 
 import irepdata.model.Idea;
 import irepdata.model.Tag;
-import irepdata.model.User;
 
 import java.util.List;
 import java.util.Set;
@@ -13,7 +12,8 @@ import java.util.Set;
 public interface IdeaService {
     public Idea getIdeaById(Long id);
     public Idea getIdeaWithAllDataById(Long id);
-    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled);
+//    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled);
+    public void createIdea(Idea idea);
     public boolean deleteIdea(Long id);
     public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled, Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);

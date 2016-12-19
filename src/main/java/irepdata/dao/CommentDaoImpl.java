@@ -31,8 +31,8 @@ public class CommentDaoImpl implements CommentDao {
     public Comment getCommentById(Long id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Comment.class);
         criteria.add( Restrictions.eq("id", id));
-        criteria.setFetchMode("author", FetchMode.JOIN);
-        criteria.setFetchMode("idea", FetchMode.JOIN);
+//        criteria.setFetchMode("author", FetchMode.JOIN);
+//        criteria.setFetchMode("idea", FetchMode.JOIN);
         Comment comment = (Comment) criteria.uniqueResult();
         return comment;
     }

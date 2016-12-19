@@ -2,7 +2,6 @@ import irepdata.model.Comment;
 import irepdata.service.CommentService;
 import irepdata.service.IdeaService;
 import irepdata.service.UserService;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -20,7 +19,7 @@ public class DBCommentTest{
     public void TestCommentFindById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         CommentService service = (CommentService) appContext.getBean("commentService");
-        Long searchableId = 2L;
+        Long searchableId = 4L;
         Comment comment = service.getCommentById(searchableId);
         System.out.println("Comment with id=" + searchableId + " is " + comment.toString());
     }

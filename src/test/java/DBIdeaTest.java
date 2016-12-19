@@ -1,3 +1,4 @@
+import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -92,6 +94,18 @@ public class DBIdeaTest{
         Tag tag = tservice.getTagById(2L);
         tags.add(tag);
         Idea idea = new Idea();
+        idea.setName("NewIdea");
+        idea.setDescription("descr");
+        idea.setAuthor(user);
+        idea.setEnabled(true);
+        Content content = new Content();
+        content.setContentData("content data");
+        idea.setContent(content);
+        idea.setViewed(new Timestamp(System.currentTimeMillis()));
+        idea.setViewedCount(0L);
+        idea.setLiked(0);
+        idea.setDisliked(0);
+        idea.setTags(tags);
         service.createIdea(idea);
     }
 

@@ -116,6 +116,15 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
+    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter) {
+        String order;
+        if (ascend) {
+            order = "asc";
+        } else order = "desc";
+        return sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.author a where a.id = " + userId + " order by i." + orderingParameter + " " + order).list();
+    }
+
+    @Override
     public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
         String order;
         if (ascend) {

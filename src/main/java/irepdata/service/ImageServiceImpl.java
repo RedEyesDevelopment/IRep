@@ -43,7 +43,7 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Transactional
-    public List<Image> getImages(int pagination) {
+    public List<Image> getImages(Long pagination) {
         return imagedao.getImages(pagination);
     }
 

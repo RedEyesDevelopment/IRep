@@ -37,7 +37,7 @@ public class Comment {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "COMMENT_AUTHOR_ID")
     public User getAuthor() {
         return author;
@@ -47,7 +47,7 @@ public class Comment {
         this.author = author;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "COMMENT_IDEA_ID")
     public Idea getIdea() {
         return idea;

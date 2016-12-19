@@ -9,6 +9,7 @@
 
 </head>
 <body>
+Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
 
 
 <c:if test="${(searchable!=null)}">

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -40,11 +41,13 @@ public class MainController {
     @Autowired
     private ContentService contentService;
 
+    //LOGOUT
     @RequestMapping(URLCLASSPREFIX + "logout")
     public String mainToIndexLogout() {
         return "redirect:/logout";
     }
 
+    //LIST
     @RequestMapping(URLCLASSPREFIX + "list")
     public String listOfIdeas(Map<String, Object> map, HttpServletRequest request) {
         map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
@@ -52,20 +55,42 @@ public class MainController {
         return "idealistpage";
     }
 
+    //CABINET
+    @RequestMapping(URLCLASSPREFIX + "cabinet")
+    public String cabinet(Map<String, Object> map, HttpServletRequest request) {
+        Long myId = (Long) request.getSession().getAttribute("USER_ID");
+        map.put("ideaList", ideaService.getSortedIdeaListForUser(myId, true, "posted"));
+        return "cabinetpage";
+    }
+
+    //SELECT IDEA
     @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
-    public String selectPlace(@PathVariable("ideaId") Long ideaId, Map<String, Object> map) {
+    public String selectIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
+        request.setAttribute("RURI", "/ideas/list");
         map.put("searchable", idea);
         return "showidea";
     }
 
+    //SELECT OWN IDEA
+    @RequestMapping(value = URLCLASSPREFIX + "/showmyidea/{ideaId}")
+    public String selectMyIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
+        logger.info(idea.getName() + " in maincontroller - loaded!");
+        request.setAttribute("RURI", "/ideas/cabinet");
+        map.put("searchable", idea);
+        return "showidea";
+    }
+
+    //CREATE IDEA
     @RequestMapping(URLCLASSPREFIX + "create")
     public String createIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result) {
         IdeaDummy ideaData = new IdeaDummy(tagService);
         return "createidea";
     }
 
+    //CREATE IDEA HANDLER
     @RequestMapping(value = URLCLASSPREFIX + "сreateideahandler", method = RequestMethod.POST)
     public String addingIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy,
                               BindingResult result, HttpServletRequest request) {
@@ -130,7 +155,7 @@ public class MainController {
         contentData.setContentData(content);
         idea.setContent(contentData);
         ideaService.createIdea(idea);
-        return "redirect:/ideas/list";
+        return "redirect:/ideas/cabinet";
     }
 
 }

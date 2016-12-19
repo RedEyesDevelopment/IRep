@@ -71,6 +71,11 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
+    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter) {
+        return ideaDao.getSortedIdeaListForUser(userId, ascend, orderingParameter);
+    }
+
+    @Transactional
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter) {
         return ideaDao.getSortedIdeaListWithoutDisabled(ascend, orderingParameter);
     }

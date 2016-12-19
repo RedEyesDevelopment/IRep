@@ -53,10 +53,10 @@ public class ImageDaoImpl implements ImageDao {
     }
 
     @Override
-    public List<Image> getImages(int pagination) {
+    public List<Image> getImages(Long pagination) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
         criteria.setMaxResults(Image.MAXIMAGESSHOWINGCAPACITY);
-        criteria.setFirstResult(pagination);
+        criteria.setFirstResult(Math.toIntExact(pagination));
         criteria.add( Restrictions.eq("publicity", true));
         criteria.setReadOnly(true);
         List<Image> result = criteria.list();

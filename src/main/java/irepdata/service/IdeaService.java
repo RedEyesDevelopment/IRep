@@ -18,6 +18,7 @@ public interface IdeaService {
     public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled, Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListByUsername(boolean ascend);
+    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
     public void like(Long id);
     public void dislike(Long id);

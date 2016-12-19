@@ -11,7 +11,7 @@
 
     </head>
     <body>
-<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/list"> Вернуться</a>
+<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/cabinet"> Вернуться</a>
 <c:if test="${!empty imageList}">
 	<table class="data">
 		<tr>
@@ -35,12 +35,12 @@
 	</table>
 </c:if>
 
-<c:if test="${!NoLessFiles}">
-    <a href="previouslist"><img src="${prevPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
+<c:if test="${ISPREVFILES}">
+    <a href="filelist&show=${PREVFILES}"><img src="${prevPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
 </c:if>
 
-<c:if test="${!NoMoreFiles}">
-    <a href="nextlist"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
+<c:if test="${ISNEXTFILES}">
+    <a href="filelist&show=${NEXTFILES}"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
 </c:if>
 
     </body>

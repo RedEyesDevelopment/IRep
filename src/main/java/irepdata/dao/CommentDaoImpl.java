@@ -31,8 +31,6 @@ public class CommentDaoImpl implements CommentDao {
     public Comment getCommentById(Long id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Comment.class);
         criteria.add( Restrictions.eq("id", id));
-//        criteria.setFetchMode("author", FetchMode.JOIN);
-//        criteria.setFetchMode("idea", FetchMode.JOIN);
         Comment comment = (Comment) criteria.uniqueResult();
         return comment;
     }
@@ -53,14 +51,10 @@ public class CommentDaoImpl implements CommentDao {
 
     @Override
     public boolean deleteComment(Long id) {
-        String hql = "DELETE FROM Comment " +
-                "WHERE id = :comm_id";
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);
-        query.setParameter("comm_id", id);
-        int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
+        Session session = sessionFactory.getCurrentSession();
+        Comment comment = (Comment) session.get(Comment.class, id);
+        session.delete(comment);
+        return true;
     }
 
     @Override

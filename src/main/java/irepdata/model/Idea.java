@@ -1,10 +1,7 @@
 package irepdata.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.views.JSONViews;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -86,7 +83,7 @@ public class Idea {
         this.image = image;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = javax.persistence.CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "TAG_MAGAZINE", joinColumns = @JoinColumn(name = "TAG_IDEA_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_MAG_ID"))
     public Set<Tag> getTags() {
         return tags;

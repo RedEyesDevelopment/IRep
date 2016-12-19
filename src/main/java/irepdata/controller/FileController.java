@@ -5,6 +5,7 @@ import irepdata.service.ImageService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -81,7 +82,7 @@ public class FileController {
                     image.setPublicity(publicitys);
                 } else image.setPublicity(false);
                 imageService.createImage(image);
-                String redirect = "redirect:/ideas/list";
+                String redirect = "redirect:/ideas/cabinet";
                 return redirect;
 
             } catch (Exception e) {
@@ -93,79 +94,36 @@ public class FileController {
         return "ERROR";
     }
 
-    @RequestMapping(URLCLASSPREFIX + "filelistfirst")
-    public String getFirstFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Integer offsetStep = 0;
+    @RequestMapping(URLCLASSPREFIX + "filelist&show={offset}")
+    public String getFirstFilesList(@PathVariable("offset") Long offset, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
+        Long offsetStep = offset;
         List<Image> imglist = imageService.getImages(offsetStep);
-        int newCap = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
-        map.put("imageList", imglist);
-        if ((request.getSession().getAttribute("IMAGE_OFFSET ")) != null) {
-            newCap = 10;
-        }
-        request.getSession().setAttribute("IMAGE_OFFSET", newCap);
-        request.getSession().removeAttribute("NoLessFiles");
-        return "fileslistfirst";
-    }
+        Long imagesCount = imageService.getImageCount();
+        request.removeAttribute("NEXTFILES");
+        request.removeAttribute("ISNEXTFILES");
+        request.removeAttribute("PREVFILES");
+        request.removeAttribute("IPREVFILES");
 
+        System.out.println("offsetStep is "+offsetStep);
+        System.out.println("images count is "+imagesCount);
+        System.out.println("image list size is "+imglist.size());
 
-    @RequestMapping(URLCLASSPREFIX + "nextlist")
-    public String getFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Integer offsetStep = 0;
-        Integer step = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
-        if (step != null) {
-            offsetStep = step;
+        if (offsetStep< ( imagesCount-Image.MAXIMAGESSHOWINGCAPACITY)){
+            Long offsetForNext = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
+            request.setAttribute("NEXTFILES", offsetForNext);
+            request.setAttribute("ISNEXTFILES", true);
+            System.out.println("NEXTFILES is "+offsetForNext);
         }
-        System.out.println("before loading offstep is " + offsetStep);
-        List<Image> imglist = imageService.getImages(offsetStep);
-        Long imageCount = imageService.getImageCount();
-        System.out.println("imageCount is " + imageCount);
-        int newCap;
-        if (offsetStep <= (imageCount - (Image.MAXIMAGESSHOWINGCAPACITY + 1))) {
-            newCap = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
-            System.out.println("in first if");
-        } else {
-            newCap = offsetStep;
-            request.getSession().setAttribute("NoMoreFiles", true);
-            System.out.println("in second else");
+        if (offsetStep>=Image.MAXIMAGESSHOWINGCAPACITY){
+            Long offsetForPrev = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
+            request.setAttribute("PREVFILES", offsetForPrev);
+            request.setAttribute("ISPREVFILES", true);
+            System.out.println("PREVFILES is "+offsetForPrev);
+
         }
-        System.out.println("newcap is " + newCap);
         map.put("imageList", imglist);
-        System.out.println(request.getRequestURI());
-        request.getSession().removeAttribute("IMAGE_OFFSET");
-        request.getSession().setAttribute("IMAGE_OFFSET", newCap);
-        request.getSession().removeAttribute("NoLessFiles");
-        System.out.println("offstep is " + offsetStep);
-        System.out.println(request.getSession().getAttribute("IMAGE_OFFSET"));
         return "fileslist";
     }
 
-    @RequestMapping(URLCLASSPREFIX + "previouslist")
-    public String getPreviousFilesList(Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Integer offsetStep = 0;
-        Integer step = (Integer) request.getSession().getAttribute("IMAGE_OFFSET");
-        if (step != null) {
-            offsetStep = step;
-            request.getSession().removeAttribute("NoLessFiles");
-        } else {
-            request.getSession().setAttribute("NoLessFiles", true);
-        }
-        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY + 1) {
-            offsetStep = 0;
-        } else {
-            offsetStep = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
-        }
-        String redirect = "fileslist";
-        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY) {
-            request.getSession().setAttribute("NoLessFiles", true);
-            redirect = "fileslistfirst";
-//            request.removeAttribute("IMAGE_OFFSET");
-        }
-        map.put("imageList", imageService.getImages(offsetStep));
-        request.getSession().setAttribute("IMAGE_OFFSET", offsetStep);
-        request.getSession().removeAttribute("NoMoreFiles");
-
-        System.out.println("offstep is " + offsetStep);
-        return redirect;
-    }
 }
 

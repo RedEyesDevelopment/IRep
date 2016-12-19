@@ -19,7 +19,7 @@ public class DBCommentTest{
     public void TestCommentFindById() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         CommentService service = (CommentService) appContext.getBean("commentService");
-        Long searchableId = 4L;
+        Long searchableId = 2L;
         Comment comment = service.getCommentById(searchableId);
         System.out.println("Comment with id=" + searchableId + " is " + comment.toString());
     }

@@ -112,18 +112,25 @@ public class FileController {
         if (step != null) {
             offsetStep = step;
         }
+        System.out.println("before loading offstep is "+offsetStep);
         List<Image> imglist = imageService.getImages(offsetStep);
         Long imageCount = imageService.getImageCount();
+        System.out.println("imageCount is "+ imageCount);
         int newCap;
-        if (offsetStep < (imageCount - (Image.MAXIMAGESSHOWINGCAPACITY - 1))) {
+        if (offsetStep <= (imageCount - (Image.MAXIMAGESSHOWINGCAPACITY +1))) {
             newCap = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
+            System.out.println("in first if");
         } else {
             newCap = offsetStep;
             request.getSession().setAttribute("NoMoreFiles", true);
+            System.out.println("in second else");
         }
+        System.out.println("newcap is "+newCap);
         map.put("imageList", imglist);
+        request.getSession().removeAttribute("IMAGE_OFFSET");
         request.getSession().setAttribute("IMAGE_OFFSET", newCap);
         request.getSession().removeAttribute("NoLessFiles");
+        System.out.println("offstep is " +offsetStep);
         return "fileslist";
     }
 
@@ -137,7 +144,7 @@ public class FileController {
         } else {
             request.getSession().setAttribute("NoLessFiles", true);
         }
-        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY) {
+        if (offsetStep < Image.MAXIMAGESSHOWINGCAPACITY+1) {
             offsetStep = 0;
         } else {
             offsetStep = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
@@ -150,7 +157,7 @@ public class FileController {
         map.put("imageList", imageService.getImages(offsetStep));
         request.getSession().setAttribute("IMAGE_OFFSET", offsetStep);
         request.getSession().removeAttribute("NoMoreFiles");
-        System.out.println(offsetStep);
+        System.out.println("offstep is " +offsetStep);
         return redirect;
     }
 }

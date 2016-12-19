@@ -96,8 +96,9 @@ public class TagDaoImpl implements TagDao {
     public List<Tag> getTagList(List<String> incomingData) {
         List<Tag> result = new ArrayList<>();
         for (String tagName:incomingData){
-            Query query = sessionFactory.getCurrentSession().createQuery("select distinct t from Tag t where t.content = :content").setParameter("content", tagName);
-            Tag tag = (Tag) query.uniqueResult();
+            Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
+            criteria.add( Restrictions.eq("content", tagName));
+            Tag tag = (Tag) criteria.uniqueResult();
             result.add(tag);
         }
         return result;

@@ -47,7 +47,6 @@ public class MainController {
 
     @RequestMapping(URLCLASSPREFIX + "list")
     public String listOfIdeas(Map<String, Object> map, HttpServletRequest request) {
-        request.getSession().setAttribute("NoLessFiles", true);
         map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
         request.getSession().removeAttribute("IMAGE_OFFSET");
         return "idealistpage";

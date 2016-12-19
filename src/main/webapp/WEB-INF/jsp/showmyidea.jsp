@@ -13,7 +13,10 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
 
 
 <c:if test="${(searchable!=null)}">
+
 <c:set var="ideaData" value="${searchable}" scope="page" />
+<a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+
 <div class="ideaFullData"><spring:message code="label.ideaName"/> ${ideaData.getName()} </br>
     <div class="ideaAuthor"><spring:message code="label.ideaAuthor"/> ${ideaData.author.username}  </br>
         <div class="ideaPosted"><spring:message code="label.ideaCreated"/> ${ideaData.posted} </br>
@@ -25,9 +28,6 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
                 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
                     ${ideaData.content.contentData}</br>
                 </div>
-             <div class="ideaComments"><spring:message code="label.ideaComments"/></br>
-                                                 ${ideaData.comments}</br>
-                                             </div>
             </div>
         </div>
     </div>

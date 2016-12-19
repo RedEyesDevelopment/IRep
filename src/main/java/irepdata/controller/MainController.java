@@ -10,6 +10,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,7 +81,7 @@ public class MainController {
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/cabinet");
         map.put("searchable", idea);
-        return "showidea";
+        return "showmyidea";
     }
 
     //CREATE IDEA
@@ -156,6 +157,27 @@ public class MainController {
         idea.setContent(contentData);
         ideaService.createIdea(idea);
         return "redirect:/ideas/cabinet";
+    }
+
+    //EDIT OWN IDEA
+    @RequestMapping(value = URLCLASSPREFIX + "/editmyidea/{ideaId}")
+    public String editMyIdea(@PathVariable("ideaId") Long ideaId, Model model,
+                             HttpServletRequest request) {
+        Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
+        logger.info(idea.getName() + " in maincontroller - loaded!");
+        Map<String, String> isEnabled = new LinkedHashMap<String, String>();
+        isEnabled.put("true", "True");
+        isEnabled.put("false", "False");
+        model.addAttribute("ideaAttrib", idea);
+        model.addAttribute("enablind", isEnabled);
+        return "editmyideapage";
+    }
+
+    //EDIT OWN IDEA HANDLER
+    @RequestMapping(value = URLCLASSPREFIX + "/ideas/editideahandler", method = RequestMethod.POST)
+    public String editMyIdeaHandler(@ModelAttribute("ideaAttrib") Idea idea, BindingResult result) {
+        System.out.println(idea.toString());
+        return "editmyideapage";
     }
 
 }

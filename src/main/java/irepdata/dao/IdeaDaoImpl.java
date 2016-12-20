@@ -50,27 +50,6 @@ public class IdeaDaoImpl implements IdeaDao {
         sessionFactory.getCurrentSession().saveOrUpdate(idea);
     }
 
-//    @Override
-//    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
-//        Session session = sessionFactory.getCurrentSession();
-//        Idea idea = new Idea();
-//        idea.setName(name);
-//        idea.setDescription(description);
-//        idea.setName(name);
-//        idea.setTags(tags);
-//        idea.setAuthor(author);
-//        idea.toString();
-//        idea.setViewedCount(0L);
-//        idea.setEnabled(enabled);
-//        Content contentObj = new Content();
-//        contentObj.setContentData(content);
-//        contentObj.setIdea(idea);
-//        session.persist(contentObj);
-//        idea.setContent(contentObj);
-//        session.save(idea);
-//        session.getTransaction().commit();
-//    }
-
     @Override
     public boolean deleteIdea(Long id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);

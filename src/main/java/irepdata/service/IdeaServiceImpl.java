@@ -44,11 +44,6 @@ public class IdeaServiceImpl implements IdeaService {
         ideaDao.createIdea(idea);
     }
 
-//    @Transactional
-//    public void createIdea(String name, String description, String image, Set<Tag> tags, User author, String content, boolean enabled) {
-//        ideaDao.createIdea(name, description, image, tags, author, content, enabled);
-//    }
-
     @Transactional
     public boolean deleteIdea(Long id) {
         return ideaDao.deleteIdea(id);

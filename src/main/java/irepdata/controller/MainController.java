@@ -166,9 +166,10 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         Map<String, String> isEnabled = new LinkedHashMap<String, String>();
+        IdeaDummy idummy = IdeaDummy.fillFromIdea(idea);
         isEnabled.put("true", "True");
         isEnabled.put("false", "False");
-        model.addAttribute("ideaAttrib", idea);
+        model.addAttribute("ideaAttrib", idummy);
         model.addAttribute("enablind", isEnabled);
         return "editmyideapage";
     }

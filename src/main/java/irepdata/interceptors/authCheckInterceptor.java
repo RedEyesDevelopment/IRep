@@ -16,11 +16,11 @@ public class authCheckInterceptor implements HandlerInterceptor {
            String userLogin = (String) request.getSession().getAttribute("LOGGEDIN_USER");
             if(userLogin == null)
             {
-                System.out.println("userdata=null");
+                System.out.println("AuthCheckInterceptor: userdata=null");
                 response.sendRedirect("/index");
                 return false;
             }
-        System.out.println(" userData="+userLogin);
+        System.out.println("AuthCheckInterceptor: userData="+userLogin);
         return true;
     }
 

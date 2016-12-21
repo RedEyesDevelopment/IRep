@@ -190,6 +190,7 @@ public class Idea {
     }
 
     @OneToMany(mappedBy = "idea", cascade = javax.persistence.CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @OrderBy("posted ASC")
     public Set<Comment> getComments() {
         return comments;
     }

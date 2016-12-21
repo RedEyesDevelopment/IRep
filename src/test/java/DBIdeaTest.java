@@ -126,10 +126,8 @@ public class DBIdeaTest{
         TagService tservice = (TagService) appContext.getBean("tagService");
         Long searchableId = new Long(1);
 
-        Tag tag = tservice.getTagById(5L);
-        Set<Tag> tags = new HashSet<Tag>();
+        String tags = "fuck me";
         Long contentId = service.getIdeaById(searchableId).getContentId();
-        tags.add(tag);
         service.updateIdea(searchableId, "testableidea", "testdescription", "image", tags, true, contentId, "пиздец");
     }
 }

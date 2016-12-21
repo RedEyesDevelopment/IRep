@@ -97,7 +97,7 @@ public class FileController {
     @RequestMapping(URLCLASSPREFIX + "filelist&show={offset}")
     public String getFirstFilesList(@PathVariable("offset") Long offset, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Long offsetStep = offset;
-        List<Image> imglist = imageService.getImages(offsetStep);
+        List<Image> imglist = imageService.getImages(offsetStep, true);
         Long imagesCount = imageService.getImageCount();
         request.removeAttribute("NEXTFILES");
         request.removeAttribute("ISNEXTFILES");

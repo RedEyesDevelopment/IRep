@@ -105,7 +105,6 @@ public class Comment {
     public int hashCode() {
         int result = (int) (getId() ^ (getId() >>> 32));
         result = 31 * result + getAuthor().hashCode();
-        result = 31 * result + getIdea().hashCode();
         result = 31 * result + (getContent() != null ? getContent().hashCode() : 0);
         result = 31 * result + (getPosted() != null ? getPosted().hashCode() : 0);
         result = 31 * result + (isEnabled() ? 1 : 0);

@@ -1,6 +1,7 @@
 package irepdata.controller;
 
 import irepdata.dto.IdeaDummy;
+import irepdata.model.Comment;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
@@ -76,7 +77,10 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/list");
+        request.getSession().setAttribute("TGTIDEA",idea.getId());
+        request.getSession().setAttribute("RETURNTO", "/ideas/showidea/"+ideaId);
         map.put("searchable", idea);
+        map.put("comment", new Comment());
         return "showidea";
     }
 
@@ -86,7 +90,10 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/cabinet");
+        request.getSession().setAttribute("TGTIDEA",idea.getId());
+        request.getSession().setAttribute("RETURNTO", "/ideas/showmyidea/"+ideaId);
         map.put("searchable", idea);
+        map.put("comment", new Comment());
         return "showmyidea";
     }
 
@@ -157,7 +164,45 @@ public class MainController {
         Long targetIdeaId = (Long) request.getSession().getAttribute("TARGETIDEA");
         Long targetContentId = ideaService.getIdeaById(targetIdeaId).getContentId();
         ideaService.updateIdea(targetIdeaId, ideaDummy.getName(),ideaDummy.getDescription(),ideaDummy.getImage(),ideaDummy.getTags(),ideaDummy.isEnabled(),targetContentId,ideaDummy.getContent());
+        request.getSession().removeAttribute("TARGETIDEA");
         return "redirect:/ideas/cabinet";
+    }
+
+    //MESSAGE HANDLER
+    @RequestMapping(value = URLCLASSPREFIX + "messagehandler", method = RequestMethod.POST)
+    public void commentHandler(@ModelAttribute("message") Comment comment, BindingResult result,
+                                    HttpServletRequest request, HttpServletResponse response) {
+        if (null==request.getSession().getAttribute("USER_ID")){
+            try {
+                response.sendRedirect("/index");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println(comment.toString());
+        String redirect = (String) request.getSession().getAttribute("RETURNTO");
+        Long userId = (Long) request.getSession().getAttribute("USER_ID");
+        Long ideaId = (Long) request.getSession().getAttribute("TGTIDEA");
+        User user = userService.getUserById(userId);
+        Idea idea = ideaService.getIdeaById(ideaId);
+        System.out.println("userid is "+userId);
+        System.out.println("user is "+user);
+        System.out.println("ideaid is "+ideaId);
+        System.out.println("idea is "+idea);
+
+        comment.setIdea(idea);
+        comment.setAuthor(user);
+        comment.setEnabled(true);
+        comment.setPosted(new Timestamp(System.currentTimeMillis()));
+        commentService.createComment(comment);
+
+        request.getSession().removeAttribute("RETURNTO");
+        request.getSession().removeAttribute("TGTIDEA");
+        try {
+            response.sendRedirect(redirect);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

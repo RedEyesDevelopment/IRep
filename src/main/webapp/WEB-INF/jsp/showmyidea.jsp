@@ -2,6 +2,8 @@
 	pageEncoding="utf8"%>
 	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+	<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+
 <html>
 <head>
         <link href="${greetingCss}" rel="stylesheet" type="text/css"/>
@@ -33,6 +35,7 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
                                 <c:forEach items="${ideaData.comments}" var="com">
                                     ${com.author.username} posted at <fmt:formatDate type="both" value="${com.posted}" /> : ${com.content}</br>
                                 </c:forEach>
+                                <%@include file="/WEB-INF/jsp/includes/messagebox.jsp" %>
             </div>
         </div>
     </div>

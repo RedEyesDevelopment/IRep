@@ -25,9 +25,11 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
                 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
                     ${ideaData.content.contentData}</br>
                 </div>
-             <div class="ideaComments"><spring:message code="label.ideaComments"/></br>
-                                                 ${ideaData.comments}</br>
-                                             </div>
+                </br>
+                <spring:message code="label.ideaComments"/></br>
+                <c:forEach items="${ideaData.comments}" var="com">
+                    ${com.author.username} posted at ${com.posted} : ${com.content}</br>
+                </c:forEach>
             </div>
         </div>
     </div>

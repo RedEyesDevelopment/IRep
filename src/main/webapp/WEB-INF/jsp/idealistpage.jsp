@@ -76,10 +76,10 @@
                     <td>${ideadata.getImage()}</td>
                     <td>${ideadata.getTags()}</td>
                     <td>${ideadata.getAuthor()}</td>
-                    <td><fmt:formatDate type="both" value="${ideadata.getPosted()}" /></p></td>
+                    <td><fmt:formatDate type="both" value="${ideadata.getPosted()}" /></td>
                     <td>${ideadata.getLiked()}</td>
                     <td>${ideadata.getDisliked()}</td>
-                    <td>${ideadata.getViewed()}</td>
+                    <td><fmt:formatDate type="both" value="${ideadata.getViewed()}" /></td>
                     <td>${ideadata.getViewedCount()}</td>
                     <td>${ideadata.isEnabled()}</td>
                 </tr>

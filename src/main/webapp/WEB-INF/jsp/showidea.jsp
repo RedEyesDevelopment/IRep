@@ -16,19 +16,19 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
 <c:set var="ideaData" value="${searchable}" scope="page" />
 <div class="ideaFullData"><spring:message code="label.ideaName"/> ${ideaData.getName()} </br>
     <div class="ideaAuthor"><spring:message code="label.ideaAuthor"/> ${ideaData.author.username}  </br>
-        <div class="ideaPosted"><spring:message code="label.ideaCreated"/> ${ideaData.posted} </br>
+        <div class="ideaPosted"><spring:message code="label.ideaCreated"/> <fmt:formatDate type="both" value="${ideaData.posted}" /> </br>
             <div class="ideaRating"><spring:message code="label.ideaRatings"/></br>
             <spring:message code="label.ideaLiked"/> ${ideaData.liked}</br>
             <spring:message code="label.ideaDisliked"/> ${ideaData.disliked}</br>
             <spring:message code="label.ideaWatchCount"/> ${ideaData.viewedCount}</br>
-            <spring:message code="label.ideaWatched"/> ${ideaData.viewed}</br>
+            <spring:message code="label.ideaWatched"/> <fmt:formatDate type="both" value="${ideaData.viewed}" /></br>
                 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
                     ${ideaData.content.contentData}</br>
                 </div>
                 </br>
                 <spring:message code="label.ideaComments"/></br>
                 <c:forEach items="${ideaData.comments}" var="com">
-                    ${com.author.username} posted at ${com.posted} : ${com.content}</br>
+                    ${com.author.username} posted at <fmt:formatDate type="both" value="${com.posted}" /> : ${com.content}</br>
                 </c:forEach>
             </div>
         </div>

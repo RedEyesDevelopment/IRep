@@ -26,7 +26,7 @@
 			<tr>
 				<td>${imageData.imageName}</a></td>
 				<td>${imageData.imageAuthorId}</td>
-				<td>${imageData.posted}</td>
+				<td><fmt:formatDate type="both" value="${imageData.posted}" /></td>
 				<td>${imageData.publicity}</td>
 
 				<td><img src="/dynamic/${imageData.imageName}" alt="${imageData.imageName}" height="100"/></td>

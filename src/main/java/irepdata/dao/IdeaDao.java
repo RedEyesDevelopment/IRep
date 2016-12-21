@@ -14,7 +14,7 @@ public interface IdeaDao {
     public Idea getIdeaWithAllDataById(Long id);
     public void createIdea(Idea idea);
     public boolean deleteIdea(Long id);
-    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled);
+    public void updateIdea(Long id, String name, String description, String image, String tags, boolean enabled);
     public boolean updateIdeaContent(Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter);

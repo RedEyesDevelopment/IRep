@@ -106,12 +106,6 @@ public class TagDaoImpl implements TagDao {
 
     @Override
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled) {
-//        StringBuilder hqlbuilder = new StringBuilder("select distinct t from Tag t ");
-//        if (withoutDisabled) hqlbuilder.append("where t.enabled = true ");
-//        hqlbuilder.append("order by t." + orderingParameter + " ");
-//        if (ascend) {
-//            hqlbuilder.append("asc");
-//        } else hqlbuilder.append("desc");
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Tag.class);
         if (withoutDisabled) criteria.add( Restrictions.eq("enabled", true));
         Order order;
@@ -120,7 +114,6 @@ public class TagDaoImpl implements TagDao {
         } else order = Order.desc(orderingParameter);
         criteria.addOrder(order);
         List <Tag> result = criteria.list();
-//        List<Tag> result = session.createQuery(hqlbuilder.toString()).list();
         return result;
     }
 

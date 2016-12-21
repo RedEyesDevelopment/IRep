@@ -1,6 +1,7 @@
 package irepdata.dao;
 
-import irepdata.model.*;
+import irepdata.model.Idea;
+import irepdata.support.TagSupport;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Repository;
 import javax.annotation.Resource;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Admin on 15.11.2016.
@@ -22,6 +22,8 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Autowired
     private SessionFactory sessionFactory;
+    @Autowired
+    private TagSupport tagSupport;
 
     @Resource(name = "sessionFactory")
     public void setSessionFactory(SessionFactory sessionFactory) {
@@ -53,7 +55,7 @@ public class IdeaDaoImpl implements IdeaDao {
     @Override
     public boolean deleteIdea(Long id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
-        criteria.add( Restrictions.eq("id", id));
+        criteria.add(Restrictions.eq("id", id));
         Idea idea = (Idea) criteria.uniqueResult();
         sessionFactory.getCurrentSession().delete(idea);
         return true;
@@ -61,27 +63,27 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public boolean updateIdeaContent(Long contentId, String content) {
-        String hql = "UPDATE Content set "+
+        String hql = "UPDATE Content set " +
                 "contentData = :content " +
                 "WHERE id = :content_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("content", content);
         query.setParameter("content_id", contentId);
         int result = query.executeUpdate();
-        if (result>0){
+        if (result > 0) {
             return true;
         } else return false;
     }
 
     @Override
-    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean isEnabled) {
+    public void updateIdea(Long id, String name, String description, String image, String tags, boolean isEnabled) {
         Session session = sessionFactory.getCurrentSession();
-            Idea idea = (Idea) session.get(Idea.class, id);
-            idea.setName(name);
-            idea.setDescription(description);
-            idea.setImage(image);
-            idea.getTags().addAll(tags);
-            idea.setEnabled(isEnabled);
+        Idea idea = (Idea) session.get(Idea.class, id);
+        idea.setName(name);
+        idea.setDescription(description);
+        idea.setImage(image);
+       tagSupport.parseTagsFromStringToSet(idea.getTags(), tags, true);
+        idea.setEnabled(isEnabled);
         session.update(idea);
     }
 

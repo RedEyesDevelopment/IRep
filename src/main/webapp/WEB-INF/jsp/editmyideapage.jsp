@@ -12,8 +12,6 @@
 	<form:form class="form-horizontal" method="post"
                 modelAttribute="ideaAttrib" action="${userActionUrl}">
 
-		<form:hidden path="id" />
-
 		<spring:bind path="name">
 				<form:input path="name" type="text" class="form-control" id="name" placeholder="name" />
 		</spring:bind>

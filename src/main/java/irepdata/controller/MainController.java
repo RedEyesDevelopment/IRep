@@ -1,11 +1,12 @@
 package irepdata.controller;
 
 import irepdata.dto.IdeaDummy;
-import irepdata.model.Content;
 import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
 import irepdata.service.*;
+import irepdata.support.IdeaDummyConversionTool;
+import irepdata.support.TagSupport;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Gvozd on 04.12.2016.
@@ -41,6 +44,8 @@ public class MainController {
     private CommentService commentService;
     @Autowired
     private ContentService contentService;
+    @Autowired
+    private TagSupport tagSupport;
 
     //LOGOUT
     @RequestMapping(URLCLASSPREFIX + "logout")
@@ -87,7 +92,7 @@ public class MainController {
     //CREATE IDEA
     @RequestMapping(URLCLASSPREFIX + "create")
     public String createIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result) {
-        IdeaDummy ideaData = new IdeaDummy(tagService);
+        IdeaDummy ideaData = new IdeaDummy();
         return "createidea";
     }
 
@@ -97,64 +102,20 @@ public class MainController {
                               BindingResult result, HttpServletRequest request) {
         Long authorId = (Long) request.getSession().getAttribute("USER_ID");
         User author = userService.getUserById(authorId);
-        String delims = "[ ]+";
-        String tags = ideaDummy.getTags();
-        String[] tagStringList = tags.split(delims);
-        List<Tag> tagList = tagService.getSortedTagList("id", true, false);
-        List<Tag> resultList = new ArrayList<>();
-        List<String> creatingList = new ArrayList<>();
-        boolean newTagFlag = false;
-        for (String searchableTag:tagStringList){
-            newTagFlag = false;
-            System.out.println("searcheableTag(String) is "+searchableTag);
-            for (Tag tag:tagList){
-                if (tag.isEnabled()){
-                    if (tag.getContent().equals(searchableTag)){
-                        System.out.println("Tag is equal "+tag);
-                        resultList.add(tag);
-                        newTagFlag = false;
-                        break;
-                    } else newTagFlag = true;
-                    System.out.println("newTagFlag is"+newTagFlag);
-                }
-            }
-            System.out.println("newTagFlag is"+newTagFlag);
-            if (newTagFlag==true) {
-                System.out.println("CreatingList add "+searchableTag);
-                creatingList.add(searchableTag);
-            }
-        }
-        Set<Tag> tagSet;
-        if (!creatingList.isEmpty()) {
-            tagService.createTags(creatingList);
-            List<Tag> persistTagList = tagService.getTagList(creatingList);
-            tagSet= new HashSet<>(persistTagList);
-        } else {
-           tagSet = new HashSet<>();
 
-        }
-        tagSet.addAll(resultList);
+        Set<Tag> tagSet = tagSupport.parseTagsFromStringToSet(ideaDummy.getTags());
 
-        String name = ideaDummy.getName();
-        String description = ideaDummy.getDescription();
-        String image = ideaDummy.getImage();
-        String content = ideaDummy.getContent();
-        Boolean enabled = ideaDummy.isEnabled();
         Idea idea = new Idea();
-        idea.setName(name);
-        idea.setDescription(description);
         idea.setTags(tagSet);
         idea.setAuthor(author);
-        idea.setImage(image);
-        idea.setEnabled(enabled);
         idea.setViewedCount(0L);
         idea.setPosted(new Timestamp(System.currentTimeMillis()));
         idea.setViewed(new Timestamp(System.currentTimeMillis()));
         idea.setLiked(0);
         idea.setDisliked(0);
-        Content contentData = new Content();
-        contentData.setContentData(content);
-        idea.setContent(contentData);
+
+        IdeaDummyConversionTool.fillIdeaFromDummy(ideaDummy, idea);
+
         ideaService.createIdea(idea);
         return "redirect:/ideas/cabinet";
     }
@@ -166,19 +127,25 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         Map<String, String> isEnabled = new LinkedHashMap<String, String>();
-        IdeaDummy idummy = IdeaDummy.fillFromIdea(idea);
+        IdeaDummy idummy = new IdeaDummy();
+        IdeaDummyConversionTool.fillDummyFromIdea(idea, idummy);
         isEnabled.put("true", "True");
         isEnabled.put("false", "False");
         model.addAttribute("ideaAttrib", idummy);
         model.addAttribute("enablind", isEnabled);
+        request.getSession().setAttribute("TARGETIDEA", ideaId);
         return "editmyideapage";
     }
 
     //EDIT OWN IDEA HANDLER
-    @RequestMapping(value = URLCLASSPREFIX + "/ideas/editideahandler", method = RequestMethod.POST)
-    public String editMyIdeaHandler(@ModelAttribute("ideaAttrib") Idea idea, BindingResult result) {
-        System.out.println(idea.toString());
-        return "editmyideapage";
+    @RequestMapping(value = URLCLASSPREFIX + "editideahandler", method = RequestMethod.POST)
+    public String editMyIdeaHandler(@ModelAttribute("ideaAttrib") IdeaDummy ideaDummy, BindingResult result,
+                                    HttpServletRequest request) {
+        System.out.println(ideaDummy.toString());
+        Long targetIdeaId = (Long) request.getSession().getAttribute("TARGETIDEA");
+        Long targetContentId = ideaService.getIdeaById(targetIdeaId).getContentId();
+        ideaService.updateIdea(targetIdeaId, ideaDummy.getName(),ideaDummy.getDescription(),ideaDummy.getImage(),ideaDummy.getTags(),ideaDummy.isEnabled(),targetContentId,ideaDummy.getContent());
+        return "redirect:/ideas/cabinet";
     }
 
 }

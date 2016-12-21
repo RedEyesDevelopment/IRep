@@ -2,14 +2,12 @@ package irepdata.service;
 
 import irepdata.dao.IdeaDao;
 import irepdata.model.Idea;
-import irepdata.model.Tag;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Admin on 15.11.2016.
@@ -50,7 +48,7 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public void updateIdea(Long id, String name, String description, String image, Set<Tag> tags, boolean enabled, Long contentId, String content) {
+    public void updateIdea(Long id, String name, String description, String image, String tags, boolean enabled, Long contentId, String content) {
         ideaDao.updateIdea(id, name, description, image, tags, enabled);
         ideaDao.updateIdeaContent(contentId, content);
     }

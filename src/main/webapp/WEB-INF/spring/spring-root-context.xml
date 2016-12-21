@@ -14,6 +14,7 @@
     <!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  -->
     <context:component-scan base-package="irepdata.dao" />
     <context:component-scan base-package="irepdata.service" />
+    <context:component-scan base-package="irepdata.support" />
 
     <!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
     <import resource="data.xml" />

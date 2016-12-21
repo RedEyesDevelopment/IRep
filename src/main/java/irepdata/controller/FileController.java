@@ -31,11 +31,13 @@ public class FileController {
     @Autowired
     private ImageService imageService;
 
+    //FILE UPLOAD PAGE
     @RequestMapping(URLCLASSPREFIX + "fileupload")
     public String fileUploadPAge() {
         return "fileupload";
     }
 
+    //FILE UPLOAD HANDLER
     @RequestMapping(value = URLCLASSPREFIX + "uploadFile", method = RequestMethod.POST)
     public String uploadFile(@RequestParam("file") MultipartFile file, String publicity, HttpServletRequest request, HttpServletResponse response) {
 
@@ -94,6 +96,7 @@ public class FileController {
         return "ERROR";
     }
 
+    //FILE GALLERY PAGE
     @RequestMapping(URLCLASSPREFIX + "filelist&show={offset}")
     public String getFirstFilesList(@PathVariable("offset") Long offset, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Long offsetStep = offset;

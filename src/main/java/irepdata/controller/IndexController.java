@@ -29,16 +29,19 @@ public class IndexController {
     @Autowired
     private ImageService imageService;
 
+    // MAIN PAGE
     @RequestMapping("/index")
     public String home() {
         return "index";
     }
 
+    // REDIRECT TO MAIN PAGE
     @RequestMapping("/")
     public String homeSlash() {
         return "redirect:/index";
     }
 
+    //LOGIN METHOD
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String userAutorization(String login, String password, HttpServletResponse response, HttpServletRequest request) {
         System.out.println("login:"+login+" pass:"+password);
@@ -58,18 +61,19 @@ public class IndexController {
         return "index";
     }
 
+    //LOGOUT METHOD
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("LOGGEDIN_USER");
         return "redirect:/index";
     }
 
-    //* Тестовая страница, для отработки всякого дерьма (Потом удалить к едрени фене)
+    //* Тестовая страница, для отработки Сашей статики (Потом удалить к едрени фене)
 //    @RequestMapping("/hello")
 //    public String hello(Map<String, Object> map) {
 //            map.put("ideaList", ideaService.getSortedIdeaList(true, "id"));
-//        return "hello?login=fail";
+//        return "hello";
 //    }
 
-    //* Тестовая страница, для отработки Сашей статики (Потом удалить к едрени фене)
+
 }

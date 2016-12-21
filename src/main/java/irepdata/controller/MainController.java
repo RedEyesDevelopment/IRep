@@ -23,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -71,10 +72,13 @@ public class MainController {
         return "cabinetpage";
     }
 
-    //SELECT IDEA
+    //SELECT IDEA AND VIEW IT DATA
     @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
     public String selectIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
+        if (isIdeaLiked(ideaId, request)) request.setAttribute("notshowlikes", true);
+        Long userId = (Long) request.getSession().getAttribute("USER_ID");
+        if (!userId.equals(idea.getAuthor().getId())) ideaService.watch(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/list");
         request.getSession().setAttribute("TGTIDEA",idea.getId());
@@ -84,7 +88,7 @@ public class MainController {
         return "showidea";
     }
 
-    //SELECT OWN IDEA
+    //SELECT OWN IDEA AND VIEW IT DATA
     @RequestMapping(value = URLCLASSPREFIX + "/showmyidea/{ideaId}")
     public String selectMyIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
@@ -205,4 +209,53 @@ public class MainController {
         }
     }
 
+    //LIKE IDEA
+    @RequestMapping(value = URLCLASSPREFIX + "/likeidea/{ideaId}&like={doLike}")
+    public String likeIdea(@PathVariable("ideaId") Long ideaId, @PathVariable("doLike") Boolean doLike,HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Boolean redirectExceeption = false;
+        String redirect = (String) request.getSession().getAttribute("RETURNTO");
+        if (isIdeaLiked(ideaId, request)) return "redirect:/index";
+
+        Long myId = (Long) request.getSession().getAttribute("USER_ID");
+        if ((null==myId) || (null==doLike)){
+            System.out.println("MYID=NULL OR DOLIKE=NULL");
+            return "redirect:/index";
+        } else if (myId.equals(ideaService.getIdeaById(ideaId).getAuthor().getId())){
+            System.out.println("MY ID IS AUTHOR ID");
+            return "redirect:/ideas/showidea/"+ideaId;
+        }
+
+        if (doLike) {
+            System.out.println("liked it");
+            ideaService.like(ideaId);
+        } else {
+            System.out.println("disliked it");
+            ideaService.dislike(ideaId);
+        }
+
+        likeIdea(ideaId, request);
+        return "redirect:/ideas/showidea/"+ideaId;
+    }
+
+    //SUPPORT METHOD FOR LIKE SYSTEM
+    private void likeIdea(Long ideaId, HttpServletRequest request){
+        HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
+        if (null==likeset) likeset = new HashSet<Long>();
+        likeset.add(ideaId);
+        request.getSession().removeAttribute("LIKESET");
+        request.getSession().setAttribute("LIKESET", likeset);
+    }
+
+    //SUPPORT METHOD FOR LIKE SYSTEM
+    private boolean isIdeaLiked(Long ideaId, HttpServletRequest request){
+        HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
+        if (null==likeset) {
+            return false;
+        } else {
+            for (Long iterableLong: likeset){
+                if (iterableLong.equals(ideaId)) return true;
+            }
+        }
+        return false;
+    }
 }

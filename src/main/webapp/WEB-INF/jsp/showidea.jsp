@@ -3,6 +3,7 @@
 	<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 	<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+	<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <html>
 <head>
@@ -20,8 +21,8 @@ Return to: <a href="${RURI}"><spring:message code="label.back"/></a>
     <div class="ideaAuthor"><spring:message code="label.ideaAuthor"/> ${ideaData.author.username}  </br>
         <div class="ideaPosted"><spring:message code="label.ideaCreated"/> <fmt:formatDate type="both" value="${ideaData.posted}" /> </br>
             <div class="ideaRating"><spring:message code="label.ideaRatings"/></br>
-            <spring:message code="label.ideaLiked"/> ${ideaData.liked}</br>
-            <spring:message code="label.ideaDisliked"/> ${ideaData.disliked}</br>
+            <spring:message code="label.ideaLiked"/> ${ideaData.liked} <c:if test="${(!notshowlikes)}"><form:form method="POST" action="/ideas/likeidea/${ideaData.id}&like=true"><input type="submit" value="<spring:message code="label.ideaLiked"/>"></form:form></c:if>
+            <spring:message code="label.ideaDisliked"/> ${ideaData.disliked} <c:if test="${(!notshowlikes)}"><form:form method="POST" action="/ideas/likeidea/${ideaData.id}&like=false"><input type="submit" value="<spring:message code="label.ideaDisliked"/>"></form:form></c:if>
             <spring:message code="label.ideaWatchCount"/> ${ideaData.viewedCount}</br>
             <spring:message code="label.ideaWatched"/> <fmt:formatDate type="both" value="${ideaData.viewed}" /></br>
                 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>

@@ -18,11 +18,13 @@
         <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
         </div>
 
-        Test login: qwerty
-        Test password: qwerty
+        Test users: (login/password)<br/>
+        qwerty/qwerty<br/>
+        mod/mod<br/>
+        list/list<br/>
 
         <form action="login" method="post">
-        <input type="text" name="login" value="login" onfocus="this.value=''"><br>
+        <input type="text" name="login" value="login" onfocus="this.value=''"><br/>
         <input type="password" name="password" value="password" onfocus="this.value=''"><br>
         <input type="submit">
     </body>

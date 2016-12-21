@@ -38,6 +38,7 @@ public class AjaxController {
     @Autowired
     private ContentService contentService;
 
+    //SHOW IDEAS WITHOUT DISABLED, SORT BY CRITERIA
     @JsonView(JSONViews.List.class)
     @ResponseBody
     @RequestMapping(value = PREFIX + "sortenabledideas", method= RequestMethod.POST)
@@ -58,6 +59,7 @@ public class AjaxController {
         return resulting;
     }
 
+    //SHOW ALL IDEAS, SORT BY CRITERIA
     @JsonView(JSONViews.Admin.class)
     @ResponseBody
     @RequestMapping(value = PREFIX + "sortideas", method= RequestMethod.POST)
@@ -77,6 +79,7 @@ public class AjaxController {
         return resulting;
     }
 
+    //SORT IDEAS BY USERNAME, ASCEND IN CRITERIA
     @JsonView(JSONViews.Admin.class)
     @ResponseBody
     @RequestMapping(value = PREFIX + "sortideasbyuser", method= RequestMethod.POST)
@@ -96,6 +99,7 @@ public class AjaxController {
         return resulting;
     }
 
+    //GET TAGLIST FOR TAG CLOUD
     @JsonView(JSONViews.Admin.class)
     @ResponseBody
     @RequestMapping(value = PREFIX + "tagscloud", method= RequestMethod.POST)

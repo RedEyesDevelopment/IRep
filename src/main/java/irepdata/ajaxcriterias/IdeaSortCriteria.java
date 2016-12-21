@@ -24,7 +24,7 @@ public class IdeaSortCriteria {
     }
 
     public boolean isValid(){
-        if ((orderingParameter !=null) & (ascend!=null)) {
+        if ((orderingParameter !=null) && (ascend!=null)) {
             return true;
         } else return false;
     }

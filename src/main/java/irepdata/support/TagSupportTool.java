@@ -77,11 +77,7 @@ public class TagSupportTool implements TagSupport{
 
         if (isUpdating) {
             targetSet.addAll(tagSet);
-            for (Tag oldTag : targetSet) {
-                if (!tagSet.contains(oldTag)) {
-                    targetSet.remove(oldTag);
-                }
-            }
+            targetSet.retainAll(tagSet);
         } else targetSet = tagSet;
         return targetSet;
     }

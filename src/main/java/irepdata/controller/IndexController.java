@@ -45,7 +45,7 @@ public class IndexController {
         if (login != null && password != null) {
             User userToAutorize = userService.getUserByLogin(login);
             if (userToAutorize != null) {
-                if ((userToAutorize.isEnabled()) & (userToAutorize.getPassword().equals(password))) {
+                if ((userToAutorize.isEnabled()) && (userToAutorize.getPassword().equals(password))) {
                     request.getSession().setAttribute("LOGGEDIN_USER", userToAutorize.getUsername());
                     request.getSession().setAttribute("USER_ID", userToAutorize.getId());
                     request.getSession().setAttribute("IS_ADMIN", userToAutorize.isAdmin());

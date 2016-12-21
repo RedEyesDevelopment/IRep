@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -56,7 +57,7 @@ public class MainController {
     //LIST
     @RequestMapping(URLCLASSPREFIX + "list")
     public String listOfIdeas(Map<String, Object> map, HttpServletRequest request) {
-        map.put("ideaList", ideaService.getSortedIdeaList(true, "posted"));
+        map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(true, "posted"));
         request.getSession().removeAttribute("IMAGE_OFFSET");
         return "idealistpage";
     }
@@ -123,9 +124,20 @@ public class MainController {
     //EDIT OWN IDEA
     @RequestMapping(value = URLCLASSPREFIX + "/editmyidea/{ideaId}")
     public String editMyIdea(@PathVariable("ideaId") Long ideaId, Model model,
-                             HttpServletRequest request) {
+                             HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
+
+        Long userId = (Long) request.getSession().getAttribute("USER_ID");
+        Boolean isAdmin = (Boolean) request.getSession().getAttribute("IS_ADMIN");
+        if (!userId.equals(idea.getAuthor().getId()) && (!isAdmin)){
+            try {
+                response.sendRedirect("/ideas/list");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         logger.info(idea.getName() + " in maincontroller - loaded!");
+
         Map<String, String> isEnabled = new LinkedHashMap<String, String>();
         IdeaDummy idummy = new IdeaDummy();
         IdeaDummyConversionTool.fillDummyFromIdea(idea, idummy);

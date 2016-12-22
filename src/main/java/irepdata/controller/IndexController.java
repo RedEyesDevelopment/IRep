@@ -69,12 +69,4 @@ public class IndexController {
         return "redirect:/index";
     }
 
-    //* Тестовая страница, для отработки Сашей статики (Потом удалить к едрени фене)
-//    @RequestMapping("/hello")
-//    public String hello(Map<String, Object> map) {
-//            map.put("ideaList", ideaService.getSortedIdeaList(true, "id"));
-//        return "hello";
-//    }
-
-
 }

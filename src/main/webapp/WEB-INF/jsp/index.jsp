@@ -65,9 +65,9 @@
                       <div class="account-wall">
                           <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                               alt="">
-                          <form class="form-signin" id="form-login">
-          	                <input type="text" id="login" class="form-control" placeholder="Email" required autofocus>
-          	                <input type="password" id="pass" class="form-control" placeholder="Password" required>
+                          <form class="form-signin" action="login" method="post">
+          	                <input type="text" id="login" name="login" class="form-control" placeholder="Email" required autofocus>
+          	                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
           	                <button class="btn btn-lg btn-primary btn-block" type="submit">
           	                    Вход</button>
           	                <label class="checkbox pull-left">
@@ -81,6 +81,8 @@
                   </div>
               </div>
           </div>
+
+          <!--
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#form-login").submit(function() { //устанавливаем событие отправки для формы
@@ -102,7 +104,7 @@
 	    });
     });
 </script>
-
+!-->
     </body>
 <!--<%@include file="/WEB-INF/jsp/includes/footer.jsp" %>!-->
 </html>

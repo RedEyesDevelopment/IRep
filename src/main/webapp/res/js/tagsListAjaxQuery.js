@@ -15,15 +15,10 @@
 	});
 
 	function searchViaAjax() {
-
-		var search = {}
-		search["orderingParameter"] = $("#orderingParameter").val();
-		search["ascend"] = $("#ascend").val();
-
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
-			url : "/ajaxapi/sortenabledideas",
+			url : "/ajaxapi/tagscloud",
 			data : JSON.stringify(search),
 			dataType : 'json',
 			timeout : 100000,

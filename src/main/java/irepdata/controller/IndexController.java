@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by Gvozd on 04.12.2016.
@@ -49,11 +50,11 @@ public class IndexController {
             User userToAutorize = userService.getUserByLogin(login);
             if (userToAutorize != null) {
                 if ((userToAutorize.isEnabled()) && (userToAutorize.getPassword().equals(password))) {
-                    request.getSession().setAttribute("LOGGEDIN_USER", userToAutorize.getUsername());
-                    request.getSession().setAttribute("USER_ID", userToAutorize.getId());
-                    request.getSession().setAttribute("IS_ADMIN", userToAutorize.isAdmin());
-                    System.out.println("redirect:/ideas/list");
-                    System.out.println(request.getSession().getAttribute("USER_ID"));
+                    HttpSession session = request.getSession();
+                    session.setAttribute("LOGGEDIN_USER", userToAutorize.getUsername());
+                    session.setAttribute("USER_ID", userToAutorize.getId());
+                    session.setAttribute("IS_ADMIN", userToAutorize.isAdmin());
+                    session.setMaxInactiveInterval(20*60);
                     return "redirect:/ideas/list";
                 }
             }

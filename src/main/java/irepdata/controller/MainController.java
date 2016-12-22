@@ -20,12 +20,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -80,7 +78,7 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         Long userId = (Long) request.getSession().getAttribute("USER_ID");
         if (isIdeaLiked(ideaId, userId, request)) request.setAttribute("notshowlikes", true);
-        if (!userId.equals(idea.getAuthor().getId())) ideaService.watch(ideaId);
+        if (!isWatched(idea, userId, request)) ideaService.watch(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/list");
         request.getSession().setAttribute("TGTIDEA",idea.getId());
@@ -245,6 +243,13 @@ public class MainController {
         if (CookiesHandler.aquireCookie(userId.toString()+"donotlike"+ideaId.toString(), request)) {
             return true;
         }
+        return false;
+    }
+
+    //SUPPORT METHOD FOR WATCH SYSTEM
+    private boolean isWatched(Idea idea, Long userId, HttpServletRequest request){
+        Object obj = request.getSession().getAttribute("donotwatch"+idea.getId());
+        if ((null==obj) || (!userId.equals(idea.getAuthor().getId()))) return true;
         return false;
     }
 }

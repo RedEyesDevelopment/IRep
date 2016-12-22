@@ -78,8 +78,8 @@ public class MainController {
     @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
     public String selectIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
-        if (isIdeaLiked(ideaId, request)) request.setAttribute("notshowlikes", true);
         Long userId = (Long) request.getSession().getAttribute("USER_ID");
+        if (isIdeaLiked(ideaId, userId, request)) request.setAttribute("notshowlikes", true);
         if (!userId.equals(idea.getAuthor().getId())) ideaService.watch(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/list");
@@ -212,9 +212,9 @@ public class MainController {
     public String likeIdea(@PathVariable("ideaId") Long ideaId, @PathVariable("doLike") Boolean doLike,HttpServletRequest request, HttpServletResponse response) throws IOException {
         Boolean redirectExceeption = false;
         String redirect = (String) request.getSession().getAttribute("RETURNTO");
-        if (isIdeaLiked(ideaId, request)) return "redirect:/index";
-
         Long myId = (Long) request.getSession().getAttribute("USER_ID");
+        if (isIdeaLiked(ideaId, myId, request)) return "redirect:/index";
+
         if ((null==myId) || (null==doLike)){
             System.out.println("MYID=NULL OR DOLIKE=NULL");
             return "redirect:/index";
@@ -231,31 +231,17 @@ public class MainController {
             ideaService.dislike(ideaId);
         }
 
-        likeIdea(ideaId, request, response);
+        likeIdea(ideaId, myId, response);
         return "redirect:/ideas/showidea/"+ideaId;
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
-    private void likeIdea(Long ideaId, HttpServletRequest request, HttpServletResponse response){
-        HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
-        if (null==likeset) likeset = new HashSet<Long>();
-        likeset.add(ideaId);
-        request.getSession().removeAttribute("LIKESET");
-        request.getSession().setAttribute("LIKESET", likeset);
-        Long userId = (Long) request.getSession().getAttribute("USER_ID");
-
+    private void likeIdea(Long ideaId, Long userId, HttpServletResponse response){
         CookiesHandler.setCookie(userId.toString()+"donotlike"+ideaId, "true", 60*60*7, response);
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
-    private boolean isIdeaLiked(Long ideaId, HttpServletRequest request){
-        HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
-        Long userId = (Long) request.getSession().getAttribute("USER_ID");
-        if (null!=likeset) {
-            for (Long iterableLong: likeset){
-                if (iterableLong.equals(ideaId)) return true;
-            }
-        }
+    private boolean isIdeaLiked(Long ideaId, Long userId, HttpServletRequest request){
         if (CookiesHandler.aquireCookie(userId.toString()+"donotlike"+ideaId.toString(), request)) {
             return true;
         }

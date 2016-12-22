@@ -189,10 +189,6 @@ public class MainController {
         Long ideaId = (Long) request.getSession().getAttribute("TGTIDEA");
         User user = userService.getUserById(userId);
         Idea idea = ideaService.getIdeaById(ideaId);
-        System.out.println("userid is "+userId);
-        System.out.println("user is "+user);
-        System.out.println("ideaid is "+ideaId);
-        System.out.println("idea is "+idea);
 
         comment.setIdea(idea);
         comment.setAuthor(user);

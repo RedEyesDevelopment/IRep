@@ -6,6 +6,7 @@ import irepdata.model.Idea;
 import irepdata.model.Tag;
 import irepdata.model.User;
 import irepdata.service.*;
+import irepdata.support.CookiesHandler;
 import irepdata.support.IdeaDummyConversionTool;
 import irepdata.support.TagSupport;
 import org.apache.commons.logging.Log;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -229,17 +231,18 @@ public class MainController {
             ideaService.dislike(ideaId);
         }
 
-        likeIdea(ideaId, request);
+        likeIdea(ideaId, request, response);
         return "redirect:/ideas/showidea/"+ideaId;
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
-    private void likeIdea(Long ideaId, HttpServletRequest request){
+    private void likeIdea(Long ideaId, HttpServletRequest request, HttpServletResponse response){
         HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
         if (null==likeset) likeset = new HashSet<Long>();
         likeset.add(ideaId);
         request.getSession().removeAttribute("LIKESET");
         request.getSession().setAttribute("LIKESET", likeset);
+        CookiesHandler.setCookie("donotlike"+ideaId, "true", 60*60*7, response);
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
@@ -251,6 +254,9 @@ public class MainController {
             for (Long iterableLong: likeset){
                 if (iterableLong.equals(ideaId)) return true;
             }
+        }
+        if (CookiesHandler.aquireCookie("donotlike"+ideaId.toString(), request)) {
+            return true;
         }
         return false;
     }

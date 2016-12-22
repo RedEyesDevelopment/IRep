@@ -242,20 +242,21 @@ public class MainController {
         likeset.add(ideaId);
         request.getSession().removeAttribute("LIKESET");
         request.getSession().setAttribute("LIKESET", likeset);
-        CookiesHandler.setCookie("donotlike"+ideaId, "true", 60*60*7, response);
+        Long userId = (Long) request.getSession().getAttribute("USER_ID");
+
+        CookiesHandler.setCookie(userId.toString()+"donotlike"+ideaId, "true", 60*60*7, response);
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
     private boolean isIdeaLiked(Long ideaId, HttpServletRequest request){
         HashSet<Long> likeset = (HashSet<Long>) request.getSession().getAttribute("LIKESET");
-        if (null==likeset) {
-            return false;
-        } else {
+        Long userId = (Long) request.getSession().getAttribute("USER_ID");
+        if (null!=likeset) {
             for (Long iterableLong: likeset){
                 if (iterableLong.equals(ideaId)) return true;
             }
         }
-        if (CookiesHandler.aquireCookie("donotlike"+ideaId.toString(), request)) {
+        if (CookiesHandler.aquireCookie(userId.toString()+"donotlike"+ideaId.toString(), request)) {
             return true;
         }
         return false;

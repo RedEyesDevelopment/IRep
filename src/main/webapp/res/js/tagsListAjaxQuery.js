@@ -1,25 +1,19 @@
 	jQuery(document).ready(function($) {
-
-		$("#search-form").submit(function(event) {
-
-			// Disble the search button
-			enableSearchButton(false);
-
-			// Prevent the form from submitting via the browser.
 			event.preventDefault();
-
-			searchViaAjax();
-
+			getTagCloudViaAjax();
 		});
 
 	});
 
-	function searchViaAjax() {
+	function getTagCloudViaAjax() {
+			var tagscloud = {}
+    		tagscloud["per"] = 'givemetagcloud';
+
 		$.ajax({
 			type : "POST",
 			contentType : "application/json",
 			url : "/ajaxapi/tagscloud",
-			data : JSON.stringify(search),
+			data : JSON.stringify(tagscloud),
 			dataType : 'json',
 			timeout : 100000,
 			success : function(data) {
@@ -32,18 +26,12 @@
 			},
 			done : function(e) {
 				console.log("DONE");
-				enableSearchButton(true);
 			}
 		});
-
-	}
-
-	function enableSearchButton(flag) {
-		$("#btn-search").prop("disabled", flag);
 	}
 
 	function display(data) {
 		var json = "<h4>Ajax Response</h4><pre>"
 				+ JSON.stringify(data, null, 4) + "</pre>";
-		$('#feedback').html(json);
+		$('#result').html(json);
 	}

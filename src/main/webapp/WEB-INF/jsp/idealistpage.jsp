@@ -60,16 +60,6 @@
                 </style>
     </head>
     <body>
-    <!--<div>MY DIV </div>
-    <div class="contentblock">
-        <h1>Example - Spring Application</h1>
-        <h2><%@include file="/WEB-INF/jsp/includes/greeting.jsp" %><h2>
-        <a href="hello.html">Hillel IT School</a>
-        <br>
-        <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
-        </div>
-          !-->
-
          <div class="container">
          		<div class="row">
          			<div class="navbar navbar-static-top">
@@ -125,12 +115,12 @@
          				  <div id="panel1" class="tab-pane fade in active">
          				   	<div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button" class="btn btn-default">Дате создания</button>
+           							<button type="button"  id="btn-search" class="btn btn-default">Дате создания</button>
          						    <button type="button" class="btn btn-default">Дате изменения</button>
          						    <button type="button" class="btn btn-default">Автор</button>
          						    <button type="button" class="btn btn-default">Название идеи</button>
-         						    <button type="button" class="btn btn-default">Likes</button>
-         						    <button type="button" class="btn btn-default">Dislikes</button>
+         						    <button type="button" class="btn btn-default">Лайкам</button>
+         						    <button type="button" class="btn btn-default">Дизлайкам</button>
            						</div>
          					</div>
          				  </div>
@@ -139,18 +129,18 @@
            						<div class="btn-group" role="group" aria-label="...">
            							<button type="button" class="btn btn-default">Мои идеи</button>
          						    <button type="button" class="btn btn-default">С комментариями</button>
-         						    <button type="button" class="btn btn-default">С картинками</button>
+         						    <!--<button type="button" class="btn btn-default">С картинками</button>
          						    <button type="button" class="btn btn-default">С видео</button>
          						    <button type="button" class="btn btn-default">With Likes</button>
-         						    <button type="button" class="btn btn-default">With Dislikes</button>
+         						    <button type="button" class="btn btn-default">With Dislikes</button>!-->
            						</div>
          					</div>
          				  </div>
          				    <div id="panel3" class="tab-pane fade">
          				    <form action="" class="form">
          						<div class="form-group">
-         							<label class="text-primary">Нзвание идеи:</label>
-         							<input type="text" class="form-control" placeholder="Name" value="">
+         							<label class="text-primary">Нaзвание идеи:</label>
+         							<input type="text" class="form-control" placeholder="Нaзвание идеи" value="">
          							<label class="text-primary">Тэги идеи:</label>
                  					<input type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
          	        				<div>
@@ -189,7 +179,7 @@
          				</div>
          			</div>
          			<div class="col-md-3">
-         				<div class="input-group">
+         				<!--<div class="input-group">
          			      <input type="text" class="form-control" placeholder="Search for idea...">
          			      <span class="input-group-btn">
          			        <button class="btn btn-default" type="button">Go!</button>
@@ -200,7 +190,7 @@
          			      <span class="input-group-btn">
          			        <button class="btn btn-default" type="button">Go!</button>
          			      </span>
-         			    </div>
+         			    </div>!-->
          			</div>
 
          		</div>
@@ -233,68 +223,7 @@
          			<div class="sidebar col-md-3">
          				<div class="tags_pic">
          					<div id='tag-cloud'></div>
-         					<!-- <div id="tagcloud">
-         				        <ul>
-         				            <li><a href="#">dazzlingly</a></li>
-         				            <li><a href="#">natatory</a></li>
-         				            <li><a href="#">automa</a></li>
-         				            <li><a href="#">vinologist</a></li>
-         				            <li><a href="#">castrate</a></li>
-         				            <li><a href="#">airfoil</a></li>
-         				            <li><a href="#">unpaintedly</a></li>
-         				            <li><a href="#">caffetannic</a></li>
-         				            <li><a href="#">fissirostrate</a></li>
-         				            <li><a href="#">gingivectomy</a></li>
-         				            <li><a href="#">pinprick</a></li>
-         				            <li><a href="#">forecount</a></li>
-         				            <li><a href="#">anorthophyre</a></li>
-         				            <li><a href="#">tram</a></li>
-         				            <li><a href="#">democratian</a></li>
-         				            <li><a href="#">ungovernedness</a></li>
-         				            <li><a href="#">anaesthesia</a></li>
-         				            <li><a href="#">Eutychian</a></li>
-         				            <li><a href="#">insalutary</a></li>
-         				            <li><a href="#">amphilogism</a></li>
-         				            <li><a href="#">reshunt</a></li>
-         				            <li><a href="#">wende</a></li>
-         				            <li><a href="#">ope</a></li>
-         				            <li><a href="#">Bomarea</a></li>
-         				            <li><a href="#">inadequative</a></li>
-         				            <li><a href="#">ovalish</a></li>
-         				            <li><a href="#">rhizopod</a></li>
-         				            <li><a href="#">stethoscopist</a></li>
-         				            <li><a href="#">riverman</a></li>
-         				            <li><a href="#">underbuoy</a></li>
-         				            <li><a href="#">Pindarist</a></li>
-         				            <li><a href="#">bacteriodiagnosis</a></li>
-         				            <li><a href="#">stonecutter</a></li>
-         				            <li><a href="#">unlanterned</a></li>
-         				            <li><a href="#">leawill</a></li>
-         				            <li><a href="#">hooky</a></li>
-         				            <li><a href="#">wisewoman</a></li>
-         				            <li><a href="#">gerundively</a></li>
-         				            <li><a href="#">minny</a></li>
-         				            <li><a href="#">aminosuccinamic</a></li>
-         				            <li><a href="#">theaterless</a></li>
-         				            <li><a href="#">heal</a></li>
-         				            <li><a href="#">synchronically</a></li>
-         				            <li><a href="#">devilman</a></li>
-         				            <li><a href="#">unbilleted</a></li>
-         				            <li><a href="#">galactotherapy</a></li>
-         				            <li><a href="#">ninepenny</a></li>
-         				            <li><a href="#">Andesic</a></li>
-         				            <li><a href="#">trainbolt</a></li>
-         				            <li><a href="#">Daza</a></li>
-         				            <li><a href="#">porterage</a></li>
-         				            <li><a href="#">innoxiousness</a></li>
-         				            <li><a href="#">sextuplex</a></li>
-         				            <li><a href="#">pharmacologic</a></li>
-         				            <li><a href="#">overlip</a></li>
-         				            <li><a href="#">Paiconeca</a></li>
-         				            <li><a href="#">grooving</a></li>
-         				            <li><a href="#">sublinear</a></li>
-         				        </ul>
-         				    </div> -->
+
          				</div>
          				<div class="tags">
 
@@ -313,67 +242,120 @@
 
          	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><script type="text/javascript" src="https://rawgithub.com/dynamicguy/tagcloud/master/src/tagcloud.jquery.js"></script>-->
 
-         	 <script src="/res/libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+         	<script src="/res/libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
          	<script src="/res/libs/jquery-svg3dtagcloud/jquery.svg3dtagcloud.min.js"></script>
          	<script>
          	    	$( document ).ready( function() {
-         	            var entries = [
-         	                { label: 'Back to top', url: '#', target: '_top' },
-         	                { label: 'Bootstrap', url: '#', target: '_top' },
-         	                { label: 'Carousel', url: '#', target: '_top' },
-         	                { label: 'Countdown', url: '#', target: '_top' },
-         	                { label: 'Dropdown Menu', url: '#', target: '_top' },
-         	                { label: 'CodePen', url: '#', target: '_top' },
-         	                { label: 'three.js', url: '#', target: '_top' },
-         	                { label: 'Form Validation', url: '#', target: '_top' },
-         	                { label: 'JS Compress', url: '#', target: '_top' },
-         	                { label: 'TinyPNG', url: '#', target: '_top' },
-         	                { label: 'Can I Use', url: '#', target: '_top' },
-         	                { label: 'URL shortener', url: '#', target: '_top' },
-         	                { label: 'Grid Layout', url: '#', target: '_top' },
-         	                { label: 'Twitter', url: '#', target: '_top' },
-         	                { label: 'deviantART', url: '#', target: '_top' },
-         	                { label: 'Gulp', url: '#', target: '_top' },
-         	                { label: 'Browsersync', url: '#', target: '_top' },
-         	                { label: 'GitHub', url: 'https://github.com/', target: '_top' },
-         	                { label: 'Shadertoy', url: '#', target: '_top' },
-         	                { label: 'Tree View', url: 'http://www.jqueryscript.net/tags.php?/tree%20view/', target: '_top' },
-         	                { label: 'jsPerf', url: '#', target: '_top' },
-         	                { label: 'Foundation', url: '#', target: '_top' },
-         	                { label: 'CreateJS', url: '#', target: '_top' },
-         	                { label: 'Velocity.js', url: 'http://julian.com/research/velocity/', target: '_top' },
-         	                { label: 'TweenLite', url: '#', target: '_top' },
-         	                { label: 'jQuery', url: 'https://jquery.com/', target: '_top' },
-         	                { label: 'Notification', url: 'http://www.jqueryscript.net/tags.php?/Notification/', target: '_top' },
-         	                { label: 'Parallax', url: 'http://www.jqueryscript.net/tags.php?/parallax/', target: '_top' }
-         	            ];
+                    var entries = [];
+         	    	$.ajax({
+                    			type : "POST",
+                    			contentType : "application/json",
+                    			url : "/ajaxapi/tagscloud",
+                    			data :{},
+                    			dataType : 'json',
+                    			timeout : 100000,
+                    			success : function(data) {
+                    				console.log("SUCCESS TAGS: ", data);
+                                    for (var i = 0; i < data.length; i++) {
+                                      entries[i] = { label: data[i].content, url: '/ajaxapi/getideasbytag/'+data[i].id, target: '_top' };
+                                    }
+                                    /*console.log( entries);
+                                    for (var i = 0; i < data.length; i++) {
+                                        console.log("entries["+i+"]=" + entries[i].label);
+                                    }
+                    				entries = [
+                                         { label: data[0].content, url: '#', target: '_top' },
+                                    ];*/
+                                    //console.log("data.length = " + data.length);
+                                     var settings = {
 
-         	            var settings = {
+                                             	                entries: entries,
+                                             	                width: 320,
+                                             	                height: 240,
+                                             	                radius: '85%',
+                                             	                radiusMin: 75,
+                                             	                bgDraw: true,
+                                             	                bgColor: '#FFF',
+                                             	                opacityOver: 1.00,
+                                             	                opacityOut: 0.05,
+                                             	                opacitySpeed: 6,
+                                             	                fov: 800,
+                                             	                speed: 1,
+                                             	                fontFamily: 'Oswald, Arial, sans-serif',
+                                             	                fontSize: '15',
+                                             	                fontColor: '#337ab7',
+                                             	                fontWeight: 'normal',//bold
+                                             	                fontStyle: 'normal',//italic
+                                             	                fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
+                                             	                fontToUpperCase: true
 
-         	                entries: entries,
-         	                width: 320,
-         	                height: 240,
-         	                radius: '85%',
-         	                radiusMin: 75,
-         	                bgDraw: true,
-         	                bgColor: '#FFF',
-         	                opacityOver: 1.00,
-         	                opacityOut: 0.05,
-         	                opacitySpeed: 6,
-         	                fov: 800,
-         	                speed: 2,
-         	                fontFamily: 'Oswald, Arial, sans-serif',
-         	                fontSize: '15',
-         	                fontColor: '#337ab7',
-         	                fontWeight: 'normal',//bold
-         	                fontStyle: 'normal',//italic
-         	                fontStretch: 'normal',//wider, narrower, ultra-condensed, extra-condensed, condensed, semi-condensed, semi-expanded, expanded, extra-expanded, ultra-expanded
-         	                fontToUpperCase: true
+                                             	            };
+                                             	            //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
+                                             	            $( '#tag-cloud' ).svg3DTagCloud( settings );
+                    			},
+                    			error : function(e) {
+                    				console.log("ERROR: ", e);
+                    				display(e);
+                    			},
+                    			done : function(e) {
+                    				console.log("DONE");
+                    				enableSearchButton(true);
+                    			}
+                    		});
 
-         	            };
-         	            //var svg3DTagCloud = new SVG3DTagCloud( document.getElementById( 'holder'  ), settings );
-         	            $( '#tag-cloud' ).svg3DTagCloud( settings );
          			} );
+                    /*function searchViaAjax() {
+
+                    		var search = {}
+                    		search["orderingParameter"] = "posted";
+                    		search["ascend"] = "asc";
+                            console.log("SUCCESS order: ", data);
+                    		$.ajax({
+                    			type : "POST",
+                    			contentType : "application/json",
+                    			url : "/ajaxapi/sortenabledideas",
+                    			data : JSON.stringify(search),
+                    			dataType : 'json',
+                    			timeout : 100000,
+                    			success : function(data) {
+                    				console.log("SUCCESS order: ", data);
+                    				display(data);
+                    			},
+                    			error : function(e) {
+                    				console.log("ERROR: ", e);
+                    				display(e);
+                    			},
+                    			done : function(e) {
+                    				console.log("DONE");
+                    				enableSearchButton(true);
+                    			}
+                    		});
+
+                    	}
+
+                    	function enableSearchButton(flag) {
+                    	    console.log("enableSearchButton- ", flag);
+                    		$("#btn-search").prop("disabled", flag);
+                    	}
+
+                    	function display(data) {
+                    		var json = "<h4>Ajax Response</h4><pre>"
+                    				+ JSON.stringify(data, null, 4) + "</pre>";
+                    				 console.log("display- ", json);
+                    		//$('#feedback').html(json);
+                    	}
+
+                    $("#btn-search").onclick(function(event) {
+                        console.log("(#btn-search).onclick ");
+                        // Disble the search button
+                        enableSearchButton(false);
+
+                        // Prevent the form from submitting via the browser.
+                        event.preventDefault();
+
+                        searchViaAjax();
+                    }
+                    );*/
          	</script>
 
 

@@ -20,17 +20,7 @@
         	<script src="/res/libs/bootstrap/bootstrap.js"></script>
     </head>
     <body>
-    <!--<div>MY DIV </div>
-    <div class="contentblock">
-        <h1>Example - Spring Application</h1>
-        <h2><%@include file="/WEB-INF/jsp/includes/greeting.jsp" %><h2>
-        <a href="hello.html">Hillel IT School</a>
-        <br>
-        <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
-        </div>
-          !-->
-
-          <div class="container">
+             <div class="container">
           		<div class="row">
           			<div class="navbar navbar-default navbar-static-top ">
           				<div class="navbar-header">
@@ -47,9 +37,8 @@
           				</div>
           				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
           					<ul class="nav navbar-default">
-          						<li><b>IRep</b><br/>Idea Repository</li>
+          						<li><b>IRep</b><br/>Банк Идей</li>
           					</ul>
-
           				</div>
           			</div>
           		</div>
@@ -66,8 +55,8 @@
                           <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                               alt="">
                           <form class="form-signin" action="login" method="post">
-          	                <input type="text" id="login" name="login" class="form-control" placeholder="Email" required autofocus>
-          	                <input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+          	                <input type="text" id="login" name="login" class="form-control" placeholder="Логин" required autofocus>
+          	                <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
           	                <button class="btn btn-lg btn-primary btn-block" type="submit">
           	                    Вход</button>
           	                <label class="checkbox pull-left">
@@ -106,5 +95,4 @@
 </script>
 !-->
     </body>
-<!--<%@include file="/WEB-INF/jsp/includes/footer.jsp" %>!-->
 </html>

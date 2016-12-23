@@ -53,16 +53,15 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public boolean deleteIdea(Long id) {
+    public void deleteIdea(Long id) {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
         criteria.add(Restrictions.eq("id", id));
         Idea idea = (Idea) criteria.uniqueResult();
         sessionFactory.getCurrentSession().delete(idea);
-        return true;
     }
 
     @Override
-    public boolean updateIdeaContent(Long contentId, String content) {
+    public void updateIdeaContent(Long contentId, String content) {
         String hql = "UPDATE Content set " +
                 "contentData = :content " +
                 "WHERE id = :content_id";
@@ -70,9 +69,6 @@ public class IdeaDaoImpl implements IdeaDao {
         query.setParameter("content", content);
         query.setParameter("content_id", contentId);
         int result = query.executeUpdate();
-        if (result > 0) {
-            return true;
-        } else return false;
     }
 
     @Override

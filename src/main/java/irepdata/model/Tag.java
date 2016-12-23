@@ -86,7 +86,6 @@ public class Tag implements Serializable{
 
         Tag tag = (Tag) o;
 
-        if (!id.equals(tag.id)) return false;
         if (content != null ? !content.equals(tag.content) : tag.content != null) return false;
         return created != null ? created.equals(tag.created) : tag.created == null;
 
@@ -94,9 +93,9 @@ public class Tag implements Serializable{
 
     @Override
     public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + (created != null ? created.hashCode() : 0);
+        int result = content.hashCode();
+        result = 31 * result + created.hashCode();
+        result = 31 * result + (enabled ? 1 : 0);
         return result;
     }
 

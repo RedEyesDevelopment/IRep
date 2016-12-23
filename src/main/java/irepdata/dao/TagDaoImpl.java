@@ -50,7 +50,7 @@ public class TagDaoImpl implements TagDao {
     }
 
     @Override
-    public boolean updateTag(Long id, String content, boolean isEnabled) {
+    public void updateTag(Long id, String content, boolean isEnabled) {
         String hql = "UPDATE Tag set " +
                 "content = :content, " +
                 "enabled = :enabled " +
@@ -60,21 +60,15 @@ public class TagDaoImpl implements TagDao {
         query.setParameter("enabled", isEnabled);
         query.setParameter("tag_id", id);
         int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
     }
 
     @Override
-    public boolean deleteTag(Long id) {
+    public void deleteTag(Long id) {
         String hql = "DELETE FROM Tag " +
                 "WHERE id = :tag_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("tag_id", id);
         int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
     }
 
     @Override

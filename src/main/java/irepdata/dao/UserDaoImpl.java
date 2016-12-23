@@ -34,18 +34,15 @@ public class UserDaoImpl implements UserDao {
         sessionFactory.openSession().saveOrUpdate(user);
     }
 
-    public boolean deleteUser(Long id) {
+    public void deleteUser(Long id) {
         String hql = "DELETE FROM User " +
                 "WHERE id = :user_id";
         Query query = sessionFactory.getCurrentSession().createQuery(hql);
         query.setParameter("user_id", id);
         int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
 }
 
-    public boolean updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled) {
+    public void updateUser(Long id, String login, String username, String password, boolean isAdmin, boolean isEnabled) {
         String hql = "UPDATE User set "+
                 "login = :login, " +
                 "username = :username, " +
@@ -61,9 +58,6 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("enabled", isEnabled);
         query.setParameter("user_id", id);
         int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
     }
 
     public User getUserById(Long id) {

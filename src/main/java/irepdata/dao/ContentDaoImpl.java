@@ -39,7 +39,7 @@ public class ContentDaoImpl implements ContentDao {
     }
 
     @Override
-    public boolean updateContent(Long ideaId, String content) {
+    public void updateContent(Long ideaId, String content) {
         String hql = "UPDATE Content set "+
                 "contentData = :content "+
                 "WHERE id = :idea_id";
@@ -47,8 +47,5 @@ public class ContentDaoImpl implements ContentDao {
         query.setParameter("content", content);
         query.setParameter("idea_id", ideaId);
         int result = query.executeUpdate();
-        if (result>0){
-            return true;
-        } else return false;
     }
 }

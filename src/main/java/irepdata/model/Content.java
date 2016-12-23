@@ -52,16 +52,14 @@ public class Content implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
 
         Content content = (Content) o;
-
-        if (!getId().equals(content.getId())) return false;
         return getContentData() != null ? getContentData().equals(content.getContentData()) : content.getContentData() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + (getContentData() != null ? getContentData().hashCode() : 0);
+        int result = idea.hashCode();
+        result = 31 * result + (contentData != null ? contentData.hashCode() : 0);
         return result;
     }
 

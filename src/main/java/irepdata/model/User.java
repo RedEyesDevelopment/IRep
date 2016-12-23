@@ -116,7 +116,6 @@ public class User implements Serializable {
 
         if (isAdmin() != user.isAdmin()) return false;
         if (isEnabled() != user.isEnabled()) return false;
-        if (getId() != null ? !getId().equals(user.getId()) : user.getId() != null) return false;
         if (!getUsername().equals(user.getUsername())) return false;
         if (!getLogin().equals(user.getLogin())) return false;
         return getPassword().equals(user.getPassword());
@@ -125,12 +124,11 @@ public class User implements Serializable {
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + getUsername().hashCode();
-        result = 31 * result + getLogin().hashCode();
-        result = 31 * result + getPassword().hashCode();
-        result = 31 * result + (isAdmin() ? 1 : 0);
-        result = 31 * result + (isEnabled() ? 1 : 0);
+        int result = username.hashCode();
+        result = 31 * result + login.hashCode();
+        result = 31 * result + password.hashCode();
+        result = 31 * result + (admin ? 1 : 0);
+        result = 31 * result + (enabled ? 1 : 0);
         return result;
     }
 

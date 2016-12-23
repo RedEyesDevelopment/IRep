@@ -50,11 +50,10 @@ public class CommentDaoImpl implements CommentDao {
     }
 
     @Override
-    public boolean deleteComment(Long id) {
+    public void deleteComment(Long id) {
         Session session = sessionFactory.getCurrentSession();
         Comment comment = (Comment) session.get(Comment.class, id);
         session.delete(comment);
-        return true;
     }
 
     @Override

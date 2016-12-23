@@ -84,7 +84,6 @@ public class Image {
         Image image = (Image) o;
 
         if (isPublicity() != image.isPublicity()) return false;
-        if (!getId().equals(image.getId())) return false;
         if (getImageName() != null ? !getImageName().equals(image.getImageName()) : image.getImageName() != null)
             return false;
         return getPosted().equals(image.getPosted());
@@ -93,10 +92,10 @@ public class Image {
 
     @Override
     public int hashCode() {
-        int result = getId().hashCode();
-        result = 31 * result + (getImageName() != null ? getImageName().hashCode() : 0);
-        result = 31 * result + getPosted().hashCode();
-        result = 31 * result + (isPublicity() ? 1 : 0);
+        int result = imageName.hashCode();
+        result = 31 * result + posted.hashCode();
+        result = 31 * result + imageAuthorId.hashCode();
+        result = 31 * result + (publicity ? 1 : 0);
         return result;
     }
 

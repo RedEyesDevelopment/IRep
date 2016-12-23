@@ -91,7 +91,6 @@ public class Comment {
 
         Comment comment = (Comment) o;
 
-        if (getId() != comment.getId()) return false;
         if (isEnabled() != comment.isEnabled()) return false;
         if (!getAuthor().equals(comment.getAuthor())) return false;
         if (!getIdea().equals(comment.getIdea())) return false;
@@ -103,11 +102,9 @@ public class Comment {
 
     @Override
     public int hashCode() {
-        int result = (int) (getId() ^ (getId() >>> 32));
-        result = 31 * result + getAuthor().hashCode();
-        result = 31 * result + (getContent() != null ? getContent().hashCode() : 0);
-        result = 31 * result + (getPosted() != null ? getPosted().hashCode() : 0);
-        result = 31 * result + (isEnabled() ? 1 : 0);
+        int result = author.hashCode();
+        result = 31 * result + idea.hashCode();
+        result = 31 * result + posted.hashCode();
         return result;
     }
 

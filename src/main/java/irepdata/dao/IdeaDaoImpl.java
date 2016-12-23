@@ -102,6 +102,11 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
+    public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled) {
+        return sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.tags t where t.id = " + tagId + " asc").list();
+    }
+
+    @Override
     public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
         String order;
         if (ascend) {

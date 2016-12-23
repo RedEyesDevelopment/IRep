@@ -11,10 +11,11 @@ public interface IdeaService {
     public Idea getIdeaById(Long id);
     public Idea getIdeaWithAllDataById(Long id);
     public void createIdea(Idea idea);
-    public boolean deleteIdea(Long id);
+    public void deleteIdea(Long id);
     public void updateIdea(Long id, String name, String description, String image, String tags, boolean enabled, Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListByUsername(boolean ascend);
+    public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled);
     public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
     public void like(Long id);

@@ -62,7 +62,7 @@ public class DBUserTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = 2L;
-        System.out.println(service.deleteUser(searchableId));
+        service.deleteUser(searchableId);
     }
 
     @Test
@@ -71,7 +71,7 @@ public class DBUserTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         UserService service = (UserService) appContext.getBean("userService");
         Long searchableId = new Long(3);
-        System.out.println(service.updateUser(searchableId, "testadmin", "Fuck", "testpassword", true, false));
+        service.updateUser(searchableId, "testadmin", "Fuck", "testpassword", true, false);
     }
 
     @Test

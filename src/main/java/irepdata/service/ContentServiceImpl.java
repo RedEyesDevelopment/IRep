@@ -2,8 +2,6 @@ package irepdata.service;
 
 import irepdata.dao.ContentDao;
 import irepdata.model.Content;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,7 +37,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Transactional
-    public boolean updateContent(Long ideaId, String content) {
-        return contentDao.updateContent(ideaId, content);
+    public void updateContent(Long ideaId, String content) {
+        contentDao.updateContent(ideaId, content);
     }
 }

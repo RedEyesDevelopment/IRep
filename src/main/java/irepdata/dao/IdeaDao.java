@@ -1,10 +1,8 @@
 package irepdata.dao;
 
 import irepdata.model.Idea;
-import irepdata.model.Tag;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Gvozd on 13.11.2016.
@@ -18,6 +16,7 @@ public interface IdeaDao {
     public void updateIdeaContent(Long contentId, String content);
     public List<Idea> getSortedIdeaList(boolean ascend, String orderingParameter);
     public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter);
+    public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled);
     public List<Idea> getSortedIdeaListByUsername(boolean ascend);
     public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter);
     public void like(Long id);

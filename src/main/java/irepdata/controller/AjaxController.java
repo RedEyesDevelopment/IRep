@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -56,6 +53,22 @@ public class AjaxController {
         } else {
             resulting = new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        return resulting;
+    }
+
+    //SHOW IDEAS WITHOUT DISABLED, GET BY TAG CLOUD AJAX
+    @JsonView(JSONViews.List.class)
+    @ResponseBody
+    @RequestMapping(value = PREFIX + "getideasbytag/{tagId}", method= RequestMethod.POST)
+    public ResponseEntity getIdeasForTagsCloudViaAjax(@PathVariable("tagId") Long tagId) {
+        ResponseEntity resulting;
+            System.out.println("Criteria is valid");
+            List<Idea> ideas = ideaService.getIdeaListForTagsCloud(tagId, true);
+            if (ideas.size() > 0) {
+                resulting = new ResponseEntity(ideas, HttpStatus.OK);
+            } else {
+                resulting = new ResponseEntity(HttpStatus.NO_CONTENT);
+            }
         return resulting;
     }
 

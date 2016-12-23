@@ -43,8 +43,8 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public boolean deleteIdea(Long id) {
-        return ideaDao.deleteIdea(id);
+    public void deleteIdea(Long id) {
+        ideaDao.deleteIdea(id);
     }
 
     @Transactional
@@ -61,6 +61,11 @@ public class IdeaServiceImpl implements IdeaService {
     @Transactional
     public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
         return ideaDao.getSortedIdeaListByUsername(ascend);
+    }
+
+    @Override
+    public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled) {
+        return ideaDao.getIdeaListForTagsCloud(tagId, onlyEnabled);
     }
 
     @Transactional

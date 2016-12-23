@@ -8,5 +8,5 @@ import irepdata.model.Content;
 public interface ContentService {
     public Content getContent(Long id);
     public void createContent(Content content);
-    public boolean updateContent(Long ideaId, String content);
+    public void updateContent(Long ideaId, String content);
 }

@@ -11,6 +11,6 @@ public interface CommentService {
     public Comment getCommentById(Long id);
     public void createComment(Comment comment);
     public void updateComment(Long id, String content, boolean isEnabled);
-    public boolean deleteComment(Long id);
+    public void deleteComment(Long id);
     public List<Comment> getSortedCommentsForIdea(Long ideaId, String orderingParameter, boolean ascend, boolean withoutDisabled);
 }

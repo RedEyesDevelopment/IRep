@@ -12,8 +12,6 @@
         <spring:url value="/res/simple.css" var="mainCss" />
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
-        <spring:url value="/res/js/tagsListAjaxQuery.js" var="tagsListAjaxQueryJS"/>
-        <script src="${tagsListAjaxQueryJS}"></script>
 
            <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
         	    <link rel="stylesheet" href="/res/css/fonts.css" />
@@ -199,7 +197,7 @@
          		<div class="row">
          			<div class="grid col-md-9">
 
-                    <div id="result">
+
 
          			<c:forEach items="${ideaList}" var="ideadata">
                                         <div class="thumbnail item">
@@ -284,7 +282,7 @@
                                              	                opacityOut: 0.05,
                                              	                opacitySpeed: 6,
                                              	                fov: 800,
-                                             	                speed: 1,
+                                             	                speed: 1.5,
                                              	                fontFamily: 'Oswald, Arial, sans-serif',
                                              	                fontSize: '15',
                                              	                fontColor: '#337ab7',

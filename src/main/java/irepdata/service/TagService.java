@@ -13,9 +13,9 @@ public interface TagService {
     public Tag getTagById(Long id);
     public Tag getTagAndIdeasById(Long id);
     public void createTag(Tag tag);
-    public boolean updateTag(Long id, String content, boolean isEnabled);
+    public void updateTag(Long id, String content, boolean isEnabled);
     public void createTags(List<String> tagsData);
-    public boolean deleteTag(Long id);
+    public void deleteTag(Long id);
     public List<Tag> getTagList(List<String> incomingData);
     public List<Tag> getSortedTagList(String orderingParameter, boolean ascend, boolean withoutDisabled);
     public List<Tag> getTagListWithIdeaId(Long ideaId, boolean withoutDisabled);

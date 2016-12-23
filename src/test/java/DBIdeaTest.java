@@ -115,7 +115,7 @@ public class DBIdeaTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
         Long searchableId = 3L;
-        System.out.println(service.deleteIdea(searchableId));
+        service.deleteIdea(searchableId);
     }
 
     @Test

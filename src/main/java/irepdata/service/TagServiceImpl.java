@@ -43,8 +43,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Transactional
-    public boolean updateTag(Long id, String content, boolean isEnabled) {
-        return tagDao.updateTag(id, content, isEnabled);
+    public void updateTag(Long id, String content, boolean isEnabled) {
+        tagDao.updateTag(id, content, isEnabled);
     }
 
     @Transactional
@@ -53,8 +53,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Transactional
-    public boolean deleteTag(Long id) {
-        return tagDao.deleteTag(id);
+    public void deleteTag(Long id) {
+        tagDao.deleteTag(id);
     }
 
     @Transactional

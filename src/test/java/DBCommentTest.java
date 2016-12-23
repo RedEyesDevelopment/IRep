@@ -58,7 +58,7 @@ public class DBCommentTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         CommentService service = (CommentService) appContext.getBean("commentService");
         Long searchableId = 1L;
-        System.out.println(service.deleteComment(searchableId));
+        service.deleteComment(searchableId);
     }
 
     @Test

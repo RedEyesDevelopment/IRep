@@ -2,8 +2,6 @@ package irepdata.service;
 
 import irepdata.dao.CommentDao;
 import irepdata.model.Comment;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,8 +43,8 @@ public class CommentServiceImpl implements CommentService{
     }
 
     @Transactional
-    public boolean deleteComment(Long id) {
-        return commentDao.deleteComment(id);
+    public void deleteComment(Long id) {
+        commentDao.deleteComment(id);
     }
 
     @Transactional

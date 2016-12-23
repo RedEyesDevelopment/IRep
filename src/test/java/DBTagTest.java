@@ -49,7 +49,7 @@ public class DBTagTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         TagService service = (TagService) appContext.getBean("tagService");
         Long searchableId = 3L;
-        System.out.println(service.deleteTag(searchableId));
+        service.deleteTag(searchableId);
     }
 
     @Test
@@ -58,7 +58,7 @@ public class DBTagTest{
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         TagService service = (TagService) appContext.getBean("tagService");
         Long searchableId = new Long(4);
-        System.out.println(service.updateTag(searchableId, "testablecontent", true));
+        service.updateTag(searchableId, "testablecontent", true);
     }
 
     @Test

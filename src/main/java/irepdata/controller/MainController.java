@@ -129,7 +129,7 @@ public class MainController {
         IdeaDummyConversionTool.fillIdeaFromDummy(ideaDummy, idea);
 
         ideaService.createIdea(idea);
-        return "redirect:/ideas/cabinet";
+        return "redirect:/ideas/list";
     }
 
     //EDIT OWN IDEA

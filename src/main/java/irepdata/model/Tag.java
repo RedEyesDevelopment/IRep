@@ -3,8 +3,6 @@ package irepdata.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import irepdata.views.JSONViews;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -94,7 +92,6 @@ public class Tag implements Serializable{
     @Override
     public int hashCode() {
         int result = content.hashCode();
-        result = 31 * result + created.hashCode();
         result = 31 * result + (enabled ? 1 : 0);
         return result;
     }

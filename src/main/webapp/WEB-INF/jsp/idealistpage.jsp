@@ -138,50 +138,55 @@
          					</div>
          				  </div>
          				    <div id="panel3" class="tab-pane fade">
-         				    <form:form method="post" class="form" action="createideahandler" commandName="ideaData">
-         						<div class="form-group">
-         							<form:label path="name" class="text-primary">
-                                    		<spring:message code="label.ideaName" />
-                                    </form:label>
-         							<form:input path="name" type="text" class="form-control" placeholder="Нaзвание идеи"/>
-         							<form:label path="tags" class="text-primary">
-                                    		<spring:message code="label.ideaTags" />
-                                     </form:label>
-                                     <form:input path="tags" type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
-         	        				<div>
-         	        				<form:label path="content" class="text-primary">
-                                        <spring:message code="label.ideaContent" />
-                                    </form:label>
-                                    <form:input path="content" />
-         							</div>
-         							<script>
-         							CKEDITOR.replace('editor1', {
-         								filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
-         								filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
-         								});
-         							</script>
-         						</div>
-         						<button type="submit" id="btn-create" class="btn btn-primary" value="<spring:message code="label.ideaCreate">
-         							<i class="fa fa-sign-in"></i> ок
-         						</button>
-         					</form:form>
-         					<!-- <form method="POST" action="index.php" onsubmit="return f_submit();">
-         						<p class="text-primary">Тэги для идеи:</p>
-                 				<input type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager"/>
 
-                 				<div id="tagsIdea" class="tag-list"></div>
-                 				<div>
-         						<textarea cols="80" name="editor1" id="editor1" cols="48" rows="10"></textarea>
-         						</div>
-         						<script>
-         						CKEDITOR.replace('editor1', {
-         							filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
-         							filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
-         							});
-         						</script>
-         						<br><input type="submit" value="Постить" name="B1"  >
-         						<textarea cols="80" name="editor" id="editor" cols="48" rows="10"></textarea>
-         					</form>	 -->
+         				    <form:form method="post" action="/ideas/createideahandler" commandName="ideaData">
+
+                            	<table>
+                            		<tr>
+                            			<td><form:label path="name">
+                            				<spring:message code="label.ideaName" />
+                            			</form:label></td>
+                            			<td><form:input path="name" /></td>
+                            		</tr>
+                            		<tr>
+                            			<td><form:label path="description">
+                            				<spring:message code="label.ideaDescription" />
+                            			</form:label></td>
+                            			<td><form:input path="description" /></td>
+                            		</tr>
+                                    <tr>
+                            			<td><form:label path="image">
+                            				<spring:message code="label.ideaImage" />
+                            			</form:label></td>
+                            			<td><form:input path="image" /></td>
+                            		</tr>
+                            		<tr>
+                            			<td><form:label path="tags">
+                            				<spring:message code="label.ideaTags" />
+                            			</form:label></td>
+                            			<td><form:input path="tags" /></td>
+                            		</tr>
+                                    <tr>
+                            			<td><form:label path="content">
+                            				<spring:message code="label.ideaContent" />
+                            			</form:label></td>
+                            			<td><form:input path="content" /></td>
+
+                            		</tr>
+                            		<tr>
+                            			<td><form:label path="enabled">
+                            				<spring:message code="label.ideaEnabled" />
+                            			</form:label></td>
+                            			<td><form:input path="enabled" /></td>
+                            		</tr>
+                            		<tr>
+                            			<td colspan="2"><input type="submit"
+                            				value="<spring:message code="label.ideaCreate"/>" /></td>
+                            		</tr>
+                            	</table>
+                            </form:form>
+
+
          				    </div>
          				</div>
          			</div>

@@ -69,10 +69,10 @@ $(document).ready(function() {
 	
 	//Аякс отправка форм
 	//Документация: http://api.jquery.com/jquery.ajax/
-	$("form").submit(function() {
+	/*$("form").submit(function() {
 		$.ajax({
 			type: "GET",
-			url: "mail.php",
+			url: "",
 			data: $("form").serialize()
 		}).done(function() {
 			alert("Спасибо за заявку!");
@@ -81,6 +81,6 @@ $(document).ready(function() {
 			}, 1000);
 		});
 		return false;
-	});
+	});*/
 
 });

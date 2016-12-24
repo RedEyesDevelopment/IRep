@@ -109,7 +109,7 @@ public class MainController {
     }
 
     //CREATE IDEA HANDLER
-    @RequestMapping(value = URLCLASSPREFIX + "сreateideahandler", method = RequestMethod.POST)
+    @RequestMapping(value = URLCLASSPREFIX + "createideahandler", method = RequestMethod.POST)
     public String addingIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy,
                               BindingResult result, HttpServletRequest request) {
         Long authorId = (Long) request.getSession().getAttribute("USER_ID");

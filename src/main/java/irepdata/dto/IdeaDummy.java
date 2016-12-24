@@ -12,6 +12,10 @@ public class IdeaDummy {
     private String content;
     private boolean enabled;
 
+    public IdeaDummy() {
+        this.enabled = true;
+    }
+
     public String getName() {
         return name;
     }

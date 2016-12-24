@@ -4,6 +4,7 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://ckeditor.com" prefix="ckeditor" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -170,15 +171,14 @@
                             			<td><form:label path="content">
                             				<spring:message code="label.ideaContent" />
                             			</form:label></td>
-                            			<td><form:input path="content" /></td>
+                            			<td><form:textarea id="editor1" name="editor1" path="content" /></td>
+                                        <ckeditor:replace replace="editor1" basePath="/ckeditor/" />
+                            		</tr>
 
-                            		</tr>
-                            		<tr>
-                            			<td><form:label path="enabled">
-                            				<spring:message code="label.ideaEnabled" />
-                            			</form:label></td>
-                            			<td><form:input path="enabled" /></td>
-                            		</tr>
+                            			<form:label path="enabled">
+                            			</form:label>
+                            			<form:hidden path="enabled" />
+
                             		<tr>
                             			<td colspan="2"><input type="submit"
                             				value="<spring:message code="label.ideaCreate"/>" /></td>

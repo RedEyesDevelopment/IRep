@@ -44,6 +44,7 @@
 				<spring:message code="label.ideaContent" />
 			</form:label></td>
 			<td><form:input path="content" /></td>
+			<form:textarea path="content" cols="80" name="editor1" id="editor11" cols="48" rows="10"/>
 		</tr>
 		<tr>
 			<td><form:label path="enabled">

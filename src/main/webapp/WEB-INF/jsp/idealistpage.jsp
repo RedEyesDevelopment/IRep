@@ -13,6 +13,7 @@
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
 
+
            <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
         	    <link rel="stylesheet" href="/res/css/fonts.css" />
         	    <link rel="stylesheet" href="/res/css/main.css" />
@@ -137,15 +138,21 @@
          					</div>
          				  </div>
          				    <div id="panel3" class="tab-pane fade">
-         				    <form action="" class="form">
+         				    <form:form method="post" class="form" action="createideahandler" commandName="ideaData">
          						<div class="form-group">
-         							<label class="text-primary">Нaзвание идеи:</label>
-         							<input type="text" class="form-control" placeholder="Нaзвание идеи" value="">
-         							<label class="text-primary">Тэги идеи:</label>
-                 					<input type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
+         							<form:label path="name" class="text-primary">
+                                    		<spring:message code="label.ideaName" />
+                                    </form:label>
+         							<form:input path="name" type="text" class="form-control" placeholder="Нaзвание идеи"/>
+         							<form:label path="tags" class="text-primary">
+                                    		<spring:message code="label.ideaTags" />
+                                     </form:label>
+                                     <form:input path="tags" type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
          	        				<div>
-         	        				<label class="text-primary">Содержание идеи:</label>
-         							<textarea cols="80" name="editor1" id="editor1" cols="48" rows="10"></textarea>
+         	        				<form:label path="content" class="text-primary">
+                                        <spring:message code="label.ideaContent" />
+                                    </form:label>
+                                    <form:input path="content" />
          							</div>
          							<script>
          							CKEDITOR.replace('editor1', {
@@ -154,10 +161,10 @@
          								});
          							</script>
          						</div>
-         						<button type="submit" class="btn btn-primary">
+         						<button type="submit" id="btn-create" class="btn btn-primary" value="<spring:message code="label.ideaCreate">
          							<i class="fa fa-sign-in"></i> ок
          						</button>
-         					</form>
+         					</form:form>
          					<!-- <form method="POST" action="index.php" onsubmit="return f_submit();">
          						<p class="text-primary">Тэги для идеи:</p>
                  				<input type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager"/>
@@ -197,7 +204,7 @@
          		<div class="row">
          			<div class="grid col-md-9">
 
-
+                    <!--<div id="result">!-->
 
          			<c:forEach items="${ideaList}" var="ideadata">
                                         <div class="thumbnail item">
@@ -261,14 +268,6 @@
                                     for (var i = 0; i < data.length; i++) {
                                       entries[i] = { label: data[i].content, url: '/ajaxapi/getideasbytag/'+data[i].id, target: '_top' };
                                     }
-                                    /*console.log( entries);
-                                    for (var i = 0; i < data.length; i++) {
-                                        console.log("entries["+i+"]=" + entries[i].label);
-                                    }
-                    				entries = [
-                                         { label: data[0].content, url: '#', target: '_top' },
-                                    ];*/
-                                    //console.log("data.length = " + data.length);
                                      var settings = {
 
                                              	                entries: entries,
@@ -282,7 +281,7 @@
                                              	                opacityOut: 0.05,
                                              	                opacitySpeed: 6,
                                              	                fov: 800,
-                                             	                speed: 1.5,
+                                             	                speed: 1.3,
                                              	                fontFamily: 'Oswald, Arial, sans-serif',
                                              	                fontSize: '15',
                                              	                fontColor: '#337ab7',
@@ -306,12 +305,13 @@
                     		});
 
          			} );
-                    /*function searchViaAjax() {
+
+                    function searchViaAjax() {
 
                     		var search = {}
                     		search["orderingParameter"] = "posted";
-                    		search["ascend"] = "asc";
-                            console.log("SUCCESS order: ", data);
+                    		search["ascend"] = "true";
+                            console.log("SUCCESS order: ");
                     		$.ajax({
                     			type : "POST",
                     			contentType : "application/json",
@@ -321,6 +321,8 @@
                     			timeout : 100000,
                     			success : function(data) {
                     				console.log("SUCCESS order: ", data);
+
+                    				//удалить все идеи и заново заполнить
                     				display(data);
                     			},
                     			error : function(e) {
@@ -346,8 +348,17 @@
                     				 console.log("display- ", json);
                     		//$('#feedback').html(json);
                     	}
+                    document.getElementById('btn-search').addEventListener('click', function(event) {
+                        console.log("(#btn-search).onclick ");
+                           // Disable the search button
+                           enableSearchButton(false);
 
-                    $("#btn-search").onclick(function(event) {
+                           // Prevent the form from submitting via the browser.
+                           event.preventDefault();
+
+                           searchViaAjax();
+                    })
+                    /*$("#btn-search").onclick(function(event) {
                         console.log("(#btn-search).onclick ");
                         // Disble the search button
                         enableSearchButton(false);
@@ -358,6 +369,17 @@
                         searchViaAjax();
                     }
                     );*/
+
+                    document.getElementById('btn-create').addEventListener('click', function(event) {
+                                            console.log("(#btn-create).onclick ");
+                                               // Disable the search button
+                                               //enableSearchButton(false);
+
+                                               // Prevent the form from submitting via the browser.
+                                              // event.preventDefault();
+
+                                               //searchViaAjax();
+                                        })
          	</script>
 
 
@@ -412,7 +434,7 @@
          	<script src="/res/libs/countdown/jquery.countdown.min.js"></script>
          	<script src="/res/libs/countdown/jquery.countdown-ru.js"></script>
          	<script src="/res/libs/landing-nav/navigation.js"></script>
-         	<script src="/res/js/common.js"></script>
+         	<!--<script src="/res/js/common.js"></script>-->
          	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
          	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
 

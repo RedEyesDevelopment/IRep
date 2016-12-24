@@ -58,7 +58,7 @@ public class MainController {
 
     //LIST
     @RequestMapping(URLCLASSPREFIX + "list")
-    public String listOfIdeas(Map<String, Object> map, HttpServletRequest request) {
+    public String listOfIdeas(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
         map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(true, "posted"));
         request.getSession().removeAttribute("IMAGE_OFFSET");
         return "idealistpage";
@@ -109,7 +109,7 @@ public class MainController {
     }
 
     //CREATE IDEA HANDLER
-    @RequestMapping(value = URLCLASSPREFIX + "сreateideahandler", method = RequestMethod.POST)
+    @RequestMapping(value = URLCLASSPREFIX + "createideahandler", method = RequestMethod.POST)
     public String addingIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy,
                               BindingResult result, HttpServletRequest request) {
         Long authorId = (Long) request.getSession().getAttribute("USER_ID");

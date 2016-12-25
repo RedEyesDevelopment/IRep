@@ -160,7 +160,7 @@
                             			</form:label>
 
                             			<form:input path="enabled" type="text" class="form-control" placeholder="Состояние"/>!-->
-                            			c
+                            			<form:hidden path="enabled" />
                             	</div>
 
                             			<input type="submit" id="btn-create" class="btn btn-primary"

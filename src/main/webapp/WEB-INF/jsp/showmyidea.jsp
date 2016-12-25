@@ -64,7 +64,10 @@
             <c:set var="ideaData" value="${searchable}" scope="page" />
                 <div class="text-right">
                 <a href="${RURI}"><spring:message code="label.back"/></a>|
-                <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+                <c:if test="${ISMINE}">
+                     <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+                </c:if>
+
                 </div>
 <div class="text-right">
                 <spring:message code="label.ideaCreated"/> <fmt:formatDate type="both" value="${ideaData.posted}" />

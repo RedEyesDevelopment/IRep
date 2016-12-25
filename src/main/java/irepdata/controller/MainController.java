@@ -130,14 +130,6 @@ public class MainController {
         return "idealistpage";
     }
 
-    //CABINET
-    @RequestMapping(URLCLASSPREFIX + "cabinet")
-    public String cabinet(Map<String, Object> map, HttpServletRequest request) {
-        Long myId = (Long) request.getSession().getAttribute("USER_ID");
-        map.put("ideaList", ideaService.getSortedIdeaListForUser(myId, true, "posted", 0L));
-        return "cabinetpage";
-    }
-
     //SELECT IDEA AND VIEW IT DATA
     @RequestMapping(value = URLCLASSPREFIX + "/showidea/{ideaId}")
     public String selectIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
@@ -145,26 +137,15 @@ public class MainController {
         Long userId = (Long) request.getSession().getAttribute("USER_ID");
         if (isIdeaLiked(ideaId, userId, request)) request.setAttribute("notshowlikes", true);
         if (!isWatched(idea, userId, request)) ideaService.watch(ideaId);
-        logger.info(idea.getName() + " in maincontroller - loaded!");
+        if (userId.equals(idea.getAuthor().getId())){
+            request.setAttribute("ISMINE", new Boolean(true));
+        }
         request.setAttribute("RURI", "/ideas/list");
         request.getSession().setAttribute("TGTIDEA", idea.getId());
         request.getSession().setAttribute("RETURNTO", "/ideas/showidea/" + ideaId);
         map.put("searchable", idea);
         map.put("comment", new Comment());
         return "showidea";
-    }
-
-    //SELECT OWN IDEA AND VIEW IT DATA
-    @RequestMapping(value = URLCLASSPREFIX + "/showmyidea/{ideaId}")
-    public String selectMyIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
-        Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
-        logger.info(idea.getName() + " in maincontroller - loaded!");
-        request.setAttribute("RURI", "/ideas/cabinet");
-        request.getSession().setAttribute("TGTIDEA", idea.getId());
-        request.getSession().setAttribute("RETURNTO", "/ideas/showmyidea/" + ideaId);
-        map.put("searchable", idea);
-        map.put("comment", new Comment());
-        return "showmyidea";
     }
 
     //CREATE IDEA

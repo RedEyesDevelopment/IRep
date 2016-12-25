@@ -216,7 +216,7 @@ public class MainController {
         Long targetContentId = ideaService.getIdeaById(targetIdeaId).getContentId();
         ideaService.updateIdea(targetIdeaId, ideaDummy.getName(), ideaDummy.getDescription(), ideaDummy.getImage(), ideaDummy.getTags(), ideaDummy.isEnabled(), targetContentId, ideaDummy.getContent());
         request.getSession().removeAttribute("TARGETIDEA");
-        return "redirect:/ideas/cabinet";
+        return "redirect:/ideas/list";
     }
 
     //MESSAGE HANDLER

@@ -15,10 +15,6 @@
 	<link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
 
 	<link rel="stylesheet" href="/res/libs/font-awesome-4.2.0/css/font-awesome.min.css" />
-
-	<link rel="stylesheet" href="/res/libs/fancybox/jquery.fancybox.css" />
-
-	<link rel="stylesheet" href="/res/libs/countdown/jquery.countdown.css" />
 	<link rel="stylesheet" href="/res/css/fonts.css" />
 	<link rel="stylesheet" href="/res/css/main.css" />
 	<link rel="stylesheet" href="/res/css/media.css" />
@@ -83,6 +79,12 @@
 							<label class="text-primary">Содержание идеи:</label>
 							 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
 							<textarea class="form-control" cols="80" name="editor1" id="editor1" cols="48" rows="10" readonly="readonly"> ${ideaData.content.contentData}</textarea>
+							<script>
+                                CKEDITOR.replace('editor1', {
+                                    filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
+                                    filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
+                                    });
+                            </script>
 							<!--<label class="text-primary">Тэги идеи:</label>
         					<input type="text" name="tags" placeholder="Tеги идеи:" class="tm-input tm-input-info tm-input-lager form-control" value="tag1 tag2 tag3" readonly="readonly"/>
 

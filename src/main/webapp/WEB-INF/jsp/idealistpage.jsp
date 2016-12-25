@@ -163,7 +163,7 @@
                             			<form:hidden path="enabled" />
                             	</div>
 
-                            			<input type="submit" id="btn-create" class="btn btn-primary"
+                            			<input type="submit" id="btn-create" class="btn btn-primary pull-right"
                             				value="<spring:message code="label.ideaCreate"/>" />
 
                             </form:form>
@@ -205,10 +205,10 @@
                                                  						<span class="item-dislike">Dislike:${ideadata.getDisliked()} |</span>
                                                  						<span class="item-view">Просмотров:${ideadata.getViewedCount()} |</span>
                                                  						<span class="item-comment">Комментариев:25 </span>
-                                                 						<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                 						<!--<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                  </span></a>/
                                                  						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                                 </span></a>
+                                                 </span></a>!-->
                                                  					</div>
                                                  				</div>
                     </c:forEach>

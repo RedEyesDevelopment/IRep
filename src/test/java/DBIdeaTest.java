@@ -76,7 +76,16 @@ public class DBIdeaTest{
     public void TestFindAllIdeasByUsers() {
         ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
         IdeaService service = (IdeaService) appContext.getBean("ideaService");
-        List<Idea> set = service.getSortedIdeaListByUsername(true);
+        List<Idea> set = service.getSortedIdeaListByUsername(true, 0L);
+        for (Idea idea : set) System.out.println(idea);
+    }
+
+    @Test
+    @SuppressWarnings("resource")
+    public void TestFindAllIdeasByUser() {
+        ApplicationContext appContext = new ClassPathXmlApplicationContext(ROOTCONTEXT);
+        IdeaService service = (IdeaService) appContext.getBean("ideaService");
+        List<Idea> set = service.getSortedIdeaListForUser(2L,true, "posted", 0L);
         for (Idea idea : set) System.out.println(idea);
     }
 

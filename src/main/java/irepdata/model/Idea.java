@@ -17,6 +17,10 @@ import static javax.persistence.GenerationType.IDENTITY;
 @NamedQueries({@NamedQuery(name = "Idea.findIdeaWithTags", query="select distinct i from Idea i left join fetch i.tags t")})
 @Table(name = "IDEAS")
 public class Idea {
+
+    @Transient
+    public static final int MAXIDEASSHOWINGCAPACITY = 10;
+
     @JsonView(JSONViews.List.class)
     private long id;
     @JsonView(JSONViews.List.class)

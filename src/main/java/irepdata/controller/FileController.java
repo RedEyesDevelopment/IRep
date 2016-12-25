@@ -107,10 +107,6 @@ public class FileController {
         request.removeAttribute("PREVFILES");
         request.removeAttribute("IPREVFILES");
 
-        System.out.println("offsetStep is "+offsetStep);
-        System.out.println("images count is "+imagesCount);
-        System.out.println("image list size is "+imglist.size());
-
         if (offsetStep< ( imagesCount-Image.MAXIMAGESSHOWINGCAPACITY)){
             Long offsetForNext = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
             request.setAttribute("NEXTFILES", offsetForNext);

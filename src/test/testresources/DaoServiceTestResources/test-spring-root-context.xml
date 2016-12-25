@@ -16,6 +16,7 @@
     <!-- Определяем папки, в которых будем автоматически искать бины-компоненты (@Component, @Service)  -->
     <context:component-scan base-package="irepdata.dao"/>
     <context:component-scan base-package="irepdata.service"/>
+    <context:component-scan base-package="irepdata.support" />
 
     <!-- Файл с настройками ресурсов для работы с данными (Data Access Resources) -->
     <import resource="test-data.xml"/>
@@ -24,6 +25,7 @@
     <bean id="ideaService" class="irepdata.service.IdeaServiceImpl"></bean>
     <bean id="userService" class="irepdata.service.UserServiceImpl"></bean>
     <bean id="tagService" class="irepdata.service.TagServiceImpl"></bean>
+    <bean id="tagSupport" class="irepdata.support.TagSupportTool"></bean>
     <bean id="contentService" class="irepdata.service.ContentServiceImpl"></bean>
 
 

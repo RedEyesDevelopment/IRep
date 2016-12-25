@@ -44,7 +44,7 @@ public class AjaxController {
 
         if (ideaSortCriteria.isValid()) {
             System.out.println("Criteria is valid");
-            List<Idea> ideas = ideaService.getSortedIdeaListWithoutDisabled(ideaSortCriteria.isAscend(), ideaSortCriteria.getOrderingParameter());
+            List<Idea> ideas = ideaService.getSortedIdeaListWithoutDisabled(ideaSortCriteria.isAscend(), ideaSortCriteria.getOrderingParameter(), 0L);
             if (ideas.size() > 0) {
                 resulting = new ResponseEntity(ideas, HttpStatus.OK);
             } else {
@@ -100,7 +100,7 @@ public class AjaxController {
         ResponseEntity resulting;
 
         if (ideaSortCriteria.isValid()) {
-            List<Idea> ideas = ideaService.getSortedIdeaListByUsername(ideaSortCriteria.isAscend());
+            List<Idea> ideas = ideaService.getSortedIdeaListByUsername(ideaSortCriteria.isAscend(), 0L);
             if (ideas.size() > 0) {
                 resulting = new ResponseEntity(ideas, HttpStatus.OK);
             } else {

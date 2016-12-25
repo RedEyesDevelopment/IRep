@@ -2,10 +2,8 @@ package irepdata.dao;
 
 import irepdata.model.Idea;
 import irepdata.support.TagSupport;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -93,12 +91,21 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter) {
-        String order;
-        if (ascend) {
-            order = "asc";
-        } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.author a where a.id = " + userId + " order by i." + orderingParameter + " " + order).list();
+    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter, long pagination) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
+        criteria.setMaxResults(Idea.MAXIDEASSHOWINGCAPACITY);
+        criteria.setFirstResult(Math.toIntExact(pagination));
+        criteria.setFetchMode("author", FetchMode.JOIN);
+        criteria.setReadOnly(true);
+        criteria.createAlias("author", "authorname");
+        criteria.add( Restrictions.eq("authorname.id", userId));
+        Order order;
+        if (ascend){
+            order = Order.asc(orderingParameter);
+        } else order = Order.desc(orderingParameter);
+        criteria.addOrder(order);
+        List<Idea> result = criteria.list();
+        return result;
     }
 
     @Override
@@ -107,21 +114,49 @@ public class IdeaDaoImpl implements IdeaDao {
     }
 
     @Override
-    public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
-        String order;
-        if (ascend) {
-            order = "asc";
-        } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("from Idea i left join fetch i.author a where i.enabled = true order by a.username " + order).list();
+    public List<Idea> getSortedIdeaListByUsername(boolean ascend, long pagination) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
+        criteria.setMaxResults(Idea.MAXIDEASSHOWINGCAPACITY);
+        criteria.setFirstResult(Math.toIntExact(pagination));
+        criteria.add( Restrictions.eq("enabled", true));
+        criteria.setFetchMode("author", FetchMode.JOIN);
+        criteria.setReadOnly(true);
+        criteria.createAlias("author", "authorname");
+        Order order;
+        if (ascend){
+            order = Order.asc("authorname.username");
+        } else order = Order.desc("authorname.username");
+        criteria.addOrder(order);
+        List<Idea> result = criteria.list();
+        return result;
     }
 
     @Override
-    public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter) {
-        String order;
-        if (ascend) {
-            order = "asc";
-        } else order = "desc";
-        return sessionFactory.getCurrentSession().createQuery("from Idea i where i.enabled = true order by i." + orderingParameter + " " + order).list();
+    public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter, long pagination) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
+        criteria.setMaxResults(Idea.MAXIDEASSHOWINGCAPACITY);
+        criteria.setFirstResult(Math.toIntExact(pagination));
+        criteria.add( Restrictions.eq("enabled", true));
+        criteria.setReadOnly(true);
+        Order order;
+        if (ascend){
+            order = Order.asc(orderingParameter);
+        } else order = Order.desc(orderingParameter);
+        criteria.addOrder(order);
+        List<Idea> result = criteria.list();
+        return result;
+    }
+
+    @Override
+    public long getIdeasCount(String filter, String value) {
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Ideas i where i."+filter+" = "+value);
+        return (Long)query.uniqueResult();
+    }
+
+    @Override
+    public long getIdeasCount() {
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Ideas");
+        return (Long)query.uniqueResult();
     }
 
     @Override

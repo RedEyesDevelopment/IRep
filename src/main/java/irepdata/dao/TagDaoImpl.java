@@ -81,7 +81,7 @@ public class TagDaoImpl implements TagDao {
             tag.setEnabled(true);
             sessionFactory.getCurrentSession().saveOrUpdate(tag);
             System.out.println("new Tag id is "+tag.getId());
-//            idData.add(tag.getId());
+            idData.add(tag.getId());
         }
         return idData;
     }

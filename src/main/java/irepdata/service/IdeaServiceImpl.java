@@ -59,23 +59,33 @@ public class IdeaServiceImpl implements IdeaService {
     }
 
     @Transactional
-    public List<Idea> getSortedIdeaListByUsername(boolean ascend) {
-        return ideaDao.getSortedIdeaListByUsername(ascend);
+    public List<Idea> getSortedIdeaListByUsername(boolean ascend, long pagination) {
+        return ideaDao.getSortedIdeaListByUsername(ascend, pagination);
     }
 
-    @Override
+    @Transactional
     public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled) {
         return ideaDao.getIdeaListForTagsCloud(tagId, onlyEnabled);
     }
 
     @Transactional
-    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter) {
-        return ideaDao.getSortedIdeaListForUser(userId, ascend, orderingParameter);
+    public List<Idea> getSortedIdeaListForUser(Long userId, boolean ascend, String orderingParameter, long pagination) {
+        return ideaDao.getSortedIdeaListForUser(userId, ascend, orderingParameter, pagination);
     }
 
     @Transactional
-    public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter) {
-        return ideaDao.getSortedIdeaListWithoutDisabled(ascend, orderingParameter);
+    public List<Idea> getSortedIdeaListWithoutDisabled(boolean ascend, String orderingParameter, long pagination) {
+        return ideaDao.getSortedIdeaListWithoutDisabled(ascend, orderingParameter, pagination);
+    }
+
+    @Transactional
+    public long getIdeasCount(String filter, String value) {
+        return ideaDao.getIdeasCount(filter, value);
+    }
+
+    @Transactional
+    public long getIdeasCount() {
+        return ideaDao.getIdeasCount();
     }
 
     @Transactional

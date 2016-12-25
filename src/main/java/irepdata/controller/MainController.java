@@ -59,8 +59,58 @@ public class MainController {
     //LIST
     @RequestMapping(URLCLASSPREFIX + "list")
     public String listOfIdeas(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
-        map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(true, "posted"));
+        map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(true, "posted", 0L));
         request.getSession().removeAttribute("IMAGE_OFFSET");
+        return "idealistpage";
+    }
+
+    //LIST
+    @RequestMapping(URLCLASSPREFIX + "list&sort_field={sort_field}&sort_asc={asc}&offset={offset}&filter={filter}")
+    public String listOfIdeasWithGET(@PathVariable("sort_field") String sortField, @PathVariable("filter") String filter, @PathVariable("asc") Boolean asc, @PathVariable("offset") Long offset, @ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
+        if (filter.toLowerCase().equals("own")){
+            Long myId = (Long) request.getSession().getAttribute("USER_ID");
+            map.put("ideaList", ideaService.getSortedIdeaListForUser(myId,asc,sortField, offset));
+        } else {
+            switch (sortField.toLowerCase()) {
+                case "byposted": {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "posted", offset));
+                }
+                break;
+                case "byviewed": {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "viewed", offset));
+                }
+                break;
+                case "byauthor": {
+                    map.put("ideaList", ideaService.getSortedIdeaListByUsername(asc, offset));
+                }
+                break;
+                case "byname": {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "name", offset));
+                }
+                break;
+                case "bylikes": {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "liked", offset));
+                }
+                break;
+                case "bydislikes": {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "disliked", offset));
+                }
+                break;
+            }
+        }
+        Long ideasCount = ideaService.getIdeasCount();
+        if (offset < (ideasCount - Idea.MAXIDEASSHOWINGCAPACITY)) {
+            Long offsetForNext = offset + Idea.MAXIDEASSHOWINGCAPACITY;
+            request.setAttribute("NEXTIDEAS", offsetForNext);
+            request.setAttribute("ISNEXTIDEAS", true);
+            System.out.println("NEXTIDEAS is " + offsetForNext);
+        }
+        if (offset >= Idea.MAXIDEASSHOWINGCAPACITY) {
+            Long offsetForPrev = offset - Idea.MAXIDEASSHOWINGCAPACITY;
+            request.setAttribute("PREVIDEAS", offsetForPrev);
+            request.setAttribute("ISPREVIDEAS", true);
+            System.out.println("PREVIDEAS is " + offsetForPrev);
+        }
         return "idealistpage";
     }
 
@@ -68,7 +118,7 @@ public class MainController {
     @RequestMapping(URLCLASSPREFIX + "cabinet")
     public String cabinet(Map<String, Object> map, HttpServletRequest request) {
         Long myId = (Long) request.getSession().getAttribute("USER_ID");
-        map.put("ideaList", ideaService.getSortedIdeaListForUser(myId, true, "posted"));
+        map.put("ideaList", ideaService.getSortedIdeaListForUser(myId, true, "posted", 0L));
         return "cabinetpage";
     }
 
@@ -81,8 +131,8 @@ public class MainController {
         if (!isWatched(idea, userId, request)) ideaService.watch(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/list");
-        request.getSession().setAttribute("TGTIDEA",idea.getId());
-        request.getSession().setAttribute("RETURNTO", "/ideas/showidea/"+ideaId);
+        request.getSession().setAttribute("TGTIDEA", idea.getId());
+        request.getSession().setAttribute("RETURNTO", "/ideas/showidea/" + ideaId);
         map.put("searchable", idea);
         map.put("comment", new Comment());
         return "showidea";
@@ -94,8 +144,8 @@ public class MainController {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         logger.info(idea.getName() + " in maincontroller - loaded!");
         request.setAttribute("RURI", "/ideas/cabinet");
-        request.getSession().setAttribute("TGTIDEA",idea.getId());
-        request.getSession().setAttribute("RETURNTO", "/ideas/showmyidea/"+ideaId);
+        request.getSession().setAttribute("TGTIDEA", idea.getId());
+        request.getSession().setAttribute("RETURNTO", "/ideas/showmyidea/" + ideaId);
         map.put("searchable", idea);
         map.put("comment", new Comment());
         return "showmyidea";
@@ -111,7 +161,7 @@ public class MainController {
     //CREATE IDEA HANDLER
     @RequestMapping(value = URLCLASSPREFIX + "createideahandler", method = RequestMethod.POST)
     public String addingIdea(@ModelAttribute("ideaData") IdeaDummy ideaDummy,
-                              BindingResult result, HttpServletRequest request) {
+                             BindingResult result, HttpServletRequest request) {
         Long authorId = (Long) request.getSession().getAttribute("USER_ID");
         User author = userService.getUserById(authorId);
 
@@ -140,7 +190,7 @@ public class MainController {
 
         Long userId = (Long) request.getSession().getAttribute("USER_ID");
         Boolean isAdmin = (Boolean) request.getSession().getAttribute("IS_ADMIN");
-        if (!userId.equals(idea.getAuthor().getId()) && (!isAdmin)){
+        if (!userId.equals(idea.getAuthor().getId()) && (!isAdmin)) {
             try {
                 response.sendRedirect("/ideas/list");
             } catch (IOException e) {
@@ -167,7 +217,7 @@ public class MainController {
         System.out.println(ideaDummy.toString());
         Long targetIdeaId = (Long) request.getSession().getAttribute("TARGETIDEA");
         Long targetContentId = ideaService.getIdeaById(targetIdeaId).getContentId();
-        ideaService.updateIdea(targetIdeaId, ideaDummy.getName(),ideaDummy.getDescription(),ideaDummy.getImage(),ideaDummy.getTags(),ideaDummy.isEnabled(),targetContentId,ideaDummy.getContent());
+        ideaService.updateIdea(targetIdeaId, ideaDummy.getName(), ideaDummy.getDescription(), ideaDummy.getImage(), ideaDummy.getTags(), ideaDummy.isEnabled(), targetContentId, ideaDummy.getContent());
         request.getSession().removeAttribute("TARGETIDEA");
         return "redirect:/ideas/cabinet";
     }
@@ -175,8 +225,8 @@ public class MainController {
     //MESSAGE HANDLER
     @RequestMapping(value = URLCLASSPREFIX + "messagehandler", method = RequestMethod.POST)
     public void commentHandler(@ModelAttribute("message") Comment comment, BindingResult result,
-                                    HttpServletRequest request, HttpServletResponse response) {
-        if (null==request.getSession().getAttribute("USER_ID")){
+                               HttpServletRequest request, HttpServletResponse response) {
+        if (null == request.getSession().getAttribute("USER_ID")) {
             try {
                 response.sendRedirect("/index");
             } catch (IOException e) {
@@ -207,18 +257,18 @@ public class MainController {
 
     //LIKE IDEA
     @RequestMapping(value = URLCLASSPREFIX + "/likeidea/{ideaId}&like={doLike}")
-    public String likeIdea(@PathVariable("ideaId") Long ideaId, @PathVariable("doLike") Boolean doLike,HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public String likeIdea(@PathVariable("ideaId") Long ideaId, @PathVariable("doLike") Boolean doLike, HttpServletRequest request, HttpServletResponse response) throws IOException {
         Boolean redirectExceeption = false;
         String redirect = (String) request.getSession().getAttribute("RETURNTO");
         Long myId = (Long) request.getSession().getAttribute("USER_ID");
         if (isIdeaLiked(ideaId, myId, request)) return "redirect:/index";
 
-        if ((null==myId) || (null==doLike)){
+        if ((null == myId) || (null == doLike)) {
             System.out.println("MYID=NULL OR DOLIKE=NULL");
             return "redirect:/index";
-        } else if (myId.equals(ideaService.getIdeaById(ideaId).getAuthor().getId())){
+        } else if (myId.equals(ideaService.getIdeaById(ideaId).getAuthor().getId())) {
             System.out.println("MY ID IS AUTHOR ID");
-            return "redirect:/ideas/showidea/"+ideaId;
+            return "redirect:/ideas/showidea/" + ideaId;
         }
 
         if (doLike) {
@@ -230,26 +280,26 @@ public class MainController {
         }
 
         likeIdea(ideaId, myId, response);
-        return "redirect:/ideas/showidea/"+ideaId;
+        return "redirect:/ideas/showidea/" + ideaId;
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
-    private void likeIdea(Long ideaId, Long userId, HttpServletResponse response){
-        CookiesHandler.setCookie(userId.toString()+"donotlike"+ideaId, "true", 60*60*7, response);
+    private void likeIdea(Long ideaId, Long userId, HttpServletResponse response) {
+        CookiesHandler.setCookie(userId.toString() + "donotlike" + ideaId, "true", 60 * 60 * 7, response);
     }
 
     //SUPPORT METHOD FOR LIKE SYSTEM
-    private boolean isIdeaLiked(Long ideaId, Long userId, HttpServletRequest request){
-        if (CookiesHandler.aquireCookie(userId.toString()+"donotlike"+ideaId.toString(), request)) {
+    private boolean isIdeaLiked(Long ideaId, Long userId, HttpServletRequest request) {
+        if (CookiesHandler.aquireCookie(userId.toString() + "donotlike" + ideaId.toString(), request)) {
             return true;
         }
         return false;
     }
 
     //SUPPORT METHOD FOR WATCH SYSTEM
-    private boolean isWatched(Idea idea, Long userId, HttpServletRequest request){
-        Object obj = request.getSession().getAttribute("donotwatch"+idea.getId());
-        if ((null==obj) || (!userId.equals(idea.getAuthor().getId()))) return true;
+    private boolean isWatched(Idea idea, Long userId, HttpServletRequest request) {
+        Object obj = request.getSession().getAttribute("donotwatch" + idea.getId());
+        if ((null == obj) || (!userId.equals(idea.getAuthor().getId()))) return true;
         return false;
     }
 }

@@ -151,8 +151,8 @@
                             			<form:textarea path="content" cols="80" id="editor1" rows="10"/>
                             			<script>
                                             CKEDITOR.replace('editor1', {
-                                                filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
-                                                filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
+                                                filebrowserBrowseUrl: '/fileapi/filelist&show=0',
+                                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
                                                 });
                                         </script>
                                         <!--<form:label path="enabled" class="text-primary">
@@ -201,10 +201,10 @@
                                                  					<hr>
                                                  					<div class="item-footer">
                                                  						<span class="item-autor"><b>${ideadata.getAuthor().getUsername()}</b> |</span>
-                                                 						<span class="item-like">Like:${ideadata.getLiked()} |</span>
-                                                 						<span class="item-dislike">Dislike:${ideadata.getDisliked()} |</span>
-                                                 						<span class="item-view">Просмотров:${ideadata.getViewedCount()} |</span>
-                                                 						<span class="item-comment">Комментариев:25 </span>
+                                                 						<span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
+                                                 						<span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
+                                                 						<span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
+                                                 						<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
                                                  						<!--<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                  </span></a>/
                                                  						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>

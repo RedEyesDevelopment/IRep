@@ -86,8 +86,8 @@
                         </spring:bind>
                         <script>
                             CKEDITOR.replace('editor1', {
-                                filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
-                                filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
+                                filebrowserBrowseUrl: '/fileapi/filelist&show=0',
+                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
                                 });
                         </script>
                         <form:label path="enabled" class="text-primary">

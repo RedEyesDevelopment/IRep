@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -70,6 +71,12 @@ public class MainController {
         if (filter.toLowerCase().equals("own")){
             Long myId = (Long) request.getSession().getAttribute("USER_ID");
             map.put("ideaList", ideaService.getSortedIdeaListForUser(myId,asc,sortField, offset));
+        } else if (filter.toLowerCase().startsWith("tag")) {
+            String parseTagId = filter.toLowerCase().substring(3);
+            System.out.println("tag id is "+parseTagId);
+            List<Idea> ideas = ideaService.getIdeaListForTagsCloud(Long.parseLong(parseTagId), true);
+            System.out.println("ideas list = "+ideas.size());
+           map.put("ideaList", ideas);
         } else {
             switch (sortField.toLowerCase()) {
                 case "byposted": {

@@ -255,7 +255,7 @@
                     			success : function(data) {
                     				console.log("SUCCESS TAGS: ", data);
                                     for (var i = 0; i < data.length; i++) {
-                                      entries[i] = { label: data[i].content, url: '/ajaxapi/getideasbytag/'+data[i].id, target: '_top' };
+                                      entries[i] = { label: data[i].content, url: '/ideas/list&sort_field=posted&sort_asc=true&filter=tag'+data[i].id+'&offset=0', target: '_top' };
                                     }
                                      var settings = {
 

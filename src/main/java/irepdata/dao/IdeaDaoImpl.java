@@ -110,7 +110,7 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public List<Idea> getIdeaListForTagsCloud(Long tagId, boolean onlyEnabled) {
-        return sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.tags t where t.id = " + tagId + " asc").list();
+        return sessionFactory.getCurrentSession().createQuery("select distinct i from Idea i left join fetch i.tags t where t.id = " + tagId).list();
     }
 
     @Override
@@ -151,13 +151,13 @@ public class IdeaDaoImpl implements IdeaDao {
 
     @Override
     public long getIdeasCount(String filter, String value) {
-        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Ideas i where i."+filter+" = "+value);
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Idea i where i."+filter+" = "+value);
         return (Long)query.uniqueResult();
     }
 
     @Override
     public long getIdeasCount() {
-        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Ideas");
+        Query query = sessionFactory.getCurrentSession().createQuery("select count(*) from Idea i");
         return (Long)query.uniqueResult();
     }
 

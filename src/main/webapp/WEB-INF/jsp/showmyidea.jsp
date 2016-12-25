@@ -88,39 +88,34 @@
 							</div>
 						</div>
 						<div class="item-footer">
-						<span class="item-autor"><b>${ideaData.author.username}</b> |</span>
-						<span class="item-like"><spring:message code="label.ideaLiked"/>: ${ideaData.liked}|</span>
-						<span class="item-dislike"><spring:message code="label.ideaDisliked"/>: ${ideaData.disliked} |</span>
-						<span class="item-view"><spring:message code="label.ideaWatchCount"/>: ${ideaData.viewedCount}|</span>
-						<span class="item-comment">Комментариев:25 </span>
-						<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-</span></a>/
-						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-</span></a>
-                                       </div>
-                                       </br>
-                                                       <spring:message code="label.ideaComments"/></br>
-                                                       <c:forEach items="${ideaData.comments}" var="com">
-                                                           ${com.author.username} posted at <fmt:formatDate type="both" value="${com.posted}" /> : ${com.content}</br>
-                                                       </c:forEach>
-                                                       <div class="ideaFullData">
-                                                                       <!--<div class="ideaAuthor"><spring:message code="label.ideaAuthor"/> ${ideaData.author.username}  </br>
-                                                                           <div class="ideaPosted"><spring:message code="label.ideaCreated"/> <fmt:formatDate type="both" value="${ideaData.posted}" /> </br>
-                                                                               !--><div class="ideaRating"><spring:message code="label.ideaRatings"/></br>
-                                                                                    <%@include file="/WEB-INF/jsp/includes/messagebox.jsp" %>
-                                                                               </div>
-                                                                           </div>
-                                                                       </div>
-                                                                   </div>
+                            <span class="item-autor"><b>${ideaData.author.username}</b> |</span>
+                            <span class="item-like"><spring:message code="label.ideaLiked"/>: ${ideaData.liked}|</span>
+                            <span class="item-dislike"><spring:message code="label.ideaDisliked"/>: ${ideaData.disliked} |</span>
+                            <span class="item-view"><spring:message code="label.ideaWatchCount"/>: ${ideaData.viewedCount}|</span>
+                            <span class="item-comment">Комментариев:25 </span>
+                            <a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+    </span></a>/
+                            <a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+    </span></a>
+                       </div>
+                       <div class="text-right top-buffer" >
+                                           						    <spring:message code="label.ideaWatched"/> <fmt:formatDate type="both" value="${ideaData.viewed}" />
+                                           						   </div>
+                       					 <div class="text-right">
+                                                           <a href="${RURI}"><spring:message code="label.back"/></a>|
+                                                           <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+                                                           </div>
+
+                       <spring:message code="label.ideaComments"/>
+                       <%@include file="/WEB-INF/jsp/includes/messagebox.jsp" %>
+
+                       <c:forEach items="${ideaData.comments}" var="com">
+                           <span class="item-autor"><b>${com.author.username}</b> </span> posted at <fmt:formatDate type="both" value="${com.posted}" /> :
+                           <div class="item-comment">${com.content}</div>
+                       </c:forEach>
 
 					</div>
-					<div class="text-right top-buffer" >
-                    						    <spring:message code="label.ideaWatched"/> <fmt:formatDate type="both" value="${ideaData.viewed}" />
-                    						   </div>
-					 <div class="text-right">
-                                    <a href="${RURI}"><spring:message code="label.back"/></a>|
-                                    <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
-                                    </div>
+
 						<!--<button type="submit" class="btn btn-primary"s>
 							<i class="fa fa-sign-in"></i> Сохранить
 						</button>!-->

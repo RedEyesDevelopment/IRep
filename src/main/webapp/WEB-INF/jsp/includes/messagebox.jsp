@@ -12,8 +12,8 @@
 <body>
     <div id="messagebox">
         <form:form method="POST" action="/ideas/messagehandler" modelAttribute="comment">
-            <form:textarea path="content" />
-            <input type="submit" value="<spring:message code="label.submitCommentButton"/>">
+            <form:textarea path="content" cols="80" rows="3" placeholder="Оставьте комментарий"/>
+            <div><input type="submit" value="<spring:message code="label.submitCommentButton"/>"></div>
         </form:form>
     </div>
 </body>

@@ -102,6 +102,9 @@ body {
 	text-align: right;
 	color: red;
 }
+.item-comment{
+  margin-left: 30px;  
+}
 hr{
 	margin: 2px;
 }

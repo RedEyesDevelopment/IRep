@@ -155,10 +155,12 @@
                                                 filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
                                                 });
                                         </script>
-                                        <form:label path="enabled" class="text-primary">
+                                        <!--<form:label path="enabled" class="text-primary">
                             				<spring:message code="label.ideaEnabled" />
                             			</form:label>
-                            			<form:input path="enabled" type="text" class="form-control" placeholder="Состояние"/>
+
+                            			<form:input path="enabled" type="text" class="form-control" placeholder="Состояние"/>!-->
+                            			c
                             	</div>
 
                             			<input type="submit" id="btn-create" class="btn btn-primary"

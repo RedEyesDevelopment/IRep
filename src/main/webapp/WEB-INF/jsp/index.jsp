@@ -10,14 +10,14 @@
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
 
-           <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
-        	    <link rel="stylesheet" href="/res/css/fonts.css" />
-        	    <link rel="stylesheet" href="/res/css/main.css" />
-        	    <link rel="stylesheet" href="/res/css/media.css" />
-        	    <link rel="stylesheet" href="/res/css/login.css" />
+        <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="/res/css/fonts.css" />
+        <link rel="stylesheet" href="/res/css/main.css" />
+        <link rel="stylesheet" href="/res/css/media.css" />
+        <link rel="stylesheet" href="/res/css/login.css" />
 
-        	<script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
-        	<script src="/res/libs/bootstrap/bootstrap.js"></script>
+        <script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
+        <script src="/res/libs/bootstrap/bootstrap.js"></script>
     </head>
     <body>
              <div class="container">

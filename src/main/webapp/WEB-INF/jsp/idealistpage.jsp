@@ -63,11 +63,11 @@
     <body>
          <div class="container">
          		<div class="row">
-         			<div class="navbar navbar-static-top">
+         			<div class="navbar navbar-default navbar-static-top">
          				<div class="navbar-header">
          					<i class="fa fa-home fa-5x" aria-hidden="true"></i>
          					<a class="navbar-brand navbar-brand-center" href="#">
-         							<!-- <img class="logo-pic" src="images/logo_min.png" alt="RedEyesDevelopment" />  -->
+         							 <img class="logo-pic" src="/res/images/logo_min.png" alt="RedEyesDevelopment" />
          					</a>
          					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#responsive-menu">
          						<span class="sr-only">Открыть навигацию</span>
@@ -139,51 +139,43 @@
          				  </div>
          				    <div id="panel3" class="tab-pane fade">
 
-         				    <form:form method="post" action="/ideas/createideahandler" commandName="ideaData">
-
-                            	<table>
-                            		<tr>
-                            			<td><form:label path="name">
+         				    <form:form method="post" action="/ideas/createideahandler" class="form" commandName="ideaData">
+                                <div class="form-group">
+                            			<form:label path="name" class="text-primary">
                             				<spring:message code="label.ideaName" />
-                            			</form:label></td>
-                            			<td><form:input path="name" /></td>
-                            		</tr>
-                            		<tr>
-                            			<td><form:label path="description">
+                            			</form:label>
+                            			<form:input path="name" type="text" class="form-control" placeholder="Нaзвание идеи" />
+                            			<form:label path="description" class="text-primary">
                             				<spring:message code="label.ideaDescription" />
-                            			</form:label></td>
-                            			<td><form:input path="description" /></td>
-                            		</tr>
-                                    <tr>
-                            			<td><form:label path="image">
+                            			</form:label>
+                            			<form:input path="description" type="text" class="form-control" placeholder="Описание идеи"/>
+                            			<form:label path="image" class="text-primary">
                             				<spring:message code="label.ideaImage" />
-                            			</form:label></td>
-                            			<td><form:input path="image" /></td>
-                            		</tr>
-                            		<tr>
-                            			<td><form:label path="tags">
+                            			</form:label>
+                            			<form:input path="image" type="text" class="form-control" placeholder="Иконка идеи"/>
+                            			<form:label path="tags" class="text-primary">
                             				<spring:message code="label.ideaTags" />
-                            			</form:label></td>
-                            			<td><form:input path="tags" /></td>
-                            		</tr>
-                                    <tr>
-                            			<td><form:label path="content">
+                            			</form:label>
+                            			<form:input path="tags" type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
+                            		    <form:label path="content" class="text-primary">
                             				<spring:message code="label.ideaContent" />
-                            			</form:label></td>
-                            			<td><form:input path="content" /></td>
-
-                            		</tr>
-                            		<tr>
-                            			<td><form:label path="enabled">
+                            			</form:label>
+                            			<form:textarea path="content" cols="80" id="editor1" rows="10"/>
+                            			<script>
+                                            CKEDITOR.replace('editor1', {
+                                                filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
+                                                filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
+                                                });
+                                        </script>
+                                        <form:label path="enabled" class="text-primary">
                             				<spring:message code="label.ideaEnabled" />
-                            			</form:label></td>
-                            			<td><form:input path="enabled" /></td>
-                            		</tr>
-                            		<tr>
-                            			<td colspan="2"><input type="submit"
-                            				value="<spring:message code="label.ideaCreate"/>" /></td>
-                            		</tr>
-                            	</table>
+                            			</form:label>
+                            			<form:input path="enabled" type="text" class="form-control" placeholder="Состояние"/>
+                            	</div>
+
+                            			<input type="submit" id="btn-create" class="btn btn-primary"
+                            				value="<spring:message code="label.ideaCreate"/>" />
+
                             </form:form>
 
 

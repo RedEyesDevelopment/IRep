@@ -42,13 +42,14 @@ body {
   left: 50%;
   position: absolute;
   width: 400px;
+  padding: 0;
+  top: 0px;
 }
+
 .icon-bar{
   background: black;
 }
-.navbar-brand{
-  padding: 0;
-}
+
 .navbar-fixed-left {
   width: 15%;
   position: fixed;

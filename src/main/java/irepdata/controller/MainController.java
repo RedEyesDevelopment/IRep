@@ -101,13 +101,29 @@ public class MainController {
         Long ideasCount = ideaService.getIdeasCount();
         if (offset < (ideasCount - Idea.MAXIDEASSHOWINGCAPACITY)) {
             Long offsetForNext = offset + Idea.MAXIDEASSHOWINGCAPACITY;
-            request.setAttribute("NEXTIDEAS", offsetForNext);
+            StringBuilder url = new StringBuilder("list&sort_field=");
+            url.append(sortField);
+            url.append("&sort_asc=");
+            url.append(asc);
+            url.append("&filter=");
+            if (null!=filter)url.append(filter);
+            url.append("&offset=");
+            url.append(offsetForNext);
+            request.setAttribute("NEXTIDEAS", url.toString());
             request.setAttribute("ISNEXTIDEAS", true);
             System.out.println("NEXTIDEAS is " + offsetForNext);
         }
         if (offset >= Idea.MAXIDEASSHOWINGCAPACITY) {
             Long offsetForPrev = offset - Idea.MAXIDEASSHOWINGCAPACITY;
-            request.setAttribute("PREVIDEAS", offsetForPrev);
+            StringBuilder url = new StringBuilder("list&sort_field=");
+            url.append(sortField);
+            url.append("&sort_asc=");
+            url.append(asc);
+            url.append("&filter=");
+            if (null!=filter)url.append(filter);
+            url.append("&offset=");
+            url.append(offsetForPrev);
+            request.setAttribute("PREVIDEAS", url);
             request.setAttribute("ISPREVIDEAS", true);
             System.out.println("PREVIDEAS is " + offsetForPrev);
         }

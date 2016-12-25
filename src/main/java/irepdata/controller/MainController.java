@@ -135,7 +135,7 @@ public class MainController {
     public String selectIdea(@PathVariable("ideaId") Long ideaId, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Idea idea = ideaService.getIdeaWithAllDataById(ideaId);
         Long userId = (Long) request.getSession().getAttribute("USER_ID");
-        if (isIdeaLiked(ideaId, userId, request)) request.setAttribute("notshowlikes", true);
+        if ((isIdeaLiked(idea.getId(), userId, request) || (userId.equals(idea.getAuthor().getId())))) request.setAttribute("notshowlikes", true);
         if (!isWatched(idea, userId, request)) ideaService.watch(ideaId);
         if (userId.equals(idea.getAuthor().getId())){
             request.setAttribute("ISMINE", new Boolean(true));
@@ -287,7 +287,7 @@ public class MainController {
 
     //SUPPORT METHOD FOR LIKE SYSTEM
     private boolean isIdeaLiked(Long ideaId, Long userId, HttpServletRequest request) {
-        if (CookiesHandler.aquireCookie(userId.toString() + "donotlike" + ideaId.toString(), request)) {
+        if (CookiesHandler.aquireCookie(userId.toString() + "donotlike" + ideaId.toString() , request)) {
             return true;
         }
         return false;

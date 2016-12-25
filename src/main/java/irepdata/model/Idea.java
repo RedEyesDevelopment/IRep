@@ -210,24 +210,31 @@ public class Idea {
 
         Idea idea = (Idea) o;
 
+        if (getLiked() != idea.getLiked()) return false;
+        if (getDisliked() != idea.getDisliked()) return false;
         if (isEnabled() != idea.isEnabled()) return false;
-        if (!getName().equals(idea.getName())) return false;
-        if (!getDescription().equals(idea.getDescription())) return false;
+        if (getName() != null ? !getName().equals(idea.getName()) : idea.getName() != null) return false;
+        if (getDescription() != null ? !getDescription().equals(idea.getDescription()) : idea.getDescription() != null)
+            return false;
+        if (getImage() != null ? !getImage().equals(idea.getImage()) : idea.getImage() != null) return false;
+        if (!getContent().equals(idea.getContent())) return false;
         if (!getAuthor().equals(idea.getAuthor())) return false;
         if (!getPosted().equals(idea.getPosted())) return false;
         if (!getViewed().equals(idea.getViewed())) return false;
-        return getViewedCount().equals(idea.getViewedCount());
-
+        return getViewedCount() != null ? getViewedCount().equals(idea.getViewedCount()) : idea.getViewedCount() == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getName().hashCode();
-        result = 31 * result + getDescription().hashCode();
+        int result = getName() != null ? getName().hashCode() : 0;
+        result = 31 * result + (getDescription() != null ? getDescription().hashCode() : 0);
+        result = 31 * result + (getImage() != null ? getImage().hashCode() : 0);
+        result = 31 * result + getLiked();
+        result = 31 * result + getDisliked();
+        result = 31 * result + getAuthor().hashCode();
         result = 31 * result + getPosted().hashCode();
         result = 31 * result + getViewed().hashCode();
-        result = 31 * result + getViewedCount().hashCode();
-        result = 31 * result + (isEnabled() ? 1 : 0);
+        result = 31 * result + (getViewedCount() != null ? getViewedCount().hashCode() : 0);
         return result;
     }
 

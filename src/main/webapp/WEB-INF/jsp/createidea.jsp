@@ -62,3 +62,25 @@
 </body>
 <%@include file="/WEB-INF/jsp/includes/footer.jsp" %>
 </html>
+<!--<form:form method="post" class="form" action="createideahandler" commandName="ideaData">
+         						<div class="form-group">
+         							<form:label path="name" class="text-primary">
+                                    		<spring:message code="label.ideaName" />
+                                    </form:label>
+         							<form:input path="name" type="text" class="form-control" placeholder="Нaзвание идеи"/>
+         							<form:label path="tags" class="text-primary">
+                                    		<spring:message code="label.ideaTags" />
+                                     </form:label>
+                                     <form:input path="tags" type="text" name="tags" placeholder="Введите тег:" class="tm-input tm-input-info tm-input-lager form-control"/>
+         	        				<div>
+         	        				<form:label path="content" class="text-primary">
+                                        <spring:message code="label.ideaContent" />
+                                    </form:label>
+                                    <form:input path="content" />
+         							</div>
+         						</div>
+         						<button type="submit" id="btn-create" class="btn btn-primary" value="<spring:message code="label.ideaCreate">
+         							<i class="fa fa-sign-in"></i> ок
+         						</button>
+         					</form:form>!-->
+         					<form:textarea path="content" cols="80" name="editor1" id="editor11" cols="48" rows="10"/>

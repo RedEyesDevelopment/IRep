@@ -6,8 +6,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <spring:url value="/res/simple.css" var="mainCss"/>
-    <link href="${mainCss}" rel="stylesheet" type="text/css"/>
+    <!--<spring:url value="/res/simple.css" var="mainCss"/>
+    <link href="${mainCss}" rel="stylesheet" type="text/css"/>!-->
 </head>
 <body>
     <div id="messagebox">

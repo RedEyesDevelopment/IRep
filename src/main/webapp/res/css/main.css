@@ -105,6 +105,9 @@ body {
 hr{
 	margin: 2px;
 }
+.top-buffer{
+  margin-top:20px;
+}
 /*.jumbotron{
   heght:100%;
   width:100%;

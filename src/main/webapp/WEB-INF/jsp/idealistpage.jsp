@@ -78,19 +78,7 @@
          				</div>
          				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
          					<ul class="nav navbar-nav">
-         						<li><a href="#"><b>IRep</b><br/>Idea Repository</a></li>
-         						<!-- <li class="dropdown">
-         							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Пункт2 <b class="caret"></b></a>
-         							<ul class="dropdown-menu">
-         								<li><a href="#">Пункт2-1</a></li>
-         								<li><a href="#">Пункт2-2</a></li>
-         								<li><a href="#">Пункт2-3</a></li>
-         								<li class="divider"></li>
-         								<li><a href="#">Пункт2-4</a></li>
-         							</ul>
-         						</li>
-         						<li><a href="#">Пункт3</a></li>
-         						<li><a href="#">Пункт4</a></li>	 -->
+         						<li><a href="#"><b>IRep</b><br/>Банк Идей</a></li>
          					</ul>
          				</div>
          			</div>
@@ -246,9 +234,11 @@
          	<script src="/res/libs/respond/respond.min.js"></script>
          	<![endif]-->
 
-         	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><script type="text/javascript" src="https://rawgithub.com/dynamicguy/tagcloud/master/src/tagcloud.jquery.js"></script>-->
-
+         	<!--<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script><script type="text/javascript" src="https://rawgithub.com/dynamicguy/tagcloud/master/src/tagcloud.jquery.js"></script>
          	<script src="/res/libs/jquery-mousewheel/jquery.mousewheel.min.js"></script>
+         	-->
+
+
          	<script src="/res/libs/jquery-svg3dtagcloud/jquery.svg3dtagcloud.min.js"></script>
          	<script>
          	    	$( document ).ready( function() {
@@ -380,39 +370,7 @@
          	</script>
 
 
-         	 <!-- <script src="libs/tagcloud/tagcloud.jquery.js"></script>
-         		<script type="text/javascript">
-         		    var settings = {
-         		    //height of sphere container
-         		    height: 400,
-         		    //width of sphere container
-         		    width: 400,
-         		    //radius of sphere
-         		    radius: 150,
-         		    //rotation speed
-         		    speed: 3,
-         		    //sphere rotations slower
-         		    slower: 0.9,
-         		    //delay between update position
-         		    timer: 5,
-         		    //dependence of a font size on axis Z
-         		    fontMultiplier: 15,
-         		    //tag css stylies on mouse over
-         		    hoverStyle: {
-         		        border: 'none',
-         		        color: '#0b2e6f'
-         		    },
-         		    //tag css stylies on mouse out
-         		    mouseOutStyle: {
-         		        border: '',
-         		        color: ''
-         		    }
-         		    };
 
-         		    $(document).ready(function(){
-         		        $('#tagcloud').tagoSphere(settings);
-         		    });
-         		</script> -->
          	<script>
          		function f_submit(){
          			var value1 = CKEDITOR.instances['editor1'].getData();
@@ -423,15 +381,17 @@
          	<script>jQuery(".tm-input").tagsManager();</script>
 
 
-         	 <script src="/res/libs/fancybox/jquery.fancybox.pack.js"></script>
-         	<script src="/res/libs/waypoints/waypoints-1.6.2.min.js"></script>
-         	<script src="/res/libs/scrollto/jquery.scrollTo.min.js"></script>
-         	<script src="/res/libs/owl-carousel/owl.carousel.min.js"></script>
-         	<script src="/res/libs/countdown/jquery.plugin.js"></script>
-         	<script src="/res/libs/countdown/jquery.countdown.min.js"></script>
-         	<script src="/res/libs/countdown/jquery.countdown-ru.js"></script>
-         	<script src="/res/libs/landing-nav/navigation.js"></script>
-         	<!--<script src="/res/js/common.js"></script>-->
+
+         	<!--
+         	<script src="/res/libs/fancybox/jquery.fancybox.pack.js"></script>
+                     	<script src="/res/libs/waypoints/waypoints-1.6.2.min.js"></script>
+                     	<script src="/res/libs/scrollto/jquery.scrollTo.min.js"></script>
+                     	<script src="/res/libs/owl-carousel/owl.carousel.min.js"></script>
+                     	<script src="/res/libs/countdown/jquery.plugin.js"></script>
+                     	<script src="/res/libs/countdown/jquery.countdown.min.js"></script>
+                     	<script src="/res/libs/countdown/jquery.countdown-ru.js"></script>
+                     	<script src="/res/libs/landing-nav/navigation.js"></script>
+         	<script src="/res/js/common.js"></script>-->
          	<!-- Yandex.Metrika counter --><!-- /Yandex.Metrika counter -->
          	<!-- Google Analytics counter --><!-- /Google Analytics counter -->
 

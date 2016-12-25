@@ -65,7 +65,7 @@ public class MainController {
     }
 
     //LIST
-    @RequestMapping(URLCLASSPREFIX + "list&sort_field={sort_field}&sort_asc={asc}&offset={offset}&filter={filter}")
+    @RequestMapping(URLCLASSPREFIX + "list&sort_field={sort_field}&sort_asc={asc}&filter={filter}&offset={offset}")
     public String listOfIdeasWithGET(@PathVariable("sort_field") String sortField, @PathVariable("filter") String filter, @PathVariable("asc") Boolean asc, @PathVariable("offset") Long offset, @ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
         if (filter.toLowerCase().equals("own")){
             Long myId = (Long) request.getSession().getAttribute("USER_ID");

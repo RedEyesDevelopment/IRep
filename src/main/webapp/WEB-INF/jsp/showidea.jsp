@@ -97,8 +97,10 @@
                             <span class="item-view"><spring:message code="label.ideaWatchCount"/>: ${ideaData.viewedCount}|</span>
                             <span class="item-comment">Комментариев:25 </span>
                             <a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                            <c:if test="${(!notshowlikes)}"><form:form method="POST" action="/ideas/likeidea/${ideaData.id}&like=true"><input type="submit" value="<spring:message code="label.ideaLiked"/>"></form:form></c:if>
     </span></a>/
                             <a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+                            <c:if test="${(!notshowlikes)}"><form:form method="POST" action="/ideas/likeidea/${ideaData.id}&like=false"><input type="submit" value="<spring:message code="label.ideaDisliked"/>"></form:form></c:if>
     </span></a>
                        </div>
                        <div class="text-right top-buffer" >

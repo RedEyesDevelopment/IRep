@@ -14,7 +14,15 @@
 
     </head>
     <body>
-<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/cabinet"> Вернуться</a>
+<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/list"> Вернуться</a>
+
+<form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
+		File to upload: <input type="file" name="file"><br />
+<input type="checkbox"  name="publicity" value="true" checked="checked" />
+                <input type="submit" value="Upload">
+		Press here to upload the file!
+	</form>
+
 <c:if test="${!empty imageList}">
 	<table class="data">
 		<tr>

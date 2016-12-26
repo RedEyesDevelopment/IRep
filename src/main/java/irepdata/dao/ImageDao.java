@@ -11,6 +11,7 @@ public interface ImageDao {
     public void createImage(Image image);
     public Image getImage(Long id);
     public void updateImage(Long id, boolean publicity);
+    public List<Image> getImages(Long pagination, Long userId);
     public List<Image> getImages(Long pagination, boolean canBePosted);
     public Long getImageCount();
 }

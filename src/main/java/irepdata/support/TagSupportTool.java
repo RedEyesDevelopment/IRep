@@ -82,5 +82,13 @@ public class TagSupportTool implements TagSupport{
         return targetSet;
     }
 
-
+    @Transactional
+    public String parseTagsFromSetToString(Set<Tag> targetset){
+        StringBuilder result = new StringBuilder();
+        for (Tag currenttag:targetset){
+            result.append(currenttag.getContent());
+            result.append(" ");
+        }
+        return result.toString();
+    }
 }

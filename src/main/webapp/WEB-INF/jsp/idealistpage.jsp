@@ -204,8 +204,8 @@
                                                  						<span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
                                                  						<span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
                                                  						<span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
-                                                 						<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
-                                                 						<!--<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                                                 						<!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
+                                                 						<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
                                                  </span></a>/
                                                  						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
                                                  </span></a>!-->

@@ -152,6 +152,7 @@ public class MainController {
         request.getSession().setAttribute("RETURNTO", "/ideas/showidea/" + ideaId);
         map.put("searchable", idea);
         map.put("comment", new Comment());
+        map.put("tagString", tagSupport.parseTagsFromSetToString(idea.getTags()));
         return "showidea";
     }
 

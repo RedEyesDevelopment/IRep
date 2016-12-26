@@ -63,9 +63,9 @@
 			<c:if test="${(searchable!=null)}">
             <c:set var="ideaData" value="${searchable}" scope="page" />
                 <div class="text-right">
-                <a href="${RURI}"><spring:message code="label.back"/></a>|
+                <a href="${RURI}"><spring:message code="label.back"/></a>
                 <c:if test="${ISMINE}">
-                     <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+                     |<a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
                 </c:if>
 
                 </div>
@@ -80,17 +80,18 @@
 							<input type="text" class="form-control" placeholder="Описание идеи" value="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod." readonly="readonly">
 							<label class="text-primary">Иконка идеи:</label>
 							<input type="text" class="form-control" placeholder="Иконка идеи" value="" readonly="readonly">!-->
+							<label class="text-primary">Тэги идеи:</label>
+                                    					<input type="text" name="tags" placeholder="Tеги идеи:" class="tm-input tm-input-info tm-input-lager form-control" value="${tagString}" readonly="readonly"/>
 							<label class="text-primary">Содержание идеи:</label>
 							 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
 							<textarea class="form-control" cols="80" id="editor1" cols="48" rows="10" disabled="disabled"> ${ideaData.content.contentData}</textarea>
-							<script>
+							<!--<script>
                                 CKEDITOR.replace('editor1', {
                                     filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',
                                     filebrowserUploadUrl: '/ckeditorN/libs/kcfinder/upload.php'
                                     });
                             </script>
-							<!--<label class="text-primary">Тэги идеи:</label>
-        					<input type="text" name="tags" placeholder="Tеги идеи:" class="tm-input tm-input-info tm-input-lager form-control" value="tag1 tag2 tag3" readonly="readonly"/>
+							<!--
 
 	        				<label class="text-primary">Состояние идеи:</label>
 							<input type="text" class="form-control" placeholder="true/false" value="true" readonly="readonly">!-->
@@ -101,9 +102,9 @@
                             <span class="item-like"><spring:message code="label.ideaLiked"/>: ${ideaData.liked}|</span>
                             <span class="item-dislike"><spring:message code="label.ideaDisliked"/>: ${ideaData.disliked} |</span>
                             <span class="item-view"><spring:message code="label.ideaWatchCount"/>: ${ideaData.viewedCount}|</span>
-                            <span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
+                            <!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>!-->
                             <c:if test="${(!notshowlikes)}"><a href="/ideas/likeidea/${ideaData.id}&like=true"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-    </span></a></c:if>/
+    </span></a>/</c:if>
                             <c:if test="${(!notshowlikes)}"><a href="/ideas/likeidea/${ideaData.id}&like=false"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
     </span></a></c:if>
                        </div>
@@ -111,9 +112,9 @@
                                 <spring:message code="label.ideaWatched"/> <fmt:formatDate type="both" value="${ideaData.viewed}" />
                        </div>
                        <div class="text-right">
-                           <a href="${RURI}"><spring:message code="label.back"/></a>|
+                           <a href="${RURI}"><spring:message code="label.back"/></a>
                            <c:if test="${ISMINE}">
-                                                <a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
+                                                |<a href="/ideas/editmyidea/${ideaData.id}"><spring:message code="label.edit"/></a>
                                            </c:if>
                        </div>
 

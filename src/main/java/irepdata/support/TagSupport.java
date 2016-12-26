@@ -10,4 +10,5 @@ import java.util.Set;
 public interface TagSupport {
     public Set<Tag> parseTagsFromStringToSet(String sourceString);
     public void parseTagsFromStringToSet(Set<Tag> targetSet, String sourceString, boolean isUpdating);
+    public String parseTagsFromSetToString(Set<Tag> targetset);
 }

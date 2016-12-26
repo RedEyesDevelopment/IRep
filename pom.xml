@@ -278,11 +278,11 @@
 
         <!-- CKEDITOR -->
         <!-- http://stefanogualdi.github.io/grails-ckeditor/docs/ckeditor-4.5.9.0.pdf -->
-        <dependency>
-            <groupId>com.ckeditor</groupId>
-            <artifactId>ckeditor-java-core</artifactId>
-            <version>3.5.3</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.ckeditor</groupId>-->
+            <!--<artifactId>ckeditor-java-core</artifactId>-->
+            <!--<version>3.5.3</version>-->
+        <!--</dependency>-->
 
         <!-- FUCKING UNKNOWN DEPENDENCIES-->
 

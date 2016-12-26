@@ -8,6 +8,9 @@
         <spring:url value="/res/fileupload/dir.png" var="folderPic" />
         <spring:url value="/res/fileupload/fileprev.png" var="prevPics" />
         <spring:url value="/res/fileupload/filenext.png" var="nextPics" />
+        <script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
+        <script src="/res/libs/bootstrap/bootstrap.js"></script>
+        <script type="text/javascript" src="/res/libs/ckeditor/ckeditor.js"></script>
 
     </head>
     <body>
@@ -29,7 +32,7 @@
 				<td><fmt:formatDate type="both" value="${imageData.posted}" /></td>
 				<td>${imageData.publicity}</td>
 
-				<td><img src="/dynamic/${imageData.imageName}" alt="${imageData.imageName}" height="100"/></td>
+				<td><img onclick="getSrc(this)" src="/dynamic/${imageData.imageName}" alt="${imageData.imageName}" height="100"/></td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -42,7 +45,33 @@
 <c:if test="${ISNEXTFILES}">
     <a href="filelist&show=${NEXTFILES}"><img src="${nextPics}" alt="MY HUGE DIIIICK!" style="float:center;width:50px;height:50px;"></a>
 </c:if>
+<script>
+    function getUrlParam(paramName){
+        var reParam = new RegExp('(?:[\?&]|&amp;)' + paramName + '=([^&]+)','i');
+        var match = window.location.search.match(reParam);
 
+        return (match && match.length > 1) ? match[1] : '';
+    }
+    function getSrc(img){
+        alert(img.src);
+        var funcNum = getUrlParam('CKEditorFuncNum');
+                //var fileUrl = '/path/to/file.txt';
+                 var fileUrl = img.src;
+                window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+                window.close();
+    }
+   /* $('.img-icon').click(function(){
+        var funcNum = getUrlParam('CKEditorFuncNum');
+        //var fileUrl = '/path/to/file.txt';
+         var fileUrl = $(this).find('img').src;
+        window.opener.CKEDITOR.tools.callFunction(funcNum, fileUrl);
+        window.close();
+    });*/
+
+
+
+
+</script>
     </body>
 </html>
 

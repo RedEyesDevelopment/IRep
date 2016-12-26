@@ -78,7 +78,7 @@
          				</div>
          				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
          					<ul class="nav navbar-nav">
-         						<li><a href="#"><b>IRep</b><br/>Банк Идей</a></li>
+         						<li><a href="/ideas/list"><b>IRep</b><br/>Банк Идей</a></li>
          					</ul>
          				</div>
          			</div>
@@ -104,20 +104,20 @@
          				  <div id="panel1" class="tab-pane fade in active">
          				   	<div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button"  id="btn-search" class="btn btn-default">Дате создания</button>
-         						    <button type="button" class="btn btn-default">Дате изменения</button>
-         						    <button type="button" class="btn btn-default">Автор</button>
-         						    <button type="button" class="btn btn-default">Название идеи</button>
-         						    <button type="button" class="btn btn-default">Лайкам</button>
-         						    <button type="button" class="btn btn-default">Дизлайкам</button>
+           							<button type="button"  id="btn-search" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дате создания</button>
+         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дате изменения</button>
+         						    <button type="button" class="btn btn-default btn-alpha"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> Автор</button>
+         						    <button type="button" class="btn btn-default btn-alpha"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Название идеи</button>
+         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Лайкам</button>
+         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дизлайкам</button>
            						</div>
          					</div>
          				  </div>
          				  <div id="panel2" class="tab-pane fade">
          				    <div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button" class="btn btn-default">Мои идеи</button>
-         						    <button type="button" class="btn btn-default">С комментариями</button>
+           							<button type="button" class="btn btn-default"><i class="fa fa-filter" aria-hidden="true"></i> Мои идеи</button>
+         						    <button type="button" class="btn btn-default"><i class="fa fa-filter" aria-hidden="true"></i> С комментариями</button>
          						    <!--<button type="button" class="btn btn-default">С картинками</button>
          						    <button type="button" class="btn btn-default">С видео</button>
          						    <button type="button" class="btn btn-default">With Likes</button>
@@ -152,7 +152,7 @@
                             			<script>
                                             CKEDITOR.replace('editor1', {
                                                 filebrowserBrowseUrl: '/fileapi/filelist&show=0',
-                                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
+                                                filebrowserUploadUrl: '/fileapi/fileupload'
                                                 });
                                         </script>
                                         <!--<form:label path="enabled" class="text-primary">
@@ -243,6 +243,12 @@
 
          	<script src="/res/libs/jquery-svg3dtagcloud/jquery.svg3dtagcloud.min.js"></script>
          	<script>
+         	        $('.btn-num').click(function(){
+         	            $(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
+         	        });
+         	        $('.btn-alpha').click(function(){
+                        $(this).find('i').toggleClass('fa-sort-alpha-asc fa-sort-alpha-desc');
+                    });
          	    	$( document ).ready( function() {
                     var entries = [];
          	    	$.ajax({

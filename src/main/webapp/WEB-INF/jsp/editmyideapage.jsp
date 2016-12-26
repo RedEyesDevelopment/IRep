@@ -87,7 +87,7 @@
                         <script>
                             CKEDITOR.replace('editor1', {
                                 filebrowserBrowseUrl: '/fileapi/filelist&show=0',
-                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
+                                filebrowserUploadUrl: '/fileapi/fileupload'
                                 });
                         </script>
                         <form:label path="enabled" class="text-primary">

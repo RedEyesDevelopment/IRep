@@ -79,10 +79,6 @@ public class MainController {
            map.put("ideaList", ideas);
         } else {
             switch (sortField.toLowerCase()) {
-                case "byposted": {
-                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "posted", offset));
-                }
-                break;
                 case "byviewed": {
                     map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "viewed", offset));
                 }
@@ -101,6 +97,10 @@ public class MainController {
                 break;
                 case "bydislikes": {
                     map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "disliked", offset));
+                }
+                break;
+                default: {
+                    map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(asc, "posted", offset));
                 }
                 break;
             }

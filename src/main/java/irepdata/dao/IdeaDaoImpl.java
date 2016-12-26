@@ -95,7 +95,8 @@ public class IdeaDaoImpl implements IdeaDao {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Idea.class);
         criteria.setMaxResults(Idea.MAXIDEASSHOWINGCAPACITY);
         criteria.setFirstResult(Math.toIntExact(pagination));
-        criteria.setFetchMode("author", FetchMode.JOIN);
+        criteria.setFetchMode("tags", FetchMode.SELECT);
+        criteria.setFetchMode("author", FetchMode.SELECT);
         criteria.setReadOnly(true);
         criteria.createAlias("author", "authorname");
         criteria.add( Restrictions.eq("authorname.id", userId));

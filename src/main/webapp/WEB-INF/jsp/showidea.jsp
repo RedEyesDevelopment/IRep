@@ -82,9 +82,8 @@
 							<input type="text" class="form-control" placeholder="Иконка идеи" value="" readonly="readonly">!-->
 							<label class="text-primary">Тэги идеи:</label>
                                     					<input type="text" name="tags" placeholder="Tеги идеи:" class="tm-input tm-input-info tm-input-lager form-control" value="${tagString}" readonly="readonly"/>
-							<label class="text-primary">Содержание идеи:</label>
-							 <div class="ideaContentData"><spring:message code="label.ideaContent"/></br>
-							<textarea class="form-control" cols="80" id="editor1" cols="48" rows="10" disabled="disabled"> ${ideaData.content.contentData}</textarea>
+							<label class="text-primary">Содержание идеи:</label></br>
+							${ideaData.content.contentData}
 							<!--<script>
                                 CKEDITOR.replace('editor1', {
                                     filebrowserBrowseUrl: '/ckeditorN/libs/kcfinder/browse.php',

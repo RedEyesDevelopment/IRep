@@ -58,7 +58,7 @@
         return (match && match.length > 1) ? match[1] : '';
     }
     function getSrc(img){
-        alert(img.src);
+        //alert(img.src);
         var funcNum = getUrlParam('CKEditorFuncNum');
                 //var fileUrl = '/path/to/file.txt';
                  var fileUrl = img.src;

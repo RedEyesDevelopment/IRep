@@ -35,6 +35,7 @@
             	<link rel="stylesheet" href="/res/css/media.css" />
 
             	<script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
+            	<script src="/res/libs/jquery/jquery.session.js"></script>
             	<script src="/res/libs/bootstrap/bootstrap.js"></script>
 
 
@@ -89,7 +90,7 @@
          							Сортировка по:
          						</a>
          					</li>
-         					<li>
+         					<li >
          						<a data-toggle="tab" href="#panel2">
          							Фильтр по:
          						</a>
@@ -104,21 +105,21 @@
          				  <div id="panel1" class="tab-pane fade in active">
          				   	<div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button"  id="btn-search" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дате создания</button>
-         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дате изменения</button>
-         						    <button type="button" class="btn btn-default btn-alpha"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i> Автор</button>
-         						    <button type="button" class="btn btn-default btn-alpha"><i class="fa fa-sort-alpha-asc" aria-hidden="true"></i>Название идеи</button>
-         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Лайкам</button>
-         						    <button type="button" class="btn btn-default btn-num"><i class="fa fa-sort-numeric-asc" aria-hidden="true"></i> Дизлайкам</button>
+           							<button type="button"  id="btn-sort1" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате создания</button>
+         						    <button type="button" id="btn-sort2" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате изменения</button>
+         						    <button type="button" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i> Автор</button>
+         						    <button type="button" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i>Название идеи</button>
+         						    <button type="button" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Лайкам</button>
+         						    <button type="button" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дизлайкам</button>
            						</div>
          					</div>
          				  </div>
          				  <div id="panel2" class="tab-pane fade">
          				    <div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button" class="btn btn-default"><i class="fa fa-filter" aria-hidden="true"></i> Мои идеи</button>
-         						    <button type="button" class="btn btn-default"><i class="fa fa-filter" aria-hidden="true"></i> С комментариями</button>
-         						    <!--<button type="button" class="btn btn-default">С картинками</button>
+           							<button type="button" class="btn btn-default" id="btn-filter1"><i aria-hidden="true"></i> Мои идеи</button>
+         						    <!--<button type="button" class="btn btn-default btn-filter" id="btn-filter2"><i aria-hidden="true"></i> С комментариями</button>
+         						    <button type="button" class="btn btn-default">С картинками</button>
          						    <button type="button" class="btn btn-default">С видео</button>
          						    <button type="button" class="btn btn-default">With Likes</button>
          						    <button type="button" class="btn btn-default">With Dislikes</button>!-->
@@ -137,10 +138,11 @@
                             				<spring:message code="label.ideaDescription" />
                             			</form:label>
                             			<form:input path="description" type="text" class="form-control" placeholder="Описание идеи"/>
-                            			<form:label path="image" class="text-primary">
+                            			<!--<form:label path="image" class="text-primary">
                             				<spring:message code="label.ideaImage" />
                             			</form:label>
-                            			<form:input path="image" type="text" class="form-control" placeholder="Иконка идеи"/>
+                            			<form:input path="image" type="text" class="form-control" placeholder="Иконка идеи"/>!-->
+                            			<form:hidden path="image" />
                             			<form:label path="tags" class="text-primary">
                             				<spring:message code="label.ideaTags" />
                             			</form:label>
@@ -191,30 +193,25 @@
          		<div class="row">
          			<div class="grid col-md-9">
 
-                    <!--<div id="result">!-->
-
          			<c:forEach items="${ideaList}" var="ideadata">
-                                        <div class="thumbnail item">
-                                                 					<h1 class="item-name"><a href="showidea/${ideadata.id}">${ideadata.getName()}</a></h1>
-                                                 					<hr>
-                                                 					<p class="item-body">${ideadata.getDescription()}</p>
-                                                 					<hr>
-                                                 					<div class="item-footer">
-                                                 						<span class="item-autor"><b>${ideadata.getAuthor().getUsername()}</b> |</span>
-                                                 						<span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
-                                                 						<span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
-                                                 						<span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
-                                                 						<!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
-                                                 						<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                 </span></a>/
-                                                 						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                                 </span></a>!-->
-                                                 					</div>
-                                                 				</div>
+                        <div class="thumbnail item">
+                        <h1 class="item-name"><a href="showidea/${ideadata.id}">${ideadata.getName()}</a></h1>
+                        <hr>
+                        <p class="item-body">${ideadata.getDescription()}</p>
+                        <hr>
+                        <div class="item-footer">
+                            <span class="item-autor"><b>${ideadata.getAuthor().getUsername()}</b> |</span>
+                            <span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
+                            <span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
+                            <span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
+                            <!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
+                            <a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+     </span></a>/
+                            <a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+     </span></a>!-->
+                        </div>
+                    </div>
                     </c:forEach>
-
-
-
          			</div>
          			<div class="sidebar col-md-3">
          				<div class="tags_pic">
@@ -243,11 +240,41 @@
 
          	<script src="/res/libs/jquery-svg3dtagcloud/jquery.svg3dtagcloud.min.js"></script>
          	<script>
-         	        $('.btn-num').click(function(){
-         	            $(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
+         	        if ($.session.get("myFilter") === "1"){
+                        $('#btn-filter1').find('i').addClass('fa fa-filter');
+                    }
+                    if ($.session.get("myField")){
+                            if ($.session.get("myAsc") === "asc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-numeric-asc');
+                            }else if ($.session.get("myAsc") === "desc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-numeric-desc');
+                            }
+
+                    }
+         	        $('#btn-sort1').click(function(){
+         	            if ($.session.get("myAsc") === "asc"){
+                            // $(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
+                             $.session.set("myAsc", "desc");
+                             location.href="/ideas/list&sort_field=posted&sort_asc=false&filter=&offset=0";
+                         } else {
+                             //$(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
+                             $.session.set("myAsc", "asc");
+                             location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
+                         }
+                         $.session.set("myField","1");
          	        });
          	        $('.btn-alpha').click(function(){
                         $(this).find('i').toggleClass('fa-sort-alpha-asc fa-sort-alpha-desc');
+                        location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
+                    });
+                    $('#btn-filter1').click(function(){
+                        if ($.session.get("myFilter") === "1"){
+                            $.session.set("myFilter","0");
+                            location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
+                        } else {
+                            $.session.set("myFilter","1");
+                            location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=own&offset=0";
+                        }
                     });
          	    	$( document ).ready( function() {
                     var entries = [];
@@ -301,7 +328,7 @@
 
          			} );
 
-                    function searchViaAjax() {
+                    /*function searchViaAjax() {
 
                     		var search = {}
                     		search["orderingParameter"] = "posted";
@@ -353,7 +380,7 @@
 
                            searchViaAjax();
                     })
-                    /*$("#btn-search").onclick(function(event) {
+                    $("#btn-search").onclick(function(event) {
                         console.log("(#btn-search).onclick ");
                         // Disble the search button
                         enableSearchButton(false);

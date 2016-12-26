@@ -105,12 +105,12 @@
          				  <div id="panel1" class="tab-pane fade in active">
          				   	<div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button"  id="btn-sort1" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате создания</button>
+           							<button type="button" id="btn-sort1" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате создания</button>
          						    <button type="button" id="btn-sort2" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате изменения</button>
-         						    <button type="button" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i> Автор</button>
-         						    <button type="button" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i>Название идеи</button>
-         						    <button type="button" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Лайкам</button>
-         						    <button type="button" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дизлайкам</button>
+         						    <button type="button" id="btn-sort3" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i> Автор</button>
+         						    <button type="button" id="btn-sort4" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i>Название идеи</button>
+         						    <button type="button" id="btn-sort5" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Лайкам</button>
+         						    <button type="button" id="btn-sort6" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дизлайкам</button>
            						</div>
          					</div>
          				  </div>
@@ -243,7 +243,12 @@
          	        if ($.session.get("myFilter") === "1"){
                         $('#btn-filter1').find('i').addClass('fa fa-filter');
                     }
-                    if ($.session.get("myField")){
+
+                    //alert($.session.get("myField")+$.session.get("myAsc"));
+                    if ( ($.session.get("myField") === "1") ||
+                         ($.session.get("myField") === "2") ||
+                         ($.session.get("myField") === "5") ||
+                         ($.session.get("myField") === "6") ) {
                             if ($.session.get("myAsc") === "asc"){
                                 $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-numeric-asc');
                             }else if ($.session.get("myAsc") === "desc"){
@@ -251,18 +256,80 @@
                             }
 
                     }
+                    if ( ($.session.get("myField") === "3") ||
+                         ($.session.get("myField") === "4") ) {
+                            if ($.session.get("myAsc") === "asc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-alpha-asc');
+                            }else if ($.session.get("myAsc") === "desc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-alpha-desc');
+                            }
+
+                    }
+
          	        $('#btn-sort1').click(function(){
-         	            if ($.session.get("myAsc") === "asc"){
-                            // $(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
-                             $.session.set("myAsc", "desc");
-                             location.href="/ideas/list&sort_field=posted&sort_asc=false&filter=&offset=0";
+         	             if ($.session.get("myField")==="1") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=posted&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 alert($.session.get("myField")+$.session.get("myAsc"));
+                                 location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
+                             }
                          } else {
-                             //$(this).find('i').toggleClass('fa-sort-numeric-asc fa-sort-numeric-desc');
                              $.session.set("myAsc", "asc");
                              location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
                          }
                          $.session.set("myField","1");
          	        });
+         	         $('#btn-sort2').click(function(){
+         	            if ($.session.get("myField")==="2") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=viewed&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=viewed&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=viewed&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","2");
+                    });
+                    $('#btn-sort3').click(function(){
+         	            if ($.session.get("myField")==="3") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=author&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=author&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=author&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","3");
+                         alert($.session.get("myField")+$.session.get("myAsc"));
+                    });
+                    $('#btn-sort4').click(function(){
+                        if ($.session.get("myField")==="3") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=name&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=name&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=name&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","3");
+                    });
+
+
          	        $('.btn-alpha').click(function(){
                         $(this).find('i').toggleClass('fa-sort-alpha-asc fa-sort-alpha-desc');
                         location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";

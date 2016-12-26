@@ -5,7 +5,6 @@
 <html>
     <head>
         <link href="${greetingCss}" rel="stylesheet" type="text/css"/>
-        <spring:url value="/res/fileupload/dir.png" var="folderPic" />
         <spring:url value="/res/fileupload/fileprev.png" var="prevPics" />
         <spring:url value="/res/fileupload/filenext.png" var="nextPics" />
         <script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
@@ -14,8 +13,6 @@
 
     </head>
     <body>
-<img src="${folderPic}" alt="MY HUGE DIIIICK!" style="float:center;width:20px;height:20px;"><spring:message code="label.images" />   <a href="/ideas/list"> Вернуться</a>
-
 <form method="POST" action="/fileapi/uploadFile" enctype="multipart/form-data">
 		File to upload: <input type="file" name="file"><br />
 <input type="checkbox"  name="publicity" value="true" checked="checked" />

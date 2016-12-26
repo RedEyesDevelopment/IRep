@@ -26,6 +26,7 @@ import java.util.Map;
 @Controller
 public class FileController {
     public static final String URLCLASSPREFIX = "/fileapi/";
+    private static final String CKEDITORSTRING = "?CKEditor=editor1&CKEditorFuncNum=1&langCode=ru";
     private final static Logger logger = Logger.getLogger(FileController.class);
 
     @Autowired
@@ -110,13 +111,15 @@ public class FileController {
 
         if (offsetStep< ( imagesCount-Image.MAXIMAGESSHOWINGCAPACITY)){
             Long offsetForNext = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
-            request.setAttribute("NEXTFILES", offsetForNext);
+            String nextLink = Long.toString(offsetForNext)+CKEDITORSTRING;
+            request.setAttribute("NEXTFILES", nextLink);
             request.setAttribute("ISNEXTFILES", true);
             System.out.println("NEXTFILES is "+offsetForNext);
         }
         if (offsetStep>=Image.MAXIMAGESSHOWINGCAPACITY){
             Long offsetForPrev = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
-            request.setAttribute("PREVFILES", offsetForPrev);
+            String prevLink = Long.toString(offsetForPrev)+CKEDITORSTRING;
+            request.setAttribute("PREVFILES", prevLink);
             request.setAttribute("ISPREVFILES", true);
             System.out.println("PREVFILES is "+offsetForPrev);
 

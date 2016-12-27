@@ -59,6 +59,7 @@ public class IndexController {
                 }
             }
         }
+        request.setAttribute("LOGINERROR", true);
         return "index";
     }
 

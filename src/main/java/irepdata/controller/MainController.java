@@ -68,6 +68,7 @@ public class MainController {
     public String listOfIdeasWithGET(@PathVariable("sort_field") String sortField, @PathVariable("filter") String filter, @PathVariable("asc") Boolean asc, @PathVariable("offset") Long offset, @ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
         if (filter.toLowerCase().equals("own")){
             Long myId = (Long) request.getSession().getAttribute("USER_ID");
+            if (sortField.startsWith("by")) sortField="posted";
             map.put("ideaList", ideaService.getSortedIdeaListForUser(myId,asc,sortField, offset));
         } else if (filter.toLowerCase().startsWith("tag")) {
             String parseTagId = filter.toLowerCase().substring(3);

@@ -83,6 +83,11 @@
          					<ul class="nav navbar-nav">
          						<li><a href="/ideas/list"><b>IRep</b><br/>Банк Идей</a></li>
          					</ul>
+         					<form action="/ideas/logout" class="navbar-form navbar-right hidden-sm">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-sign-in"></i> Выйти
+                                </button>
+                            </form>
          				</div>
          			</div>
          			<div class="col-md-9">

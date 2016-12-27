@@ -65,8 +65,13 @@
           	                </label>
           	                <a href="#" class="pull-right need-help">Нужна помощь? </a><span class="clearfix"></span>
                           </form>
+                          <c:if test="${LOGINERROR}">
+                             <p class="text-danger text-center">Логин/пароль неверный</p>
+                            </c:if>
                       </div>
                       <!-- <a href="#" class="text-center new-account">Create an account </a> -->
+
+
                   </div>
               </div>
           </div>

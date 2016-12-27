@@ -11,6 +11,8 @@
         <title>Login Idea Rip</title>
         <spring:url value="/res/simple.css" var="mainCss" />
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
+         <spring:url value="/res/fileupload/fileprev.png" var="prevPics" />
+         <spring:url value="/res/fileupload/filenext.png" var="nextPics" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
 
 
@@ -212,6 +214,20 @@
                         </div>
                     </div>
                     </c:forEach>
+                    <div>
+                    <c:if test="${ISPREVIDEAS}">
+                    <a href="${PREVIDEAS}">
+                    <!--<img src="${prevPics}" alt="Предыдущие" style="float:center;width:50px;height:50px;">!-->
+                    <i class="fa fa-3x fa-step-backward" aria-hidden="true"></i></a>
+                    </c:if>
+
+                    <c:if test="${ISNEXTIDEAS}">
+                    <a href="${NEXTIDEAS}">
+                    <!--<img src="${nextPics}" alt="Следующие" style="float:center;width:50px;height:50px;">!-->
+                     <i class="fa fa-3x fa-step-forward" aria-hidden="true"></i></a>
+                    </a>
+                     </c:if>
+                     </div>
          			</div>
          			<div class="sidebar col-md-3">
          				<div class="tags_pic">
@@ -224,6 +240,7 @@
          			</div>
          		</div>
          	</div>
+
 
 
          	<!--[if lt IE 9]>
@@ -367,6 +384,7 @@
                             location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=own&offset=0";
                         }
                     });
+
          	    	$( document ).ready( function() {
                     var entries = [];
          	    	$.ajax({

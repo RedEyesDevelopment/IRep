@@ -59,6 +59,7 @@ public class IndexController {
                 }
             }
         }
+        request.setAttribute("LOGINERROR", true);
         return "index";
     }
 
@@ -66,6 +67,7 @@ public class IndexController {
     @RequestMapping("/logout")
     public String logout(HttpServletRequest request) {
         request.getSession().removeAttribute("LOGGEDIN_USER");
+        request.getSession().invalidate();
         return "redirect:/index";
     }
 

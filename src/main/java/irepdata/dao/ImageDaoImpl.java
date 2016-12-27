@@ -4,6 +4,7 @@ import irepdata.model.Image;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -50,6 +51,19 @@ public class ImageDaoImpl implements ImageDao {
         query.setParameter("publicity", publicity);
         query.setParameter("image_id", id);
         query.executeUpdate();
+    }
+
+    @Override
+    public List<Image> getImages(Long pagination, Long userId) {
+        Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Image.class);
+        criteria.setMaxResults(Image.MAXIMAGESSHOWINGCAPACITY);
+        Criterion minePictures = Restrictions.eq("imageAuthorId", userId);
+        Criterion allPublic= Restrictions.eq("publicity", true);
+        criteria.add(Restrictions.or(minePictures, allPublic));
+        criteria.setFirstResult(Math.toIntExact(pagination));
+        criteria.setReadOnly(true);
+        List<Image> result = criteria.list();
+        return result;
     }
 
     @Override

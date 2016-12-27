@@ -46,8 +46,12 @@
 				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
 					<ul class="nav navbar-nav">
 						<li><a href="#"><b>IRep</b><br/>Idea Repository</a></li>
-
 					</ul>
+					<form action="/ideas/logout" class="navbar-form navbar-right hidden-sm">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-sign-in"></i> Выйти
+                        </button>
+                    </form>
 				</div>
 			</div>
 			<div class="col-md-9">
@@ -87,7 +91,7 @@
                         <script>
                             CKEDITOR.replace('editor1', {
                                 filebrowserBrowseUrl: '/fileapi/filelist&show=0',
-                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
+                                filebrowserUploadUrl: '/fileapi/fileupload'
                                 });
                         </script>
                         <form:label path="enabled" class="text-primary">

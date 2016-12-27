@@ -11,6 +11,8 @@
         <title>Login Idea Rip</title>
         <spring:url value="/res/simple.css" var="mainCss" />
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
+         <spring:url value="/res/fileupload/fileprev.png" var="prevPics" />
+         <spring:url value="/res/fileupload/filenext.png" var="nextPics" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
 
 
@@ -35,6 +37,7 @@
             	<link rel="stylesheet" href="/res/css/media.css" />
 
             	<script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
+            	<script src="/res/libs/jquery/jquery.session.js"></script>
             	<script src="/res/libs/bootstrap/bootstrap.js"></script>
 
 
@@ -78,8 +81,13 @@
          				</div>
          				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
          					<ul class="nav navbar-nav">
-         						<li><a href="#"><b>IRep</b><br/>Банк Идей</a></li>
+         						<li><a href="/ideas/list"><b>IRep</b><br/>Банк Идей</a></li>
          					</ul>
+         					<form action="/ideas/logout" class="navbar-form navbar-right hidden-sm">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fa fa-sign-in"></i> Выйти
+                                </button>
+                            </form>
          				</div>
          			</div>
          			<div class="col-md-9">
@@ -89,7 +97,7 @@
          							Сортировка по:
          						</a>
          					</li>
-         					<li>
+         					<li >
          						<a data-toggle="tab" href="#panel2">
          							Фильтр по:
          						</a>
@@ -104,21 +112,21 @@
          				  <div id="panel1" class="tab-pane fade in active">
          				   	<div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button"  id="btn-search" class="btn btn-default">Дате создания</button>
-         						    <button type="button" class="btn btn-default">Дате изменения</button>
-         						    <button type="button" class="btn btn-default">Автор</button>
-         						    <button type="button" class="btn btn-default">Название идеи</button>
-         						    <button type="button" class="btn btn-default">Лайкам</button>
-         						    <button type="button" class="btn btn-default">Дизлайкам</button>
+           							<button type="button" id="btn-sort1" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате создания</button>
+         						    <button type="button" id="btn-sort2" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дате изменения</button>
+         						    <button type="button" id="btn-sort3" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i> Автор</button>
+         						    <button type="button" id="btn-sort4" class="btn btn-default btn-alpha"><i  aria-hidden="true"></i>Название идеи</button>
+         						    <button type="button" id="btn-sort5" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Лайкам</button>
+         						    <button type="button" id="btn-sort6" class="btn btn-default btn-num"><i  aria-hidden="true"></i> Дизлайкам</button>
            						</div>
          					</div>
          				  </div>
          				  <div id="panel2" class="tab-pane fade">
          				    <div class="btn-toolbar" role="toolbar" aria-label="...">
            						<div class="btn-group" role="group" aria-label="...">
-           							<button type="button" class="btn btn-default">Мои идеи</button>
-         						    <button type="button" class="btn btn-default">С комментариями</button>
-         						    <!--<button type="button" class="btn btn-default">С картинками</button>
+           							<button type="button" class="btn btn-default" id="btn-filter1"><i aria-hidden="true"></i> Мои идеи</button>
+         						    <!--<button type="button" class="btn btn-default btn-filter" id="btn-filter2"><i aria-hidden="true"></i> С комментариями</button>
+         						    <button type="button" class="btn btn-default">С картинками</button>
          						    <button type="button" class="btn btn-default">С видео</button>
          						    <button type="button" class="btn btn-default">With Likes</button>
          						    <button type="button" class="btn btn-default">With Dislikes</button>!-->
@@ -137,10 +145,11 @@
                             				<spring:message code="label.ideaDescription" />
                             			</form:label>
                             			<form:input path="description" type="text" class="form-control" placeholder="Описание идеи"/>
-                            			<form:label path="image" class="text-primary">
+                            			<!--<form:label path="image" class="text-primary">
                             				<spring:message code="label.ideaImage" />
                             			</form:label>
-                            			<form:input path="image" type="text" class="form-control" placeholder="Иконка идеи"/>
+                            			<form:input path="image" type="text" class="form-control" placeholder="Иконка идеи"/>!-->
+                            			<form:hidden path="image" />
                             			<form:label path="tags" class="text-primary">
                             				<spring:message code="label.ideaTags" />
                             			</form:label>
@@ -152,7 +161,7 @@
                             			<script>
                                             CKEDITOR.replace('editor1', {
                                                 filebrowserBrowseUrl: '/fileapi/filelist&show=0',
-                                                filebrowserUploadUrl: '/fileapi/filelist&show=0'
+                                                filebrowserUploadUrl: '/fileapi/fileupload'
                                                 });
                                         </script>
                                         <!--<form:label path="enabled" class="text-primary">
@@ -191,30 +200,39 @@
          		<div class="row">
          			<div class="grid col-md-9">
 
-                    <!--<div id="result">!-->
-
          			<c:forEach items="${ideaList}" var="ideadata">
-                                        <div class="thumbnail item">
-                                                 					<h1 class="item-name"><a href="showidea/${ideadata.id}">${ideadata.getName()}</a></h1>
-                                                 					<hr>
-                                                 					<p class="item-body">${ideadata.getDescription()}</p>
-                                                 					<hr>
-                                                 					<div class="item-footer">
-                                                 						<span class="item-autor"><b>${ideadata.getAuthor().getUsername()}</b> |</span>
-                                                 						<span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
-                                                 						<span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
-                                                 						<span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
-                                                 						<!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
-                                                 						<a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-                                                 </span></a>/
-                                                 						<a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-                                                 </span></a>!-->
-                                                 					</div>
-                                                 				</div>
+                        <div class="thumbnail item">
+                        <h1 class="item-name"><a href="showidea/${ideadata.id}">${ideadata.getName()}</a></h1>
+                        <hr>
+                        <p class="item-body">${ideadata.getDescription()}</p>
+                        <hr>
+                        <div class="item-footer">
+                            <span class="item-autor"><b>${ideadata.getAuthor().getUsername()}</b> |</span>
+                            <span class="item-like"><spring:message code="label.ideaLiked"/>:${ideadata.getLiked()} |</span>
+                            <span class="item-dislike"><spring:message code="label.ideaDisliked"/>:${ideadata.getDisliked()} |</span>
+                            <span class="item-view"><spring:message code="label.ideaWatchCount"/>:${ideadata.getViewedCount()} |</span>
+                            <!--<span class="item-comment"><spring:message code="label.ideaCommentsCount"/>:25 </span>
+                            <a href="#"><span class="item-up"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+     </span></a>/
+                            <a href="#"><span class="item-down"><i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+     </span></a>!-->
+                        </div>
+                    </div>
                     </c:forEach>
+                    <div>
+                    <c:if test="${ISPREVIDEAS}">
+                    <a href="${PREVIDEAS}">
+                    <!--<img src="${prevPics}" alt="Предыдущие" style="float:center;width:50px;height:50px;">!-->
+                    <i class="fa fa-3x fa-step-backward" aria-hidden="true"></i></a>
+                    </c:if>
 
-
-
+                    <c:if test="${ISNEXTIDEAS}">
+                    <a href="${NEXTIDEAS}">
+                    <!--<img src="${nextPics}" alt="Следующие" style="float:center;width:50px;height:50px;">!-->
+                     <i class="fa fa-3x fa-step-forward" aria-hidden="true"></i></a>
+                    </a>
+                     </c:if>
+                     </div>
          			</div>
          			<div class="sidebar col-md-3">
          				<div class="tags_pic">
@@ -227,6 +245,7 @@
          			</div>
          		</div>
          	</div>
+
 
 
          	<!--[if lt IE 9]>
@@ -243,6 +262,134 @@
 
          	<script src="/res/libs/jquery-svg3dtagcloud/jquery.svg3dtagcloud.min.js"></script>
          	<script>
+         	        if ($.session.get("myFilter") === "1"){
+                        $('#btn-filter1').find('i').addClass('fa fa-filter');
+                    }
+
+                    //alert($.session.get("myField")+$.session.get("myAsc"));
+                    if ( ($.session.get("myField") === "1") ||
+                         ($.session.get("myField") === "2") ||
+                         ($.session.get("myField") === "5") ||
+                         ($.session.get("myField") === "6") ) {
+                            if ($.session.get("myAsc") === "asc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-numeric-asc');
+                            }else if ($.session.get("myAsc") === "desc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-numeric-desc');
+                            }
+
+                    }
+                    if ( ($.session.get("myField") === "3") ||
+                         ($.session.get("myField") === "4") ) {
+                            if ($.session.get("myAsc") === "asc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-alpha-asc');
+                            }else if ($.session.get("myAsc") === "desc"){
+                                $('#btn-sort'+$.session.get("myField")).find('i').addClass('fa fa-sort-alpha-desc');
+                            }
+
+                    }
+
+         	        $('#btn-sort1').click(function(){
+         	             if ($.session.get("myField")==="1") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=byposted&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=byposted&sort_asc=true&filter=&offset=0";
+                             }
+                         } else {
+                             $.session.set("myAsc", "asc");
+                             location.href="/ideas/list&sort_field=byposted&sort_asc=true&filter=&offset=0";
+                         }
+                         $.session.set("myField","1");
+         	        });
+
+         	         $('#btn-sort2').click(function(){
+         	            if ($.session.get("myField")==="2") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=byviewed&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=byviewed&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=byviewed&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","2");
+                    });
+                    $('#btn-sort3').click(function(){
+         	            if ($.session.get("myField")==="3") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=byauthor&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=byauthor&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=byauthor&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","3");
+                    });
+                    $('#btn-sort4').click(function(){
+                        if ($.session.get("myField")==="4") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=byname&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=byname&sort_asc=true&filter=&offset=0";
+                             }
+                        } else {
+                            $.session.set("myAsc", "asc");
+                            location.href="/ideas/list&sort_field=byname&sort_asc=true&filter=&offset=0";
+                        }
+                         $.session.set("myField","4");
+                    });
+                    $('#btn-sort5').click(function(){
+         	             if ($.session.get("myField")==="5") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=bylikes&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=bylikes&sort_asc=true&filter=&offset=0";
+                             }
+                         } else {
+                             $.session.set("myAsc", "asc");
+                             location.href="/ideas/list&sort_field=bylikes&sort_asc=true&filter=&offset=0";
+                         }
+                         $.session.set("myField","5");
+         	        });
+                    $('#btn-sort6').click(function(){
+         	             if ($.session.get("myField")==="6") {
+                            if ($.session.get("myAsc") === "asc"){
+                                 $.session.set("myAsc", "desc");
+                                 location.href="/ideas/list&sort_field=bydislikes&sort_asc=false&filter=&offset=0";
+                             } else {
+                                 $.session.set("myAsc", "asc");
+                                 location.href="/ideas/list&sort_field=bydislikes&sort_asc=true&filter=&offset=0";
+                             }
+                         } else {
+                             $.session.set("myAsc", "asc");
+                             location.href="/ideas/list&sort_field=bydislikes&sort_asc=true&filter=&offset=0";
+                         }
+                         $.session.set("myField","6");
+         	        });
+
+                    $('#btn-filter1').click(function(){
+                        if ($.session.get("myFilter") === "1"){
+                            $.session.set("myFilter","0");
+                            location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=&offset=0";
+                        } else {
+                            $.session.set("myFilter","1");
+                            location.href="/ideas/list&sort_field=posted&sort_asc=true&filter=own&offset=0";
+                        }
+                    });
+
          	    	$( document ).ready( function() {
                     var entries = [];
          	    	$.ajax({
@@ -295,7 +442,7 @@
 
          			} );
 
-                    function searchViaAjax() {
+                    /*function searchViaAjax() {
 
                     		var search = {}
                     		search["orderingParameter"] = "posted";
@@ -347,7 +494,7 @@
 
                            searchViaAjax();
                     })
-                    /*$("#btn-search").onclick(function(event) {
+                    $("#btn-search").onclick(function(event) {
                         console.log("(#btn-search).onclick ");
                         // Disble the search button
                         enableSearchButton(false);

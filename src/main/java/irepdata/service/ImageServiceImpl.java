@@ -48,6 +48,11 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Transactional
+    public List<Image> getImages(Long pagination, Long userId) {
+        return imagedao.getImages(pagination, userId);
+    }
+
+    @Transactional
     public Long getImageCount() {
         return imagedao.getImageCount();
     }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf8"
 	pageEncoding="utf8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -11,17 +10,27 @@
         <spring:url value="/res/indexPage/index.gif" var="mainGif" />
         <link href="${mainCss}" rel="stylesheet" type="text/css"/>
 
-        <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
-        <link rel="stylesheet" href="/res/css/fonts.css" />
-        <link rel="stylesheet" href="/res/css/main.css" />
-        <link rel="stylesheet" href="/res/css/media.css" />
-        <link rel="stylesheet" href="/res/css/login.css" />
+           <link rel="stylesheet" href="/res/libs/bootstrap/bootstrap.css" />
+        	    <link rel="stylesheet" href="/res/css/fonts.css" />
+        	    <link rel="stylesheet" href="/res/css/main.css" />
+        	    <link rel="stylesheet" href="/res/css/media.css" />
+        	    <link rel="stylesheet" href="/res/css/login.css" />
 
-        <script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
-        <script src="/res/libs/bootstrap/bootstrap.js"></script>
+        	<script src="/res/libs/jquery/jquery-3.1.1.min.js"></script>
+        	<script src="/res/libs/bootstrap/bootstrap.js"></script>
     </head>
     <body>
-             <div class="container">
+    <!--<div>MY DIV </div>
+    <div class="contentblock">
+        <h1>Example - Spring Application</h1>
+        <h2><%@include file="/WEB-INF/jsp/includes/greeting.jsp" %><h2>
+        <a href="hello.html">Hillel IT School</a>
+        <br>
+        <img src="${mainGif}" alt="MY HUGE DIIIICK!" style="float:center;width:350px;height:350px;">
+        </div>
+          !-->
+
+          <div class="container">
           		<div class="row">
           			<div class="navbar navbar-default navbar-static-top ">
           				<div class="navbar-header">
@@ -38,8 +47,9 @@
           				</div>
           				<div class="collapse navbar-collapse collapse-center" id="responsive-menu">
           					<ul class="nav navbar-default">
-          						<li><b>IRep</b><br/>Банк Идей</li>
+          						<li><b>IRep</b><br/>Idea Repository</li>
           					</ul>
+
           				</div>
           			</div>
           		</div>
@@ -55,9 +65,9 @@
                       <div class="account-wall">
                           <img class="profile-img" src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=120"
                               alt="">
-                          <form class="form-signin" action="login" method="post">
-          	                <input type="text" id="login" name="login" class="form-control" placeholder="Логин" required autofocus>
-          	                <input type="password" id="password" name="password" class="form-control" placeholder="Пароль" required>
+                          <form class="form-signin" id="form-login">
+          	                <input type="text" id="login" class="form-control" placeholder="Email" required autofocus>
+          	                <input type="password" id="pass" class="form-control" placeholder="Password" required>
           	                <button class="btn btn-lg btn-primary btn-block" type="submit">
           	                    Вход</button>
           	                <label class="checkbox pull-left">
@@ -66,18 +76,12 @@
           	                </label>
           	                <a href="#" class="pull-right need-help">Нужна помощь? </a><span class="clearfix"></span>
                           </form>
-                          <c:if test="${LOGINERROR}">
-                             <p class="text-danger text-center">Логин/пароль неверный</p>
-                            </c:if>
                       </div>
+                      <a href="main.jsp" class="pull-right need-help">main </a>
                       <!-- <a href="#" class="text-center new-account">Create an account </a> -->
-
-
                   </div>
               </div>
           </div>
-
-          <!--
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("#form-login").submit(function() { //устанавливаем событие отправки для формы
@@ -99,6 +103,7 @@
 	    });
     });
 </script>
-!-->
+
     </body>
+<!--<%@include file="/WEB-INF/jsp/includes/footer.jsp" %>!-->
 </html>

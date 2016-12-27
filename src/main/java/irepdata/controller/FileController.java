@@ -26,6 +26,7 @@ import java.util.Map;
 @Controller
 public class FileController {
     public static final String URLCLASSPREFIX = "/fileapi/";
+    private static final String CKEDITORSTRING = "?CKEditor=editor1&CKEditorFuncNum=1&langCode=ru";
     private final static Logger logger = Logger.getLogger(FileController.class);
 
     @Autowired
@@ -80,11 +81,11 @@ public class FileController {
                 image.setImageName(fileName);
                 image.setImageAuthorId(userId);
                 image.setPosted(new Timestamp(System.currentTimeMillis()));
-                if (!publicity.equals("")) {
-                    image.setPublicity(publicitys);
+                if (null!=publicity) {
+                    image.setPublicity(true);
                 } else image.setPublicity(false);
                 imageService.createImage(image);
-                String redirect = "redirect:/ideas/cabinet";
+                String redirect = "redirect:/fileapi/filelist&show=0";
                 return redirect;
 
             } catch (Exception e) {
@@ -100,7 +101,8 @@ public class FileController {
     @RequestMapping(URLCLASSPREFIX + "filelist&show={offset}")
     public String getFirstFilesList(@PathVariable("offset") Long offset, Map<String, Object> map, HttpServletRequest request, HttpServletResponse response) {
         Long offsetStep = offset;
-        List<Image> imglist = imageService.getImages(offsetStep, true);
+        Long myId = (Long) request.getSession().getAttribute("USER_ID");
+        List<Image> imglist = imageService.getImages(offsetStep, myId);
         Long imagesCount = imageService.getImageCount();
         request.removeAttribute("NEXTFILES");
         request.removeAttribute("ISNEXTFILES");
@@ -109,13 +111,15 @@ public class FileController {
 
         if (offsetStep< ( imagesCount-Image.MAXIMAGESSHOWINGCAPACITY)){
             Long offsetForNext = offsetStep + Image.MAXIMAGESSHOWINGCAPACITY;
-            request.setAttribute("NEXTFILES", offsetForNext);
+            String nextLink = Long.toString(offsetForNext)+CKEDITORSTRING;
+            request.setAttribute("NEXTFILES", nextLink);
             request.setAttribute("ISNEXTFILES", true);
             System.out.println("NEXTFILES is "+offsetForNext);
         }
         if (offsetStep>=Image.MAXIMAGESSHOWINGCAPACITY){
             Long offsetForPrev = offsetStep - Image.MAXIMAGESSHOWINGCAPACITY;
-            request.setAttribute("PREVFILES", offsetForPrev);
+            String prevLink = Long.toString(offsetForPrev)+CKEDITORSTRING;
+            request.setAttribute("PREVFILES", prevLink);
             request.setAttribute("ISPREVFILES", true);
             System.out.println("PREVFILES is "+offsetForPrev);
 

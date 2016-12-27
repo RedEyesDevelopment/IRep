@@ -120,7 +120,8 @@ public class IdeaDaoImpl implements IdeaDao {
         criteria.setMaxResults(Idea.MAXIDEASSHOWINGCAPACITY);
         criteria.setFirstResult(Math.toIntExact(pagination));
         criteria.add( Restrictions.eq("enabled", true));
-        criteria.setFetchMode("author", FetchMode.JOIN);
+        criteria.setFetchMode("tags", FetchMode.SELECT);
+        criteria.setFetchMode("author", FetchMode.SELECT);
         criteria.setReadOnly(true);
         criteria.createAlias("author", "authorname");
         Order order;

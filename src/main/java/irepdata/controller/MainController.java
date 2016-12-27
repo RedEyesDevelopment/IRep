@@ -59,10 +59,8 @@ public class MainController {
 
     //LIST
     @RequestMapping(URLCLASSPREFIX + "list")
-    public String listOfIdeas(@ModelAttribute("ideaData") IdeaDummy ideaDummy, BindingResult result, Map<String, Object> map, HttpServletRequest request) {
-        map.put("ideaList", ideaService.getSortedIdeaListWithoutDisabled(true, "posted", 0L));
-        request.getSession().removeAttribute("IMAGE_OFFSET");
-        return "idealistpage";
+    public String listOfIdeas() {
+        return "redirect:/ideas/list&sort_field=byposted&sort_asc=true&filter=&offset=0";
     }
 
     //LIST
